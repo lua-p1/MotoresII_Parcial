@@ -1,28 +1,34 @@
 using UnityEngine;
-
-public class TactileController : Controller
+using UnityEngine.EventSystems;
+public class TactileController : Controller, IBeginDragHandler, IDragHandler
 {
-    [SerializeField] float _deadZone = 50f;
-    private Vector2 _startTouchPos;
-    public override Vector2 GetMovementInput() => _moveDir;
-
-    public void StartTouch(Vector2 position) => _startTouchPos = position;
-    public void DragTouch(Vector2 position)
+    [SerializeField] private float _dragThreshold = 50f;
+    private Vector2 _dragStartPosition;
+    public void OnBeginDrag(PointerEventData eventData) => _dragStartPosition = eventData.position;
+    public void OnDrag(PointerEventData eventData)
     {
-        Vector2 drag = position - _startTouchPos;
-        if (drag.magnitude < _deadZone)
-        {
-            NotMove();
+        Vector2 drag = eventData.position - _dragStartPosition;
+        if (drag.magnitude < _dragThreshold)
             return;
-        }
-        if (Mathf.Abs(drag.x) < Mathf.Abs(drag.y))
+        if (Mathf.Abs(drag.x) > Mathf.Abs(drag.y))
         {
-            _moveDir = drag.x > 0 ? Vector2.right : Vector2.left;
+            if (drag.x > 0)
+                MoveRight();
+            else
+                MoveLeft();
         }
         else
         {
-            _moveDir = drag.y > 0 ? Vector2.up : Vector2.down;
+            if (drag.y > 0)
+                MoveUp();
+            else
+                MoveDown();
         }
+        _dragStartPosition = eventData.position;
     }
-    public void EndTouch() => NotMove();
+    public void MoveRight() => _horizontalInput = 1f;
+    public void MoveLeft() =>_horizontalInput = -1f;
+    public void MoveUp() => _verticalInput = 1;
+    public void MoveDown() =>_verticalInput = -1;
+
 }
