@@ -4377,7 +4377,9 @@ GameObject:
   - component: {fileID: 1867704779}
   - component: {fileID: 1867704784}
   - component: {fileID: 1867704786}
-  - component: {fileID: 1867704785}
+  - component: {fileID: 1867704789}
+  - component: {fileID: 1867704788}
+  - component: {fileID: 1867704787}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -4501,22 +4503,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.77777314, y: 0.94202775}
   m_EdgeRadius: 0
---- !u!114 &1867704785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867704778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a0d1d2bbf98d3478d98f0ddce4be2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  jumpForce: 7
-  swipeThreshold: 50
-  platformLayerName: Platform
 --- !u!50 &1867704786
 Rigidbody2D:
   serializedVersion: 5
@@ -4532,8 +4518,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 3
+  m_Material: {fileID: 6200000, guid: 6e21988fc2c7f2c4aaea7fb063d74847, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4544,6 +4530,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1867704787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867704778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3830c347dd9974ab3870c5ec288bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  jumpForce: 14
+  airSpeedMultiplier: 0.2
+  fallMultiplier: 2.5
+--- !u!114 &1867704788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867704778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fde506d5df46fe4185bf74f0823ae2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swipeThreshold: 20
+--- !u!114 &1867704789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867704778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a67ad49ea7fdb4419fb052d36d50aba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundCheckDistance: 0.2
+  platformLayerName: Platform
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

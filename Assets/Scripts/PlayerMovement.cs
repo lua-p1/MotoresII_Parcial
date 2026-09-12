@@ -1,25 +1,33 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(GroundDetector))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Configuración de Movimiento")]
-    public float moveSpeed = 5f;
-    public float jumpForce = 12f;
+    public float moveSpeed = 7f;
+    public float jumpForce = 20f;
+    [Range(0f, 1f)]
+    public float airSpeedMultiplier = 0.35f;
+
+    [Header("Gravity Config")]
+    public float fallMultiplier = 2.5f;
 
     private Rigidbody2D _rb;
     private PlayerInput _input;
     private GroundDetector _groundDetector;
     private Collider2D _playerCollider;
     private float _moveDirection = 1f;
+    private float _defaultGravity;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
         _groundDetector = GetComponent<GroundDetector>();
         _playerCollider = GetComponent<Collider2D>();
+        _defaultGravity = _rb.gravityScale;
     }
     void OnEnable()
     {
@@ -36,10 +44,30 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MoveHorizontally();
+        ApplyBetterJump();
     }
     private void MoveHorizontally()
     {
-        _rb.linearVelocity = new Vector2(moveSpeed * _moveDirection, _rb.linearVelocity.y);
+        if (_groundDetector.IsGrounded)
+        {
+            _rb.linearVelocity = new Vector2(moveSpeed * _moveDirection, _rb.linearVelocity.y);
+        }
+        else
+        {
+            float airSpeed = moveSpeed * airSpeedMultiplier;
+            _rb.linearVelocity = new Vector2(airSpeed * _moveDirection, _rb.linearVelocity.y);
+        }
+    }
+    private void ApplyBetterJump()
+    {
+        if (_rb.linearVelocity.y < 0)
+        {
+            _rb.gravityScale = _defaultGravity * fallMultiplier;
+        }
+        else
+        {
+            _rb.gravityScale = _defaultGravity;
+        }
     }
     private void ChangeDirection(float direction)
     {
