@@ -1,17 +1,15 @@
-using System;
 using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [Header("Swipe Config")]
-    public float swipeThreshold = 50f;
+    public float swipeThreshold = 20f;
 
-    public event Action<float> OnSwipeHorizontal;
-    public event Action OnSwipeUp;
-    public event Action OnSwipeDown;
     private Vector2 _swipeStartPos;
     private bool _isSwiping = false;
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.GameOver)
+            return;
         DetectSwipe();
     }
     private void DetectSwipe()
@@ -33,14 +31,18 @@ public class PlayerInput : MonoBehaviour
             _isSwiping = false;
             if (swipeDelta.magnitude > swipeThreshold)
             {
+                if (GameManager.Instance.CurrentState == GameManager.GameState.MainMenu)
+                {
+                    GameManager.Instance.StartGame();
+                }
                 if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
                 {
-                    OnSwipeHorizontal?.Invoke(Mathf.Sign(swipeDelta.x));
+                    EventManager.OnSwipeHorizontal?.Invoke(Mathf.Sign(swipeDelta.x));
                 }
                 else
                 {
-                    if (swipeDelta.y > 0) OnSwipeUp?.Invoke();
-                    else if (swipeDelta.y < 0) OnSwipeDown?.Invoke();
+                    if (swipeDelta.y > 0) EventManager.OnSwipeUp?.Invoke();
+                    else if (swipeDelta.y < 0) EventManager.OnSwipeDown?.Invoke();
                 }
             }
         }

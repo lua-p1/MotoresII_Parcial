@@ -1,12 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(GroundDetector))]
+[RequireComponent(typeof(WallDetector))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Configuración de Movimiento")]
+    [Header("Movement Config")]
     public float moveSpeed = 7f;
     public float jumpForce = 20f;
     [Range(0f, 1f)]
@@ -18,37 +17,71 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerInput _input;
     private GroundDetector _groundDetector;
+    private WallDetector _wallDetector;
     private Collider2D _playerCollider;
     private float _moveDirection = 1f;
     private float _defaultGravity;
+    private bool _isStopped = true;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _input = GetComponent<PlayerInput>();
         _groundDetector = GetComponent<GroundDetector>();
+        _wallDetector = GetComponent<WallDetector>();
         _playerCollider = GetComponent<Collider2D>();
         _defaultGravity = _rb.gravityScale;
     }
     void OnEnable()
     {
-        _input.OnSwipeHorizontal += ChangeDirection;
-        _input.OnSwipeUp += Jump;
-        _input.OnSwipeDown += AttemptDrop;
+        EventManager.OnSwipeHorizontal += HandleHorizontalSwipe;
+        EventManager.OnSwipeUp += Jump;
+        EventManager.OnSwipeDown += AttemptDrop;
+        EventManager.OnGameOver += HandleGameOver;
     }
     void OnDisable()
     {
-        _input.OnSwipeHorizontal -= ChangeDirection;
-        _input.OnSwipeUp -= Jump;
-        _input.OnSwipeDown -= AttemptDrop;
+        EventManager.OnSwipeHorizontal -= HandleHorizontalSwipe;
+        EventManager.OnSwipeUp -= Jump;
+        EventManager.OnSwipeDown -= AttemptDrop;
+        EventManager.OnGameOver -= HandleGameOver;
     }
     void Update()
     {
+        if (GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        {
+            _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y); // Frenamos en seco en X
+            return;
+        }
+        CheckWallCollision();
         MoveHorizontally();
         ApplyBetterJump();
     }
+    private void HandleGameOver()
+    {
+        _isStopped = true;
+        _rb.linearVelocity = Vector2.zero;
+    }
+    private void HandleHorizontalSwipe(float direction)
+    {
+        _isStopped = false;
+        ChangeDirection(direction);
+    }
+    private void CheckWallCollision()
+    {
+        if (_wallDetector.IsTouchingWall && !_isStopped)
+        {
+            ChangeDirection(-_moveDirection);
+            _isStopped = true;
+        }
+    }
     private void MoveHorizontally()
     {
-        if (_groundDetector.IsGrounded)
+        if (_isStopped)
+        {
+            _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
+            return;
+        }
+        if (_groundDetector.IsGrounded || _groundDetector.IsDropping || _rb.linearVelocity.y < -0.1f)
         {
             _rb.linearVelocity = new Vector2(moveSpeed * _moveDirection, _rb.linearVelocity.y);
         }
@@ -71,15 +104,17 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ChangeDirection(float direction)
     {
-        _moveDirection = direction;
+        if (direction == 0) return;
+        _moveDirection = Mathf.Sign(direction);
         Vector3 localScale = transform.localScale;
-        localScale.x = Mathf.Abs(localScale.x) * direction;
+        localScale.x = Mathf.Abs(localScale.x) * _moveDirection;
         transform.localScale = localScale;
     }
     private void Jump()
     {
         if (_groundDetector.IsGrounded)
         {
+            _isStopped = false;
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -88,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_groundDetector.IsGrounded && !_groundDetector.IsDropping)
         {
+            _isStopped = false;
             StartCoroutine(DropThroughPlatformRoutine());
         }
     }
