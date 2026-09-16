@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(WallDetector))]
 public class PlayerMovement : MonoBehaviour
@@ -22,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private Collider2D _playerCollider;
     private float _moveDirection = 1f;
     private float _defaultGravity;
-    private bool _isStopped = false;
+    private bool _isStopped = true;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -34,21 +33,33 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnEnable()
     {
-        _input.OnSwipeHorizontal += HandleHorizontalSwipe;
-        _input.OnSwipeUp += Jump;
-        _input.OnSwipeDown += AttemptDrop;
+        EventManager.OnSwipeHorizontal += HandleHorizontalSwipe;
+        EventManager.OnSwipeUp += Jump;
+        EventManager.OnSwipeDown += AttemptDrop;
+        EventManager.OnGameOver += HandleGameOver;
     }
     void OnDisable()
     {
-        _input.OnSwipeHorizontal -= ChangeDirection;
-        _input.OnSwipeUp -= Jump;
-        _input.OnSwipeDown -= AttemptDrop;
+        EventManager.OnSwipeHorizontal -= HandleHorizontalSwipe;
+        EventManager.OnSwipeUp -= Jump;
+        EventManager.OnSwipeDown -= AttemptDrop;
+        EventManager.OnGameOver -= HandleGameOver;
     }
     void Update()
     {
+        if (GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        {
+            _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y); // Frenamos en seco en X
+            return;
+        }
         CheckWallCollision();
         MoveHorizontally();
         ApplyBetterJump();
+    }
+    private void HandleGameOver()
+    {
+        _isStopped = true;
+        _rb.linearVelocity = Vector2.zero;
     }
     private void HandleHorizontalSwipe(float direction)
     {
@@ -70,8 +81,7 @@ public class PlayerMovement : MonoBehaviour
             _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
             return;
         }
-
-        if (_groundDetector.IsGrounded)
+        if (_groundDetector.IsGrounded || _groundDetector.IsDropping || _rb.linearVelocity.y < -0.1f)
         {
             _rb.linearVelocity = new Vector2(moveSpeed * _moveDirection, _rb.linearVelocity.y);
         }
