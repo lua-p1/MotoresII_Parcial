@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GameManager.Instance.CurrentState != GameManager.GameState.Playing)
         {
-            _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y); // Frenamos en seco en X
+            _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
             return;
         }
         CheckWallCollision();
