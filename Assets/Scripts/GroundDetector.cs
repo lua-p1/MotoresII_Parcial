@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class GroundDetector : MonoBehaviour
 {
-    [Header("Detección de Suelo")]
+    [Header("Ground Detector")]
     public float groundCheckDistance = 0.2f;
     public string platformLayerName = "Platform";
 
