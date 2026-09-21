@@ -123,8 +123,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_groundDetector.IsGrounded && !_groundDetector.IsDropping)
         {
-            _isStopped = false;
-            StartCoroutine(DropThroughPlatformRoutine());
+            if (!_groundDetector.CurrentPlatform.CompareTag("SolidGround"))
+            {
+                _isStopped = false;
+                StartCoroutine(DropThroughPlatformRoutine());
+            }
         }
     }
     private IEnumerator DropThroughPlatformRoutine()
