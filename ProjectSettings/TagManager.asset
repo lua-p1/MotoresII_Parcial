@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - SolidGround
+  - Weapon
   layers:
   - Default
   - TransparentFX
