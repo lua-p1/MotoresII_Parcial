@@ -6,15 +6,11 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Combat Config")]
     [Tooltip("Can die if touch weapon?")]
     public bool isVulnerableToWeapon = true;
-
     [Tooltip("Attack dmg if touch player")]
     public int damageToPlayer = 1;
-
     protected bool hasTouchedPlayer = false;
     protected bool isDead = false;
-
     protected Collider2D enemyCollider;
-
     protected virtual void Awake()
     {
         enemyCollider = GetComponent<Collider2D>();
