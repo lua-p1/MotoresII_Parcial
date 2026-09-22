@@ -4747,6 +4747,60 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1867704779}
   flickerInterval: 0.08
   minAlpha: 0.2
+--- !u!1 &1906790585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906790587}
+  - component: {fileID: 1906790586}
+  m_Layer: 0
+  m_Name: PatrolSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1906790586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906790585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac153172b79c5949af1aab8634b0206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPrefab: {fileID: 3767888418253265059, guid: 5c91489b6131ef74eaed95d81d2bef28, type: 3}
+  poolSize: 5
+  spawnInterval: 4
+  platforms:
+  - {fileID: 667843095}
+  - {fileID: 572134227}
+  - {fileID: 1705820172}
+  - {fileID: 1839682132}
+  heightOffset: 0.5
+  edgeMargin: 0.5
+--- !u!4 &1906790587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906790585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.3426, y: 2.615422, z: -0.055889837}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930608759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4827,7 +4881,6 @@ MonoBehaviour:
   spawnPaddingX: 1.2
   platform1MinY: -2.7
   platform3MaxY: 5.9
-  maxActiveGhosts: 3
 --- !u!4 &2084205341
 Transform:
   m_ObjectHideFlags: 0
@@ -4989,3 +5042,4 @@ SceneRoots:
   - {fileID: 1839024488}
   - {fileID: 2084205341}
   - {fileID: 1777000708}
+  - {fileID: 1906790587}
