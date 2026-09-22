@@ -5,22 +5,28 @@ public class GhostSpawner : MonoBehaviour
 {
     [Header("Pool Setup")]
     [SerializeField] private GhostEnemy ghostPrefab;
-    [SerializeField] private int poolSize = 10;
+    [SerializeField] private int poolSize = 5;
 
     [Header("Spawn Config")]
     [SerializeField] private float spawnInterval = 3f;
-    [SerializeField] private float screenPadding = 1f; // Distancia fuera de pantalla para spawnear/despawnear
-    [SerializeField] private float topMargin = 1f;    // Margen superior respecto a la pantalla
-    [SerializeField] private float bottomMargin = 1f; // Margen inferior respecto a la pantalla
+    [SerializeField] private float spawnPaddingX = 1.2f; // Distancia fuera de la pantalla para spawnear
+
+    [Header("Vertical Boundaries (Plataformas 1 a 3)")]
+    [Tooltip("Altura mínima (sobre la Plataforma 0 / SolidGround)")]
+    [SerializeField] private float platform1MinY = -1.5f;
+
+    [Tooltip("Altura máxima (Límite de Plataforma 3)")]
+    [SerializeField] private float platform3MaxY = 3.5f;
+
+    [Header("Max Ghosts Limit")]
+    [SerializeField] private int maxActiveGhosts = 2;
 
     private List<GhostEnemy> _pool = new List<GhostEnemy>();
     private Camera _mainCamera;
     private float _timer;
 
-    private float _leftEdge;
-    private float _rightEdge;
-    private float _bottomEdge;
-    private float _topEdge;
+    private float _screenMinX;
+    private float _screenMaxX;
 
     private void Awake()
     {
@@ -30,7 +36,7 @@ public class GhostSpawner : MonoBehaviour
 
     private void Start()
     {
-        CalculateScreenBounds();
+        CalculateHorizontalBounds();
     }
 
     private void Update()
@@ -42,7 +48,7 @@ public class GhostSpawner : MonoBehaviour
         if (_timer >= spawnInterval)
         {
             _timer = 0f;
-            SpawnGhost();
+            TrySpawnGhost();
         }
     }
 
@@ -56,6 +62,19 @@ public class GhostSpawner : MonoBehaviour
         }
     }
 
+    private int GetActiveGhostCount()
+    {
+        int count = 0;
+        foreach (var ghost in _pool)
+        {
+            if (ghost.gameObject.activeInHierarchy)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     private GhostEnemy GetPooledGhost()
     {
         foreach (var ghost in _pool)
@@ -66,39 +85,39 @@ public class GhostSpawner : MonoBehaviour
             }
         }
 
-        // Si el pool se queda corto, crea un elemento extra
         GhostEnemy newGhost = Instantiate(ghostPrefab, transform);
         newGhost.gameObject.SetActive(false);
         _pool.Add(newGhost);
         return newGhost;
     }
 
-    private void CalculateScreenBounds()
+    private void CalculateHorizontalBounds()
     {
         Vector3 bottomLeft = _mainCamera.ViewportToWorldPoint(new Vector3(0, 0, _mainCamera.nearClipPlane));
         Vector3 topRight = _mainCamera.ViewportToWorldPoint(new Vector3(1, 1, _mainCamera.nearClipPlane));
 
-        _leftEdge = bottomLeft.x;
-        _rightEdge = topRight.x;
-        _bottomEdge = bottomLeft.y + bottomMargin;
-        _topEdge = topRight.y - topMargin;
+        _screenMinX = bottomLeft.x;
+        _screenMaxX = topRight.x;
     }
 
-    public void SpawnGhost()
+    public void TrySpawnGhost()
     {
+        // Regla: Si hay 2 o más fantasmas activos, NO spawnea ninguno más
+        if (GetActiveGhostCount() >= maxActiveGhosts) return;
+
         GhostEnemy ghost = GetPooledGhost();
         if (ghost == null) return;
 
-        // Elegir aleatoriamente si aparece por la Izquierda (0) o Derecha (1)
+        // Elegir aleatoriamente si aparece por la Izquierda (true) o Derecha (false)
         bool spawnOnLeft = Random.value > 0.5f;
 
-        float spawnX = spawnOnLeft ? _leftEdge - screenPadding : _rightEdge + screenPadding;
-        float targetX = spawnOnLeft ? _rightEdge + screenPadding : _leftEdge - screenPadding;
+        float spawnX = spawnOnLeft ? _screenMinX - spawnPaddingX : _screenMaxX + spawnPaddingX;
         float direction = spawnOnLeft ? 1f : -1f;
 
-        float spawnY = Random.Range(_bottomEdge, _topEdge);
+        // Y dentro del rango de las plataformas 1 a 3 (evitando plataforma 0 / SolidGround)
+        float spawnY = Random.Range(platform1MinY, platform3MaxY);
 
         ghost.gameObject.SetActive(true);
-        ghost.Initialize(new Vector2(spawnX, spawnY), direction, targetX, _bottomEdge, _topEdge);
+        ghost.Initialize(new Vector2(spawnX, spawnY), direction, _screenMinX, _screenMaxX, platform1MinY, platform3MaxY);
     }
 }

@@ -77,9 +77,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3160377, g: 1, b: 0.96547526, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -139,6 +139,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isVulnerableToWeapon: 1
   damageToPlayer: 1
-  speed: 0.3
-  verticalAmplitude: 1.5
-  verticalFrequency: 3
+  horizontalSpeed: 1.2
+  floatAmplitude: 0.35
+  floatFrequency: 1.5
+  verticalMoveInterval: 1.8
+  minVerticalDistance: 1.5
+  maxVerticalDistance: 3
+  smoothTime: 0.4
