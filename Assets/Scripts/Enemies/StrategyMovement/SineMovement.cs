@@ -47,12 +47,14 @@ public class SineMovement : IMovementEnemy
     {
         //nueva poiscion en X
         float newX = _target.position.x + (_direction * _horizontalSpeed * Time.deltaTime);
+        //Si llega al limite izquierdo, gira hacia la derecha.
         if (newX <= _minX && _direction < 0)
         {
             _direction = 1f;
             UpdateSpriteFacing();
             Debug.Log("Giro a la derecha");
         }
+        //Si llega al limite derecho, gira hacia la izquierda.
         else if (newX >= _maxX && _direction > 0)
         {
             _direction = -1f;

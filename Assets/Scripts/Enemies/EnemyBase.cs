@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-
 [RequireComponent(typeof(Collider2D))]
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -11,6 +11,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected bool hasTouchedPlayer = false;
     protected bool isDead = false;
     protected Collider2D enemyCollider;
+    private Action<EnemyBase> _returnToPoolCallback;
     protected virtual void Awake()
     {
         enemyCollider = GetComponent<Collider2D>();
@@ -23,12 +24,10 @@ public abstract class EnemyBase : MonoBehaviour
         hasTouchedPlayer = false;
         if (enemyCollider != null) enemyCollider.enabled = true;
     }
-
     protected virtual void Update()
     {
         if (isDead) return;
     }
-
     protected virtual void DamagePlayer(GameObject playerObject)
     {
         // Intenta obtener cualquier componente en el Player que implemente IDamageable
@@ -37,7 +36,6 @@ public abstract class EnemyBase : MonoBehaviour
             damageable.TakeDamage(damageToPlayer, gameObject.name);
         }
     }
-
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead) return;
@@ -62,15 +60,19 @@ public abstract class EnemyBase : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-
         // Notificar al sistema que un enemigo fue derrotado
         EventManager.OnEnemyKilled?.Invoke();
-
         Despawn();
     }
-
+    public void SetReturnToPoolCallback(Action<EnemyBase> callback)
+    {
+        _returnToPoolCallback = callback;
+    }
     public virtual void Despawn()
     {
-        gameObject.SetActive(false);
+        if (_returnToPoolCallback != null)
+            _returnToPoolCallback(this);
+        else
+            gameObject.SetActive(false);
     }
 }

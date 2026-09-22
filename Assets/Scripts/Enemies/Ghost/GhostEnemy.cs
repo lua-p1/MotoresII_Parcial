@@ -23,7 +23,6 @@ public class GhostEnemy : EnemyBase
     protected override void Update()
     {
         base.Update();
-        if (isDead) return;
         _movement.Move();
     }
 }
