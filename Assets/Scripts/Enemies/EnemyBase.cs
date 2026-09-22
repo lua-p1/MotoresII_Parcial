@@ -18,13 +18,11 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void Awake()
     {
         enemyCollider = GetComponent<Collider2D>();
-        // Garantiza que sea Trigger para no colisionar físicamente con el Player
         enemyCollider.isTrigger = true;
     }
 
     protected virtual void OnEnable()
     {
-        // Reiniciar estado al salir del Object Pool
         isDead = false;
         hasTouchedPlayer = false;
         if (enemyCollider != null) enemyCollider.enabled = true;
@@ -35,11 +33,20 @@ public abstract class EnemyBase : MonoBehaviour
         if (isDead) return;
     }
 
+    protected virtual void DamagePlayer(GameObject playerObject)
+    {
+        // Intenta obtener cualquier componente en el Player que implemente IDamageable
+        if (playerObject.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.TakeDamage(damageToPlayer, gameObject.name);
+        }
+    }
+
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead) return;
 
-        if (collision.CompareTag("Weapon"))
+        if (collision.CompareTag("Weapon") && collision.enabled)
         {
             if (isVulnerableToWeapon)
             {
@@ -51,26 +58,21 @@ public abstract class EnemyBase : MonoBehaviour
             if (!hasTouchedPlayer)
             {
                 hasTouchedPlayer = true;
-                DamagePlayer();
+                DamagePlayer(collision.gameObject); // Pasa la referencia del GameObject del Player
             }
         }
     }
-
-    protected virtual void DamagePlayer()
-    {
-        Debug.Log($"{gameObject.name} touched player, dealt {damageToPlayer} damage.");
-    }
-
     public virtual void Die()
     {
         if (isDead) return;
         isDead = true;
+
+        // Notificar al sistema que un enemigo fue derrotado
+        EventManager.OnEnemyKilled?.Invoke();
+
         Despawn();
     }
 
-    /// <summary>
-    /// Desactiva el objeto para devolverlo al Pool en lugar de destruir la instancia.
-    /// </summary>
     public virtual void Despawn()
     {
         gameObject.SetActive(false);

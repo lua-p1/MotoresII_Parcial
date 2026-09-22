@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float fallMultiplier = 2.5f;
 
     [Header("Weapon Reference")]
-    [SerializeField] private Collider2D weaponCollider; // Asignar el Collider2D del Arma/Linterna
+    [SerializeField] private Collider2D weaponCollider; // Asignar el Collider2D del Arma
 
     private Rigidbody2D _rb;
     private GroundDetector _groundDetector;
@@ -53,47 +53,62 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
         {
             _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
+            UpdateWeaponState();
             return;
         }
 
         CheckWallCollision();
         MoveHorizontally();
         ApplyBetterJump();
+        UpdateWeaponState(); // Actualiza el estado del arma dinámicamente
+    }
+
+    private void CheckWallCollision()
+    {
+        if (_wallDetector.IsTouchingWall)
+        {
+            _isStopped = true;
+        }
+    }
+
+    /// <summary>
+    /// Controla la activación del trigger del arma.
+    /// Se habilita si el jugador se desplaza horizontalmente (sin pared) 
+    /// O SI está realizando un salto / caída (incluso si está tocando una pared).
+    /// </summary>
+    private void UpdateWeaponState()
+    {
+        if (weaponCollider == null) return;
+
+        // Condición 1: Se mueve horizontalmente y no hay pared de por medio
+        bool isMovingHorizontally = !_isStopped && !_wallDetector.IsTouchingWall;
+
+        // Condición 2 (Excepción): Está saltando, cayendo o traspasando una plataforma
+        bool isJumpingOrDropping = !_groundDetector.IsGrounded || _groundDetector.IsDropping;
+
+        // El arma estará activa si se cumple CUALQUIERA de las dos condiciones
+        bool isWeaponActive = isMovingHorizontally || isJumpingOrDropping;
+
+        if (weaponCollider.enabled != isWeaponActive)
+        {
+            weaponCollider.enabled = isWeaponActive;
+        }
     }
 
     private void HandleGameOver()
     {
         _isStopped = true;
         _rb.linearVelocity = Vector2.zero;
-        SetWeaponActive(false);
+        UpdateWeaponState();
     }
 
     private void HandleHorizontalSwipe(float direction)
     {
         _isStopped = false;
-        SetWeaponActive(true); // Reactivar trigger del arma al moverse
         ChangeDirection(direction);
-    }
-
-    private void CheckWallCollision()
-    {
-        // Al tocar la pared, se detiene, NO se voltea y desactiva el trigger del arma
-        if (_wallDetector.IsTouchingWall && !_isStopped)
-        {
-            _isStopped = true;
-            SetWeaponActive(false); // Inhabilita el arma pegado a la pared
-        }
-    }
-
-    private void SetWeaponActive(bool active)
-    {
-        if (weaponCollider != null)
-        {
-            weaponCollider.enabled = active;
-        }
     }
 
     private void MoveHorizontally()
@@ -141,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
         if (_groundDetector.IsGrounded)
         {
             _isStopped = false;
-            SetWeaponActive(true);
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -154,7 +168,6 @@ public class PlayerMovement : MonoBehaviour
             if (!_groundDetector.CurrentPlatform.CompareTag("SolidGround"))
             {
                 _isStopped = false;
-                SetWeaponActive(true);
                 StartCoroutine(DropThroughPlatformRoutine());
             }
         }
