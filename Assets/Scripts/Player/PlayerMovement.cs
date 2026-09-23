@@ -156,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
             _isStopped = false;
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0);
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            EventManager.TriggerEvent(EventType.PlayerJumped);
         }
     }
 
@@ -167,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isStopped = false;
                 StartCoroutine(DropThroughPlatformRoutine());
+                EventManager.TriggerEvent(EventType.PlayerJumped);
             }
         }
     }
