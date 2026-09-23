@@ -25,7 +25,7 @@ public abstract class EnemyService<T> where T : EnemyBase
     {
         enemy.gameObject.SetActive(false);
     }
-    public void ReturnToPool(T enemy)
+    private void ReturnToPool(T enemy)
     {
         _pool.ReturnObject(enemy);
     }

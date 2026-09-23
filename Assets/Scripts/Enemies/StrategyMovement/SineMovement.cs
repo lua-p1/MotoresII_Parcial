@@ -1,15 +1,15 @@
 using UnityEngine;
 public class SineMovement : IMovementEnemy
 {
-    private readonly Transform _target;
-    private readonly float _horizontalSpeed;
-    private readonly float _floatAmplitude;
-    private readonly float _floatFrequency;
-    private readonly float _verticalMoveInterval;
-    private readonly float _minVerticalDistance;
-    private readonly float _maxVerticalDistance;
-    private readonly float _smoothTime;
-    private readonly float _minX, _maxX, _minY, _maxY;
+    private Transform _target;
+    private float _horizontalSpeed;
+    private float _floatAmplitude;
+    private float _floatFrequency;
+    private float _verticalMoveInterval;
+    private float _minVerticalDistance;
+    private float _maxVerticalDistance;
+    private float _smoothTime;
+    private float _minX, _maxX, _minY, _maxY;
     private float _direction;
     private float _currentBaseY;
     private float _targetBaseY;

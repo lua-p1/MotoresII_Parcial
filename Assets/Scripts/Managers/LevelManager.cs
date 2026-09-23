@@ -19,33 +19,22 @@ public class LevelManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        EventManager.OnGameStart += HandleGameStart;
-        EventManager.OnEnemyKilled += HandleEnemyKilled;
+        EventManager.SubscribeToEvent(EventType.GameStart, HandleGameStart);
+        EventManager.SubscribeToEvent(EventType.EnemyKilled, HandleEnemyKilled);
     }
+
 
     private void OnDisable()
     {
-        EventManager.OnGameStart -= HandleGameStart;
-        EventManager.OnEnemyKilled -= HandleEnemyKilled;
+        EventManager.UnsubscribeToEvent(EventType.GameStart, HandleGameStart);
+        EventManager.UnsubscribeToEvent(EventType.EnemyKilled, HandleEnemyKilled);
     }
-
-    private void Start()
-    {
-        LogLevelObjective();
-    }
-
-    private void HandleGameStart()
+    private void HandleGameStart(params object[] parameters)
     {
         _currentEnemiesKilled = 0;
-        LogLevelObjective();
-    }
-
-    private void LogLevelObjective()
-    {
         Debug.Log($"<color=cyan>[NIVEL INICIADO]</color> Objetivo: Eliminar {targetEnemiesToKill} enemigos. Llevas: {_currentEnemiesKilled}/{targetEnemiesToKill}");
     }
-
-    private void HandleEnemyKilled()
+    private void HandleEnemyKilled(params object[] parameters)
     {
         // Ignorar si no estamos en estado de juego
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
@@ -62,6 +51,6 @@ public class LevelManager : MonoBehaviour
     private void CompleteLevel()
     {
         Debug.Log($"<color=green><b>¡OBJETIVO COMPLETADO! Has eliminado a los {targetEnemiesToKill} enemigos.</b></color>");
-        EventManager.OnLevelComplete?.Invoke();
+        EventManager.TriggerEvent(EventType.LevelComplete);
     }
 }
