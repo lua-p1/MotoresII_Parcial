@@ -20,9 +20,9 @@ public class GhostEnemy : EnemyBase
             horizontalSpeed, floatAmplitude, floatFrequency,
             verticalMoveInterval, minVerticalDistance, maxVerticalDistance, smoothTime);
     }
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
+        if (!CanAct) return;
         _movement.Move();
     }
 }

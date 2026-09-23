@@ -9,9 +9,9 @@ public class PatrolEnemy : EnemyBase
         transform.position = spawnPos;
         _movement = new PatrolMovement(transform, initialDirection, minX, maxX, speed);
     }
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
+        if (!CanAct) return;
         _movement.Move();
     }
 }

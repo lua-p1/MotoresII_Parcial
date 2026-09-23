@@ -11,6 +11,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected bool isDead = false;
     protected Collider2D enemyCollider;
     private Action<EnemyBase> _returnToPoolCallback;
+    protected bool CanAct => !isDead && (GameManager.Instance == null || GameManager.Instance.CurrentState == GameManager.GameState.Playing);
     protected virtual void Awake()
     {
         enemyCollider = GetComponent<Collider2D>();
@@ -20,10 +21,6 @@ public abstract class EnemyBase : MonoBehaviour
     {
         isDead = false;
         if (enemyCollider != null) enemyCollider.enabled = true;
-    }
-    protected virtual void Update()
-    {
-        if (isDead) return;
     }
     protected virtual void DamagePlayer(GameObject playerObject)
     {

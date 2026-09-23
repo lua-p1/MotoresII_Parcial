@@ -2,7 +2,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public enum GameState { MainMenu, Playing, GameOver, Victory }
+    public enum GameState { WaitingToStart, Playing, GameOver, Victory }
     public GameState CurrentState { get; private set; }
     void Awake()
     {
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        CurrentState = GameState.MainMenu;
+        CurrentState = GameState.WaitingToStart;
     }
     public void StartGame()
     {
