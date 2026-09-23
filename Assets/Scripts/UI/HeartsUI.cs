@@ -3,21 +3,22 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HeartsUI : MonoBehaviour
 {
-    [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private Image heartPrefab;
     [SerializeField] private Color fullColor = Color.red;
     [SerializeField] private Color emptyColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
     private List<Image> _hearts = new List<Image>();
     private void OnEnable()
     {
-        playerHealth.OnHealthChanged += UpdateHearts;
+        EventManager.SubscribeToEvent(EventType.PlayerHealthChanged, UpdateHearts); 
     }
     private void OnDisable()
     {
-        playerHealth.OnHealthChanged -= UpdateHearts;
+        EventManager.UnsubscribeToEvent(EventType.PlayerHealthChanged, UpdateHearts); 
     }
-    private void UpdateHearts(float current, float max)
+    private void UpdateHearts(params object[] parameters)  
     {
+        float current = (float)parameters[0];              
+        float max = (float)parameters[1];                  
         while (_hearts.Count < max)
         {
             _hearts.Add(Instantiate(heartPrefab, transform));
