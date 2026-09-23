@@ -436,7 +436,6 @@ GameObject:
   - component: {fileID: 572134225}
   - component: {fileID: 572134226}
   - component: {fileID: 572134227}
-  - component: {fileID: 572134228}
   - component: {fileID: 572134229}
   m_Layer: 3
   m_Name: Plataforma
@@ -561,18 +560,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &572134228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572134224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63715c51e30410409604e6df5f3cb4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!251 &572134229
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -955,7 +942,6 @@ GameObject:
   - component: {fileID: 667843093}
   - component: {fileID: 667843094}
   - component: {fileID: 667843095}
-  - component: {fileID: 667843096}
   - component: {fileID: 667843097}
   m_Layer: 3
   m_Name: Plataforma
@@ -1080,18 +1066,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &667843096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667843092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63715c51e30410409604e6df5f3cb4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!251 &667843097
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -3998,7 +3972,6 @@ GameObject:
   - component: {fileID: 1705820170}
   - component: {fileID: 1705820171}
   - component: {fileID: 1705820172}
-  - component: {fileID: 1705820173}
   - component: {fileID: 1705820174}
   m_Layer: 3
   m_Name: Plataforma
@@ -4123,18 +4096,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1705820173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1705820169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63715c51e30410409604e6df5f3cb4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!251 &1705820174
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -4163,7 +4124,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1777000708}
-  - component: {fileID: 1777000707}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -4171,19 +4131,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1777000707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777000706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 747293b03676f9045b585ac1fb2fe099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetEnemiesToKill: 5
 --- !u!4 &1777000708
 Transform:
   m_ObjectHideFlags: 0
@@ -4785,7 +4732,8 @@ MonoBehaviour:
   - {fileID: 1705820172}
   - {fileID: 1839682132}
   heightOffset: 0.5
-  edgeMargin: 0.5
+  minEdgeMargin: 0.5
+  maxEdgeMargin: 4
 --- !u!4 &1906790587
 Transform:
   m_ObjectHideFlags: 0

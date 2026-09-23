@@ -8,7 +8,6 @@ public abstract class EnemyBase : MonoBehaviour
     public bool isVulnerableToWeapon = true;
     [Tooltip("Attack dmg if touch player")]
     public int damageToPlayer = 1;
-    protected bool hasTouchedPlayer = false;
     protected bool isDead = false;
     protected Collider2D enemyCollider;
     private Action<EnemyBase> _returnToPoolCallback;
@@ -21,7 +20,6 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         isDead = false;
-        hasTouchedPlayer = false;
         if (enemyCollider != null) enemyCollider.enabled = true;
     }
     protected virtual void Update()
@@ -49,11 +47,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
-            if (!hasTouchedPlayer)
-            {
-                hasTouchedPlayer = true;
-                DamagePlayer(collision.gameObject); // Pasa la referencia del GameObject del Player
-            }
+            DamagePlayer(collision.gameObject);
         }
     }
     public virtual void Die()

@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -20,7 +19,6 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = GameState.MainMenu;
     }
-
     public void StartGame()
     {
         if (CurrentState == GameState.Playing) return;
