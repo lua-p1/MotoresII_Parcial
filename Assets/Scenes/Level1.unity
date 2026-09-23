@@ -6863,7 +6863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPrefab: {fileID: 3767888418253265059, guid: 5c91489b6131ef74eaed95d81d2bef28, type: 3}
   poolSize: 5
-  maxAliveEnemies: 10
+  maxAliveEnemies: 5
   spawnInterval: 4
   platforms:
   - {fileID: 667843095}

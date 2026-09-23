@@ -11,15 +11,12 @@ public class PatrolEnemySpawner : MonoBehaviour
     [SerializeField] private float heightOffset = 0.5f;
     [SerializeField] private float minEdgeMargin = 0.5f;
     [SerializeField] private float maxEdgeMargin = 4f;
-
     private PatrolEnemyService _enemyService;
     private float _timer;
-
     private void Awake()
     {
         _enemyService = new PatrolEnemyService(patrolPrefab, transform, poolSize);
     }
-
     private void Update()
     {
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
@@ -31,7 +28,6 @@ public class PatrolEnemySpawner : MonoBehaviour
             TrySpawnEnemy();
         }
     }
-
     private void TrySpawnEnemy()
     {
         if (_enemyService.ActiveCount >= maxAliveEnemies) return;
