@@ -4731,7 +4731,7 @@ MonoBehaviour:
   - {fileID: 572134227}
   - {fileID: 1705820172}
   - {fileID: 1839682132}
-  heightOffset: 0.5
+  heightOffset: 0.6
   minEdgeMargin: 0.5
   maxEdgeMargin: 4
 --- !u!4 &1906790587

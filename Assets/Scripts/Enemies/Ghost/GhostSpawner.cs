@@ -43,7 +43,7 @@ public class GhostSpawner : MonoBehaviour
         _screenMinX = bottomLeft.x;
         _screenMaxX = topRight.x;
     }
-    public void TrySpawnGhost()
+    private void TrySpawnGhost()
     {
         bool spawnOnLeft = Random.value > 0.5f;
         float spawnX = spawnOnLeft ? _screenMinX - spawnPaddingX : _screenMaxX + spawnPaddingX;

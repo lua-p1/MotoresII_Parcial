@@ -28,23 +28,11 @@ public class LevelManager : MonoBehaviour
         EventManager.OnGameStart -= HandleGameStart;
         EventManager.OnEnemyKilled -= HandleEnemyKilled;
     }
-
-    private void Start()
-    {
-        LogLevelObjective();
-    }
-
     private void HandleGameStart()
     {
         _currentEnemiesKilled = 0;
-        LogLevelObjective();
-    }
-
-    private void LogLevelObjective()
-    {
         Debug.Log($"<color=cyan>[NIVEL INICIADO]</color> Objetivo: Eliminar {targetEnemiesToKill} enemigos. Llevas: {_currentEnemiesKilled}/{targetEnemiesToKill}");
     }
-
     private void HandleEnemyKilled()
     {
         // Ignorar si no estamos en estado de juego
