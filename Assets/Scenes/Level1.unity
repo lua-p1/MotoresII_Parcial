@@ -606,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - id: 0
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 6d4d9320c8a48ff4b8e2c8cb5640080d, type: 3}
   - id: 1
     clip: {fileID: 8300000, guid: 2ecc9d8b614ce414b97205e44e66c763, type: 3}
   - id: 2
@@ -618,6 +618,8 @@ MonoBehaviour:
   - id: 5
     clip: {fileID: 8300000, guid: 6d4d9320c8a48ff4b8e2c8cb5640080d, type: 3}
   volume: 1
+  musicClip: {fileID: 8300000, guid: 0f2d6d5638846c24f89c912b5b061cd8, type: 3}
+  musicVolume: 0.4
 --- !u!82 &305074537
 AudioSource:
   m_ObjectHideFlags: 0
