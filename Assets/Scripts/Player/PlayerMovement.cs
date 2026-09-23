@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         EventManager.OnSwipeHorizontal += HandleHorizontalSwipe;
         EventManager.OnSwipeUp += Jump;
         EventManager.OnSwipeDown += AttemptDrop;
-        EventManager.OnGameOver += HandleGameOver;
+        EventManager.SubscribeToEvent(EventType.GameOver, HandleGameOver);
     }
 
     void OnDisable()
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         EventManager.OnSwipeHorizontal -= HandleHorizontalSwipe;
         EventManager.OnSwipeUp -= Jump;
         EventManager.OnSwipeDown -= AttemptDrop;
-        EventManager.OnGameOver -= HandleGameOver;
+        EventManager.UnsubscribeToEvent(EventType.GameOver, HandleGameOver);
     }
 
     void Update()
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleGameOver()
+    private void HandleGameOver(params object[] parameters)
     {
         _isStopped = true;
         _rb.linearVelocity = Vector2.zero;

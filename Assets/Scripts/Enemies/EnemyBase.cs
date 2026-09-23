@@ -55,7 +55,7 @@ public abstract class EnemyBase : MonoBehaviour
         if (isDead) return;
         isDead = true;
         // Notificar al sistema que un enemigo fue derrotado
-        EventManager.OnEnemyKilled?.Invoke();
+        EventManager.TriggerEvent(EventType.EnemyKilled);
         Despawn();
     }
     public void SetReturnToPoolCallback(Action<EnemyBase> callback)

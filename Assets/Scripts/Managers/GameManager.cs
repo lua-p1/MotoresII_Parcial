@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnEnable()
+    {
+        EventManager.SubscribeToEvent(EventType.GameOver, GameOver);
+    }
     void Start()
     {
         CurrentState = GameState.MainMenu;
@@ -23,13 +27,16 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentState == GameState.Playing) return;
         CurrentState = GameState.Playing;
-        EventManager.OnGameStart?.Invoke();
+        EventManager.TriggerEvent(EventType.GameStart);
         Debug.Log("Game Started");
     }
-    public void GameOver()
+    private void GameOver(params object[] parameters)
     {
         CurrentState = GameState.GameOver;
-        EventManager.OnGameOver?.Invoke();
         Debug.Log("Game Over");
+    }
+    private void OnDisable()
+    {
+        EventManager.UnsubscribeToEvent(EventType.GameOver, GameOver);
     }
 }

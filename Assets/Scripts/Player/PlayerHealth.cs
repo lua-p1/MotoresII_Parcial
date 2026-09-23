@@ -66,11 +66,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         Debug.Log("<color=black><b>Player has DIED!</b></color>");
         OnDeath?.Invoke();
-
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.GameOver();
-        }
+        EventManager.TriggerEvent(EventType.GameOver);
     }
 
     public void Heal(float amount)
