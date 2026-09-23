@@ -2,6 +2,7 @@ public abstract class EnemyService<T> where T : EnemyBase
 {
     private Pool<T> _pool;
     private Factory<T> _factory;
+    public int ActiveCount { get; private set; }
     protected EnemyService(Factory<T> factory, int size)
     {
         _factory = factory;
@@ -15,6 +16,7 @@ public abstract class EnemyService<T> where T : EnemyBase
     }
     protected T GetFromPool()
     {
+        ActiveCount++;
         return _pool.GetObject();
     }
     private void TurnOn(T enemy)
@@ -27,6 +29,7 @@ public abstract class EnemyService<T> where T : EnemyBase
     }
     private void ReturnToPool(T enemy)
     {
+        ActiveCount--;
         _pool.ReturnObject(enemy);
     }
 }
