@@ -5097,13 +5097,13 @@ MonoBehaviour:
 
     Up: Jump
 
-    Down: Drop down
-    from platform
+    Down: Drop down from
+    platform
 
     Touch enemies with the knife while moving.
 
-    If you stand
-    still, they will hurt you.
+    If you stand still,
+    they will hurt you.
 
     Defeat 5 enemies to win!'
   m_isRightToLeft: 0
@@ -6863,6 +6863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPrefab: {fileID: 3767888418253265059, guid: 5c91489b6131ef74eaed95d81d2bef28, type: 3}
   poolSize: 5
+  maxAliveEnemies: 10
   spawnInterval: 4
   platforms:
   - {fileID: 667843095}
@@ -6963,6 +6964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostPrefab: {fileID: 3781194448337594856, guid: 3ac3a1c50fc329844b5703cc4491bf76, type: 3}
   poolSize: 10
+  maxAliveEnemies: 10
   spawnInterval: 3
   spawnPaddingX: 1.2
   platform1MinY: -2.7
