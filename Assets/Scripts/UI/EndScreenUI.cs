@@ -4,6 +4,7 @@ public class EndScreenUI : MonoBehaviour
 {
     [SerializeField] private EventType showOnEvent;
     [SerializeField] private GameObject panel;
+    [SerializeField] private string menuSceneName = "MainMenu";
     private void Awake()
     {
         panel.SetActive(false);
@@ -22,6 +23,10 @@ public class EndScreenUI : MonoBehaviour
     }
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene(menuSceneName);
     }
 }

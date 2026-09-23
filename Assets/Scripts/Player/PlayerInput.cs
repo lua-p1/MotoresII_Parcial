@@ -38,7 +38,7 @@ public class PlayerInput : MonoBehaviour
             _isSwiping = false;
             if (swipeDelta.magnitude > swipeThreshold)
             {
-                if (GameManager.Instance.CurrentState == GameManager.GameState.WaitingToStart)
+                if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.WaitingToStart)
                 {
                     GameManager.Instance.StartGame();
                 }

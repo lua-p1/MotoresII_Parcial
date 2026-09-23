@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
     }
     private void CompleteLevel()
     {
-        Debug.Log($"<color=green><b>¡OBJETIVO COMPLETADO Has eliminado a los {targetEnemiesToKill} enemigos.</b></color>");
+        Debug.Log($"<color=green><b>OBJETIVO COMPLETADO! Has eliminado a los {targetEnemiesToKill} enemigos.</b></color>");
         EventManager.TriggerEvent(EventType.LevelComplete);
     }
 }
