@@ -22,6 +22,6 @@ public class EndScreenUI : MonoBehaviour
     }
     public void Restart()
     {
-        Debug.Log("Reinciar");
+        SceneManager.LoadScene(0);
     }
 }
