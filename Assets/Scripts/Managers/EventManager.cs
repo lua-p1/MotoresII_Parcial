@@ -8,7 +8,9 @@ public enum EventType
     LevelComplete,
     EnemyKilled,
     EnemyCountChanged,//UI: (int derrotados, int objetivo)
-    PlayerHealthChanged //UI: para los corazones
+    PlayerHealthChanged, //UI: para los corazones
+    PlayerDamaged,
+    PlayerJumped
 }
 public static class EventManager
 {

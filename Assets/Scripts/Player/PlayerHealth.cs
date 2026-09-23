@@ -26,13 +26,10 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public void TakeDamage(float amount, string attackerName = "Unknown")
     {
         if (IsInvulnerable || CurrentHealth <= 0f) return;
-
         CurrentHealth = Mathf.Max(CurrentHealth - amount, 0f);
-
         Debug.Log($"<color=red>[Damage]</color> Player took {amount} damage from <b>{attackerName}</b>. Current Health: {CurrentHealth}/{maxHealth}");
-
         EventManager.TriggerEvent(EventType.PlayerHealthChanged, CurrentHealth, maxHealth);
-
+        EventManager.TriggerEvent(EventType.PlayerDamaged);
         if (CurrentHealth <= 0f)
         {
             Die();
