@@ -3,7 +3,7 @@ public class GhostEnemy : EnemyBase
 {
     [Header("Horizontal Movement Config")]
     [SerializeField] private float horizontalSpeed = 3f;
-    [Header("Smooth Floating (Flotación Constante)")]
+    [Header("Smooth Floating (Flotacion Constante)")]
     [SerializeField] private float floatAmplitude = 0.35f;
     [SerializeField] private float floatFrequency = 2.5f;
     [Header("Height Change (Cambio de Plataforma)")]

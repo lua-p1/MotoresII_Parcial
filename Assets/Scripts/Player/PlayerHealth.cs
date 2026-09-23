@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     #region Events
     public event Action OnDeath;
     // Eventos para el efecto visual de invulnerabilidad
-    public event Action<float> OnInvincibilityStarted; // Envía la duración
+    public event Action<float> OnInvincibilityStarted; // Envia la duracion
     public event Action OnInvincibilityEnded;
     #endregion
     private void Awake()
