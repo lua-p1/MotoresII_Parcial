@@ -2,7 +2,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public enum GameState { MainMenu, Playing, GameOver }
+    public enum GameState { MainMenu, Playing, GameOver, Victory }
     public GameState CurrentState { get; private set; }
     void Awake()
     {
@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = GameState.GameOver;
         Debug.Log("Game Over");
+    }
+    private void Victory(params object[] parameters)
+    {
+        CurrentState = GameState.Victory;
+        Debug.Log("Victory");
     }
     private void OnDisable()
     {
