@@ -4,6 +4,7 @@ public class GhostSpawner : MonoBehaviour
     [Header("Pool Setup")]
     [SerializeField] private GhostEnemy ghostPrefab;
     [SerializeField] private int poolSize = 5;
+    [SerializeField] private int maxAliveEnemies = 3;
     [Header("Spawn Config")]
     [SerializeField] private float spawnInterval = 3f;
     [SerializeField] private float spawnPaddingX = 1.2f;
@@ -45,6 +46,7 @@ public class GhostSpawner : MonoBehaviour
     }
     private void TrySpawnGhost()
     {
+        if (_enemyService.ActiveCount >= maxAliveEnemies) return;
         bool spawnOnLeft = Random.value > 0.5f;
         float spawnX = spawnOnLeft ? _screenMinX - spawnPaddingX : _screenMaxX + spawnPaddingX;
         float direction = spawnOnLeft ? 1f : -1f;

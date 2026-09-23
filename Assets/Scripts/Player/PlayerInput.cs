@@ -3,18 +3,25 @@ public class PlayerInput : MonoBehaviour
 {
     [Header("Swipe Config")]
     public float swipeThreshold = 20f;
-
     private Vector2 _swipeStartPos;
     private bool _isSwiping = false;
     void Update()
     {
-        if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.GameOver)
+        if (GameManager.Instance != null &&
+            (GameManager.Instance.CurrentState == GameManager.GameState.GameOver ||
+             GameManager.Instance.CurrentState == GameManager.GameState.Victory))
             return;
         DetectSwipe();
     }
     private void DetectSwipe()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool mouseDown = false;
+        bool mouseUp = false;
+#if UNITY_EDITOR
+        mouseDown = Input.GetMouseButtonDown(0);
+        mouseUp = Input.GetMouseButtonUp(0);   
+#endif
+        if (mouseDown)
         {
             _swipeStartPos = Input.mousePosition;
             _isSwiping = true;
@@ -24,14 +31,14 @@ public class PlayerInput : MonoBehaviour
             _swipeStartPos = Input.GetTouch(0).position;
             _isSwiping = true;
         }
-        if (_isSwiping && (Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
+        if (_isSwiping && (mouseUp || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)))
         {
-            Vector2 swipeEndPos = Input.GetMouseButtonUp(0) ? (Vector2)Input.mousePosition : Input.GetTouch(0).position;
+            Vector2 swipeEndPos = mouseUp ? (Vector2)Input.mousePosition : Input.GetTouch(0).position;
             Vector2 swipeDelta = swipeEndPos - _swipeStartPos;
             _isSwiping = false;
             if (swipeDelta.magnitude > swipeThreshold)
             {
-                if (GameManager.Instance.CurrentState == GameManager.GameState.MainMenu)
+                if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameManager.GameState.WaitingToStart)
                 {
                     GameManager.Instance.StartGame();
                 }

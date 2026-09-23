@@ -52,14 +52,12 @@ public class SineMovement : IMovementEnemy
         {
             _direction = 1f;
             UpdateSpriteFacing();
-            Debug.Log("Giro a la derecha");
         }
         //Si llega al limite derecho, gira hacia la izquierda.
         else if (newX >= _maxX && _direction > 0)
         {
             _direction = -1f;
             UpdateSpriteFacing();
-            Debug.Log("Giro a la izquierda");
         }
         //me muevo hacia la altura target
         _currentBaseY = Mathf.SmoothDamp(_currentBaseY, _targetBaseY, ref _yVelocity, _smoothTime);

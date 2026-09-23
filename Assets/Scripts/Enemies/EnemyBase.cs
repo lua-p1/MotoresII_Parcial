@@ -11,20 +11,16 @@ public abstract class EnemyBase : MonoBehaviour
     protected bool isDead = false;
     protected Collider2D enemyCollider;
     private Action<EnemyBase> _returnToPoolCallback;
+    protected bool CanAct => !isDead && (GameManager.Instance == null || GameManager.Instance.CurrentState == GameManager.GameState.Playing);
     protected virtual void Awake()
     {
         enemyCollider = GetComponent<Collider2D>();
         enemyCollider.isTrigger = true;
     }
-
     protected virtual void OnEnable()
     {
         isDead = false;
         if (enemyCollider != null) enemyCollider.enabled = true;
-    }
-    protected virtual void Update()
-    {
-        if (isDead) return;
     }
     protected virtual void DamagePlayer(GameObject playerObject)
     {
@@ -37,7 +33,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead) return;
-
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing) return;
         if (collision.CompareTag("Weapon") && collision.enabled)
         {
             if (isVulnerableToWeapon)

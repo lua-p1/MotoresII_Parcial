@@ -4,21 +4,19 @@ public class PatrolEnemySpawner : MonoBehaviour
     [Header("Pool Setup")]
     [SerializeField] private PatrolEnemy patrolPrefab;
     [SerializeField] private int poolSize = 5;
+    [SerializeField] private int maxAliveEnemies = 3;
     [Header("Spawn Config")]
     [SerializeField] private float spawnInterval = 4f;
     [SerializeField] private Collider2D[] platforms;
     [SerializeField] private float heightOffset = 0.5f;
     [SerializeField] private float minEdgeMargin = 0.5f;
     [SerializeField] private float maxEdgeMargin = 4f;
-
     private PatrolEnemyService _enemyService;
     private float _timer;
-
     private void Awake()
     {
         _enemyService = new PatrolEnemyService(patrolPrefab, transform, poolSize);
     }
-
     private void Update()
     {
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
@@ -30,9 +28,9 @@ public class PatrolEnemySpawner : MonoBehaviour
             TrySpawnEnemy();
         }
     }
-
     private void TrySpawnEnemy()
     {
+        if (_enemyService.ActiveCount >= maxAliveEnemies) return;
         Bounds bounds = platforms[Random.Range(0, platforms.Length)].bounds;
         float minX = bounds.min.x + Random.Range(minEdgeMargin, maxEdgeMargin);
         float maxX = bounds.max.x - Random.Range(minEdgeMargin, maxEdgeMargin);

@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
         CheckWallCollision();
         MoveHorizontally();
         ApplyBetterJump();
-        UpdateWeaponState(); // Actualiza el estado del arma dinámicamente
+        UpdateWeaponState();
     }
 
     private void CheckWallCollision()
@@ -75,21 +75,19 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Controla la activación del trigger del arma.
+    /// Controla la activacion del trigger del arma.
     /// Se habilita si el jugador se desplaza horizontalmente (sin pared) 
-    /// O SI está realizando un salto / caída (incluso si está tocando una pared).
+    /// O SI esta realizando un salto / caida (incluso si esta tocando una pared).
     /// </summary>
     private void UpdateWeaponState()
     {
         if (weaponCollider == null) return;
 
-        // Condición 1: Se mueve horizontalmente y no hay pared de por medio
+        // Condicion 1: Se mueve horizontalmente y no hay pared de por medio
         bool isMovingHorizontally = !_isStopped && !_wallDetector.IsTouchingWall;
-
-        // Condición 2 (Excepción): Está saltando, cayendo o traspasando una plataforma
+        // Condicion 2 (Excepcion): Esta saltando, cayendo o traspasando una plataforma
         bool isJumpingOrDropping = !_groundDetector.IsGrounded || _groundDetector.IsDropping;
-
-        // El arma estará activa si se cumple CUALQUIERA de las dos condiciones
+        // El arma estara activa si se cumple CUALQUIERA de las dos condiciones
         bool isWeaponActive = isMovingHorizontally || isJumpingOrDropping;
 
         if (weaponCollider.enabled != isWeaponActive)
