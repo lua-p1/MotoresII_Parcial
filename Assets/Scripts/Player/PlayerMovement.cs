@@ -168,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _isStopped = false;
                 StartCoroutine(DropThroughPlatformRoutine());
+                EventManager.TriggerEvent(EventType.PlayerJumped);
             }
         }
     }
