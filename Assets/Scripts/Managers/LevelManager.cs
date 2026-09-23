@@ -22,8 +22,6 @@ public class LevelManager : MonoBehaviour
         EventManager.SubscribeToEvent(EventType.GameStart, HandleGameStart);
         EventManager.SubscribeToEvent(EventType.EnemyKilled, HandleEnemyKilled);
     }
-
-
     private void OnDisable()
     {
         EventManager.UnsubscribeToEvent(EventType.GameStart, HandleGameStart);
@@ -32,6 +30,7 @@ public class LevelManager : MonoBehaviour
     private void HandleGameStart(params object[] parameters)
     {
         _currentEnemiesKilled = 0;
+        EventManager.TriggerEvent(EventType.EnemyCountChanged, _currentEnemiesKilled, targetEnemiesToKill);
         Debug.Log($"<color=cyan>[NIVEL INICIADO]</color> Objetivo: Eliminar {targetEnemiesToKill} enemigos. Llevas: {_currentEnemiesKilled}/{targetEnemiesToKill}");
     }
     private void HandleEnemyKilled(params object[] parameters)
@@ -42,11 +41,12 @@ public class LevelManager : MonoBehaviour
         _currentEnemiesKilled++;
         // Informa por consola el progreso de bajas
         Debug.Log($"<color=yellow>[ENEMIGO ELIMINADO]</color> Progreso del nivel: <b>{_currentEnemiesKilled} / {targetEnemiesToKill}</b>");
-        // Comprueba si se alcanzó el objetivo
+        // Comprueba si se alcanzo el objetivo
         if (_currentEnemiesKilled >= targetEnemiesToKill)
         {
             CompleteLevel();
         }
+        EventManager.TriggerEvent(EventType.EnemyCountChanged, _currentEnemiesKilled, targetEnemiesToKill);
     }
     private void CompleteLevel()
     {

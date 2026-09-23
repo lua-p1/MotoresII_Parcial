@@ -16,7 +16,6 @@ public abstract class EnemyBase : MonoBehaviour
         enemyCollider = GetComponent<Collider2D>();
         enemyCollider.isTrigger = true;
     }
-
     protected virtual void OnEnable()
     {
         isDead = false;
@@ -37,7 +36,7 @@ public abstract class EnemyBase : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (isDead) return;
-
+        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing) return;
         if (collision.CompareTag("Weapon") && collision.enabled)
         {
             if (isVulnerableToWeapon)

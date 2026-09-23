@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.SubscribeToEvent(EventType.GameOver, GameOver);
+        EventManager.SubscribeToEvent(EventType.LevelComplete, Victory);
     }
     void Start()
     {
@@ -43,5 +44,6 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.UnsubscribeToEvent(EventType.GameOver, GameOver);
+        EventManager.UnsubscribeToEvent(EventType.LevelComplete, Victory);
     }
 }
