@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: NicolasMigues
+  companyName: LuanaPitra
   productName: KnifeSwipe
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -42,7 +42,7 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
     duration: 2
-  - logo: {fileID: 101209642910601267, guid: 24128573dc0c7e643adb57ea1592a5b1, type: 3}
+  - logo: {fileID: 1404028623067837608, guid: 3440342a745931244b4ec33ec59ffefc, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
