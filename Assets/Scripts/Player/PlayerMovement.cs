@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float fallMultiplier = 2.5f;
 
     [Header("Weapon Reference")]
-    [SerializeField] private Collider2D weaponCollider; // Asignar el Collider2D del Arma
+    [SerializeField] private Collider2D weaponCollider;
 
     private Rigidbody2D _rb;
     private GroundDetector _groundDetector;
@@ -74,11 +74,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Controla la activacion del trigger del arma.
-    /// Se habilita si el jugador se desplaza horizontalmente (sin pared) 
-    /// O SI esta realizando un salto / caida (incluso si esta tocando una pared).
-    /// </summary>
+    /* Controla la activacion del trigger del arma.
+    Se habilita si el jugador se desplaza horizontalmente (sin pared) 
+     O SI esta realizando un salto / caida (incluso si esta tocando una pared).*/
     private void UpdateWeaponState()
     {
         if (weaponCollider == null) return;
