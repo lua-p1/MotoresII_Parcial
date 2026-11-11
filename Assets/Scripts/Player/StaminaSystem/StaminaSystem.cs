@@ -22,7 +22,7 @@ public class StaminaSystem : MonoBehaviour
         StartCoroutine(ChargeCorutine());
         NotifyUI();
     }
-    // CAMBIO: devuelve bool para saber si pudo gastar
+
     public bool UseStamine(int amount)
     {
         if (currentStamina - amount < 0) return false;
@@ -38,7 +38,7 @@ public class StaminaSystem : MonoBehaviour
     }
     public void AddStamine(int amount)
     {
-        currentStamina = Mathf.Min(currentStamina + amount, maxStamina); // CAMBIO: tope en el maximo
+        currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
         if (recharging && currentStamina >= maxStamina)
         {
             StopAllCoroutines();
@@ -60,9 +60,9 @@ public class StaminaSystem : MonoBehaviour
     public void Load()
     {
         currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
-        // CAMBIO: se lee como numero (Ticks), no con DateTime.Parse
-        if (long.TryParse(PlayerPrefs.GetString("nextStaminaTime"), out long ticks))
-            nextStamineTime = new DateTime(ticks);
+        var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
+        if (!string.IsNullOrEmpty(dateTimeString))
+            nextStamineTime = DateTime.Parse(dateTimeString);
     }
     void NotifyUI()
     {
@@ -89,7 +89,7 @@ public class StaminaSystem : MonoBehaviour
                 nextStamineTime = nextStamine;
                 Save();
             }
-            NotifyUI(); // CAMBIO: antes updateUI()
+            NotifyUI();
             yield return null;
         }
         recharging = false;
