@@ -4,11 +4,11 @@ using UnityEngine;
 public class StaminaManager : MonoBehaviour
 {
     public static StaminaManager instance;
-    [SerializeField] int maxStamina = 3;
-    [SerializeField] float secondToRecover = 5f;
-    int currentStamina;
-    bool recharging = false;
-    DateTime nextStamineTime;
+    private int maxStamina = 3;
+    private float secondToRecover = 5f;
+    private int currentStamina;
+    private bool recharging = false;
+    private DateTime nextStamineTime;
     private void Awake()
     {
         if (instance == null)
