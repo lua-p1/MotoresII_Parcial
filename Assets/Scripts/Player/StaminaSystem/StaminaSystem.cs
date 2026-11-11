@@ -54,7 +54,7 @@ public class StaminaSystem : MonoBehaviour
     public void Save()
     {
         PlayerPrefs.SetInt("currentStamina", currentStamina);
-        PlayerPrefs.SetString("nextStaminaTime", nextStamineTime.Ticks.ToString());
+        PlayerPrefs.SetString("nextStaminaTime", nextStamineTime.ToString());
         PlayerPrefs.Save();
     }
     public void Load()
