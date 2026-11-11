@@ -23,6 +23,11 @@ public class EndScreenUI : MonoBehaviour
     }
     public void Restart()
     {
+        if (!StaminaManager.instance.UseStamine(1))
+        {
+            GoToMenu();
+            return;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void GoToMenu()

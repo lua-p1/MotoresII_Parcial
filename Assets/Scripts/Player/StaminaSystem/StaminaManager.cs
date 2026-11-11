@@ -1,13 +1,25 @@
 using System;
 using System.Collections;
 using UnityEngine;
-public class StaminaSystem : MonoBehaviour
+public class StaminaManager : MonoBehaviour
 {
+    public static StaminaManager instance;
     [SerializeField] int maxStamina = 3;
     [SerializeField] float secondToRecover = 5f;
     int currentStamina;
     bool recharging = false;
     DateTime nextStamineTime;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void OnEnable()
     {
         EventManager.SubscribeToEvent(EventType.LevelComplete, OnLevelComplete);
