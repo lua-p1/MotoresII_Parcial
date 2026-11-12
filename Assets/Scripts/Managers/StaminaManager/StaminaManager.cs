@@ -34,12 +34,15 @@ public class StaminaManager : MonoBehaviour
         StartCoroutine(ChargeCorutine());
         NotifyUI();
     }
-
+    public bool IsFull()
+    {
+        return currentStamina >= maxStamina;
+    }
     public bool UseStamine(int amount)
     {
         if (currentStamina - amount < 0) return false;
         currentStamina -= amount;
-        if (!recharging && currentStamina < maxStamina)
+        if (!recharging && !IsFull())
         {
             nextStamineTime = DateTime.Now.AddSeconds(secondToRecover);
             StartCoroutine(ChargeCorutine());
@@ -51,7 +54,7 @@ public class StaminaManager : MonoBehaviour
     public void AddStamine(int amount)
     {
         currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
-        if (recharging && currentStamina >= maxStamina)
+        if (recharging && IsFull())
         {
             StopAllCoroutines();
             recharging = false;
@@ -84,14 +87,14 @@ public class StaminaManager : MonoBehaviour
     IEnumerator ChargeCorutine()
     {
         recharging = true;
-        while (currentStamina < maxStamina)
+        while (!IsFull())
         {
             DateTime now = DateTime.Now;
             DateTime nextStamine = nextStamineTime;
             bool staminedAdded = false;
             while (now > nextStamine)
             {
-                if (currentStamina >= maxStamina) break;
+                if (IsFull()) break;
                 staminedAdded = true;
                 nextStamine = nextStamine.AddSeconds(secondToRecover);
                 currentStamina++;
@@ -106,4 +109,5 @@ public class StaminaManager : MonoBehaviour
         }
         recharging = false;
     }
+    public int MaxStamina { get => maxStamina; }
 }

@@ -60,4 +60,5 @@ public class CurrencyManager : MonoBehaviour
     {
         EventManager.TriggerEvent(EventType.CoinsChanged, coins);
     }
+    public int Coins { get => coins; }
 }

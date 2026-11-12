@@ -1,0 +1,25 @@
+using UnityEngine;
+public class ExtraHeartItem : MonoBehaviour, IShopItem
+{
+    [SerializeField] private int price = 150;
+    private const string PendingKey = "extraHeartPending";
+    public int GetPrice() => price;
+    public bool CanApply() => !IsPending();
+    public void Apply()
+    {
+        PlayerPrefs.SetInt(PendingKey, 1);
+        PlayerPrefs.Save();
+    }
+    private static bool IsPending()
+    {
+        return PlayerPrefs.GetInt(PendingKey) == 1;
+    }
+    public static bool Consume()
+    {
+        if (!IsPending()) return false;
+        PlayerPrefs.SetInt(PendingKey, 0);
+        PlayerPrefs.Save();
+        return true;
+    }
+
+}

@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     #endregion
     private void Awake()
     {
+        if (ExtraHeartItem.Consume()) maxHealth += 1;
         CurrentHealth = maxHealth;
     }
     private void Start()
