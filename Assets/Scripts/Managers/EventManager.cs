@@ -11,7 +11,8 @@ public enum EventType
     PlayerHealthChanged, //UI: para los corazones
     PlayerDamaged,
     PlayerJumped,
-    StaminaChanged
+    StaminaChanged,
+    CoinsChanged // UI: (int monedas)
 }
 public static class EventManager
 {
