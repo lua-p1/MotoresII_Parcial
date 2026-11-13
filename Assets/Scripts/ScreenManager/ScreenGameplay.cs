@@ -26,7 +26,6 @@ public class ScreenGameplay : IScreen
     }
     public void Activate()
     {
-        Cursor.visible = false;
         foreach (var pauseable in _pauseables)
         {
             pauseable?.Resume();

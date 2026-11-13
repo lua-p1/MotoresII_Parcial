@@ -9,6 +9,7 @@ public class StaminaManager : MonoBehaviour
     private int currentStamina;
     private bool recharging = false;
     private DateTime nextStamineTime;
+    private Coroutine chargeCoroutine;
     private void Awake()
     {
         if (instance == null)
@@ -31,7 +32,7 @@ public class StaminaManager : MonoBehaviour
     private void Start()
     {
         Load();
-        StartCoroutine(ChargeCorutine());
+        chargeCoroutine = StartCoroutine(ChargeCorutine());
         NotifyUI();
     }
     public bool IsFull()
@@ -45,7 +46,7 @@ public class StaminaManager : MonoBehaviour
         if (!recharging && !IsFull())
         {
             nextStamineTime = DateTime.Now.AddSeconds(secondToRecover);
-            StartCoroutine(ChargeCorutine());
+            chargeCoroutine = StartCoroutine(ChargeCorutine());
         }
         Save();
         NotifyUI();
@@ -56,7 +57,7 @@ public class StaminaManager : MonoBehaviour
         currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
         if (recharging && IsFull())
         {
-            StopAllCoroutines();
+            StopCoroutine(chargeCoroutine);
             recharging = false;
         }
         Save();     
@@ -105,7 +106,7 @@ public class StaminaManager : MonoBehaviour
                 Save();
             }
             NotifyUI();
-            yield return null;
+            yield return new WaitForSeconds(1f);
         }
         recharging = false;
     }

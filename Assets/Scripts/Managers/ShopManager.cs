@@ -15,7 +15,7 @@ public class ShopManager : MonoBehaviour
     }
     public bool CanBuy(IShopItem item)
     {
-        return item.CanApply() && CurrencyManager.instance.Coins >= item.price;
+        return item.CanApply() && CurrencyManager.instance.Coins >= item.price; 
     }
     public bool TryBuy(IShopItem item)
     {
