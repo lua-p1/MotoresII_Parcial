@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 public enum SoundId
 {
     GameStart, Jump, PlayerHurt, EnemyDeath, GameOver, Victory
 }
 [RequireComponent(typeof(AudioSource))]
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour , IPauseable
 {
     [System.Serializable]
     private struct SoundEntry
@@ -20,14 +21,21 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip musicClip;
     [Range(0f, 1f)]
     [SerializeField] private float musicVolume = 0.4f;
-    private AudioSource _audioSource;
+    [Range(0f, 1f)]
+    [SerializeField] private float pausedMusicMultiplier = 0.5f;
+    [Header("Mixer")]                                          
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
+    private AudioSource _sfxSource;
     private AudioSource _musicSource;
+
     //cada SoundId esta relacionado con un AudioClip
     private Dictionary<SoundId, AudioClip> _clips = new Dictionary<SoundId, AudioClip>();
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.playOnAwake = false;
+        _sfxSource = GetComponent<AudioSource>();
+        _sfxSource.playOnAwake = false;
+        _sfxSource.outputAudioMixerGroup = sfxGroup;
         foreach (var sound in sounds)
         {
             _clips[sound.id] = sound.clip;
@@ -37,9 +45,13 @@ public class SoundManager : MonoBehaviour
         _musicSource.clip = musicClip;
         _musicSource.loop = true;
         _musicSource.volume = musicVolume;
+        _musicSource.outputAudioMixerGroup = musicGroup;
     }
     private void Start()
     {
+        // Aplica el volumen guardado apenas arranca el nivel
+        if (musicGroup != null)
+            ScreenOptions.ApplyVolume(musicGroup.audioMixer, PlayerPrefs.GetFloat(ScreenOptions.VolumeKey, 1f));
         if (musicClip != null) _musicSource.Play();
     }
     private void OnEnable()
@@ -77,6 +89,14 @@ public class SoundManager : MonoBehaviour
     public void Play(SoundId id)
     {
         if (!_clips.TryGetValue(id, out AudioClip clip) || clip == null) return;
-        _audioSource.PlayOneShot(clip, volume);
+        _sfxSource.PlayOneShot(clip, volume);
+    }
+    public void Pause()
+    {
+        _musicSource.volume = musicVolume * pausedMusicMultiplier;
+    }
+    public void Resume()
+    {
+        _musicSource.volume = musicVolume;
     }
 }

@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
         if (CurrentState == GameState.Playing) return;
         CurrentState = GameState.Playing;
         EventManager.TriggerEvent(EventType.GameStart);
-        Debug.Log("Game Started");
     }
     private void GameOver(params object[] parameters)
     {
