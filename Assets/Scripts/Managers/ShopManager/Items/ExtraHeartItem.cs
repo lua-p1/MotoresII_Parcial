@@ -12,7 +12,7 @@ public class ExtraHeartItem : MonoBehaviour, IShopItem
     }
     private static bool IsPending()
     {
-        return PlayerPrefs.GetInt(PendingKey) == 1;
+        return PlayerPrefs.GetInt(PendingKey,0) == 1;
     }
     public static bool Consume()
     {

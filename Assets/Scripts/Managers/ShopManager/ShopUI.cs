@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
-
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
     [SerializeField] private GameObject lockedOverlay;
