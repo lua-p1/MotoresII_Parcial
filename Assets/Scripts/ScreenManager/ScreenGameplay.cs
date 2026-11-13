@@ -32,6 +32,8 @@ public class ScreenGameplay : IScreen
         }
         _pauseables.Clear();
     }
+    // Nunca se llama: ScreenGameplay es la base del stack y Pop() no la saca (Count == 1).
+    // Esta escrito porque IScreen lo exige.
     public void Release()
     {
         _pauseables.Clear();

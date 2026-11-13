@@ -10,6 +10,8 @@ public class GameplayScreenRoot : ScreenRoot
     [SerializeField] private Transform _mainGame;
     public override IScreen CreateRootScreen()
     {
+        if (_mainGame == null)
+            Debug.LogError("GameplayScreenRoot: falta asignar Main Game (la raiz de lo jugable).");
         return new ScreenGameplay(_mainGame);
     }
 }
