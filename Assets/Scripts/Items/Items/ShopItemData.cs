@@ -3,10 +3,14 @@ using UnityEngine;
 // + el comportamiento que cada item concreto implementa.
 public abstract class ShopItemData : ScriptableObject, IShopItem
 {
-    public string DisplayName { get; private set; }
-    public string Description { get; private set; }
-    public Sprite Icon { get; private set; }
-    public int price { get; private set; }
+    [SerializeField] private string displayName;
+    [SerializeField] private string description;
+    [SerializeField] private Sprite icon;
+    [SerializeField] private int itemPrice;
+    public string DisplayName { get => displayName; }   
+    public string Description { get => description; }   
+    public Sprite Icon { get => icon; }
+    public int price { get => itemPrice; }
     public abstract bool CanApply();
     public abstract void Apply();
 }
