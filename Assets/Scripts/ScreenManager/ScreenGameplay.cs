@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ScreenGameplay : IScreen
 {
     private Transform _root;
