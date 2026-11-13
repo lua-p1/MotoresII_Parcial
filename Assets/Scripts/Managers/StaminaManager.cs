@@ -32,27 +32,27 @@ public class StaminaManager : MonoBehaviour
     private void Start()
     {
         Load();
-        chargeCoroutine = StartCoroutine(ChargeCorutine());
+        chargeCoroutine = StartCoroutine(ChargeCoroutine());
         NotifyUI();
     }
     public bool IsFull()
     {
         return currentStamina >= maxStamina;
     }
-    public bool UseStamine(int amount)
+    public bool UseStamina(int amount)
     {
         if (currentStamina - amount < 0) return false;
         currentStamina -= amount;
         if (!recharging && !IsFull())
         {
             nextStamineTime = DateTime.Now.AddSeconds(secondToRecover);
-            chargeCoroutine = StartCoroutine(ChargeCorutine());
+            chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
         Save();
         NotifyUI();
         return true;
     }
-    public void AddStamine(int amount)
+    public void AddStamina(int amount)
     {
         currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
         if (recharging && IsFull())
@@ -65,7 +65,7 @@ public class StaminaManager : MonoBehaviour
     }
     private void OnLevelComplete(params object[] parameters)
     {
-        AddStamine(1);
+        AddStamina(1);
     }
     private void Save()
     {
@@ -85,22 +85,22 @@ public class StaminaManager : MonoBehaviour
         TimeSpan timer = nextStamineTime - DateTime.Now;
         EventManager.TriggerEvent(EventType.StaminaChanged, currentStamina, maxStamina, timer);
     }
-    IEnumerator ChargeCorutine()
+    IEnumerator ChargeCoroutine()
     {
         recharging = true;
         while (!IsFull())
         {
             DateTime now = DateTime.Now;
             DateTime nextStamine = nextStamineTime;
-            bool staminedAdded = false;
+            bool staminaAdded = false;
             while (now > nextStamine)
             {
                 if (IsFull()) break;
-                staminedAdded = true;
+                staminaAdded = true;
                 nextStamine = nextStamine.AddSeconds(secondToRecover);
                 currentStamina++;
             }
-            if (staminedAdded)
+            if (staminaAdded)
             {
                 nextStamineTime = nextStamine;
                 Save();
