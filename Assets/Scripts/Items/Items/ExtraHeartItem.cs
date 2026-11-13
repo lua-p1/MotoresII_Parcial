@@ -1,17 +1,17 @@
 using UnityEngine;
-public class ExtraHeartItem : MonoBehaviour, IShopItem
+[CreateAssetMenu(fileName = "ExtraHeart", menuName = "Shop/Extra Heart")]
+public class ExtraHeartItem : ShopItemData
 {
-    public int price { get; private set; } = 150;
     private const string PendingKey = "extraHeartPending";
-    public bool CanApply() => !IsPending();
-    public void Apply()
+    public override bool CanApply() => !IsPending();
+    public override void Apply()
     {
         PlayerPrefs.SetInt(PendingKey, 1);
         PlayerPrefs.Save();
     }
     private static bool IsPending()
     {
-        return PlayerPrefs.GetInt(PendingKey,0) == 1;
+        return PlayerPrefs.GetInt(PendingKey, 0) == 1;
     }
     public static bool Consume()
     {

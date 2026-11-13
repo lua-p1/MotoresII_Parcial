@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ShopUI : MonoBehaviour
 {
+    [SerializeField] private ShopItemData item;
+    [SerializeField] private Image iconImage;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private TMP_Text priceText;
     [SerializeField] private Button buyButton;
     [SerializeField] private GameObject lockedOverlay;
-    private IShopItem item;
-    private void Awake()
-    {
-        item = GetComponent<IShopItem>();
-    }
     private void OnEnable()
     {
         EventManager.SubscribeToEvent(EventType.CoinsChanged, OnDataChanged);
@@ -41,6 +40,9 @@ public class ShopUI : MonoBehaviour
             buyButton.interactable = false;
             return;
         }
+        iconImage.sprite = item.Icon;
+        nameText.text = item.DisplayName;
+        descriptionText.text = item.Description;
         priceText.text = item.price.ToString();
         buyButton.interactable = ShopManager.instance.CanBuy(item);
     }

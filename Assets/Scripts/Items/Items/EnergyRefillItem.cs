@@ -1,9 +1,9 @@
 using UnityEngine;
-public class EnergyRefillItem : MonoBehaviour, IShopItem
+[CreateAssetMenu(fileName = "EnergyRefill", menuName = "Shop/Energy Refill")]
+public class EnergyRefillItem : ShopItemData
 {
-    public int price { get; private set; } = 75;
-    public bool CanApply() => !StaminaManager.instance.IsFull();
-    public void Apply()
+    public override bool CanApply() => !StaminaManager.instance.IsFull();
+    public override void Apply()
     {
         StaminaManager.instance.AddStamine(StaminaManager.instance.MaxStamina);
     }
