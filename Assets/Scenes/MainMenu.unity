@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _androidGameId: 800437922
-  _placementId: BP_Rewarded_Android
+  _placementId: BP_Interstitial_Android
   _testMode: 1
 --- !u!1 &264804305
 GameObject:

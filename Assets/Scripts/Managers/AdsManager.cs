@@ -4,7 +4,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 {
     public static AdsManager instance;
     [SerializeField] string _androidGameId = "800437922";
-    [SerializeField] string _placementId = "BP_Rewarded_Android";
+    [SerializeField] string _placementId = "BP_Interstitial_Android";
     [SerializeField] bool _testMode = true;                              
     private bool _adLoaded = false;                                      
     private void Awake()                                                
