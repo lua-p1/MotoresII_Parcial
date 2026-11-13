@@ -10,7 +10,8 @@ using UnityEngine;
 //Push(_root.CreateRootScreen()) le pasa como parametro lo que devuelve el ScreenRoot.
 //- Menu: MenuScreenRoot devuelve directamente un ScreenBase (el ScreenMainMenu).
 //- Nivel: GameplayScreenRoot recibe un Transform y devuelve un ScreenGameplay armado con el.
-//El GameplayScreenRoot lo puse directamente en el objeto root de la escena.
+//El ScreenRoot de cada escena se asigna por inspector en _root
+//(MenuScreenRoot en MainMenu, GameplayScreenRoot en Level1).
 //La ventaja -> el ScreenManager no se toca mas; cada escena arma su ScreenRoot como quiera.
 //La unica condicion: devolver siempre un IScreen. (PD: ScreenBase es un IScreen :D)
 public class ScreenManager : MonoBehaviour
@@ -36,10 +37,10 @@ public class ScreenManager : MonoBehaviour
     }
     public void Pop()
     {
-        if (_screenStack.Count == 1) return;
-        var oldScreen = _screenStack.Pop();
-        oldScreen.Release();
-        _screenStack.Peek().Activate();
+        if (_screenStack.Count == 1) return; // si solo queda el root (siempre el de abajo de todo), no lo saco
+        var oldScreen = _screenStack.Pop();  // lo saca del stack y te lo devuelve
+        oldScreen.Release();// lo libera (polimorfismo: en ScreenBase es Destroy(gameObject))
+        _screenStack.Peek().Activate();// Peek solo MIRA el nuevo de arriba, no lo saca, y lo activa
     }
     public void Push(string resource)
     {
@@ -48,12 +49,12 @@ public class ScreenManager : MonoBehaviour
     }
     public void Push(IScreen screen)
     {
-        if (_screenStack.Count > 0)
+        if (_screenStack.Count > 0)            // si hay alguna pantalla abierta...
         {
-            _screenStack.Peek().Deactivate();
+            _screenStack.Peek().Deactivate();  // ...desactivo la de arriba de todo (sin sacarla del stack)
         }
-        _screenStack.Push(screen);
-        screen.Activate();
+        _screenStack.Push(screen);             // meto la nueva screen arriba del stack
+        screen.Activate();                     // la activo (polimorfismo: override propio o el de ScreenBase)
     }
     public bool StackContainsType<T>()
     {
