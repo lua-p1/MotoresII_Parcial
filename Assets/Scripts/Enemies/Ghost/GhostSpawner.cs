@@ -1,5 +1,5 @@
 using UnityEngine;
-public class GhostSpawner : MonoBehaviour
+public class GhostSpawner : MonoBehaviour , IPauseable
 {
     [Header("Pool Setup")]
     [SerializeField] private GhostEnemy ghostPrefab;
@@ -52,5 +52,13 @@ public class GhostSpawner : MonoBehaviour
         float direction = spawnOnLeft ? 1f : -1f;
         float spawnY = Random.Range(platform1MinY, platform3MaxY);
         _enemyService.Spawn(new Vector2(spawnX, spawnY), direction, _screenMinX, _screenMaxX, platform1MinY, platform3MaxY);
+    }
+    public void Pause()
+    {
+        enabled = false;   // frena el timer de spawn
+    }
+    public void Resume()
+    {
+        enabled = true;
     }
 }

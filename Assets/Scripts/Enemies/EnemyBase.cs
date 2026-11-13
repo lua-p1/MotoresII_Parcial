@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
-public abstract class EnemyBase : MonoBehaviour
+public abstract class EnemyBase : MonoBehaviour , IPauseable
 {
     [Header("Combat Config")]
     [Tooltip("Can die if touch weapon?")]
@@ -64,5 +64,13 @@ public abstract class EnemyBase : MonoBehaviour
             _returnToPoolCallback(this);
         else
             gameObject.SetActive(false);
+    }
+    public virtual void Pause()
+    {
+        enabled = false;
+    }
+    public virtual void Resume()
+    {
+        enabled = true;
     }
 }

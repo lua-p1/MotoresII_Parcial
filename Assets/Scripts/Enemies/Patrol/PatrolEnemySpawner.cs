@@ -1,5 +1,5 @@
 using UnityEngine;
-public class PatrolEnemySpawner : MonoBehaviour
+public class PatrolEnemySpawner : MonoBehaviour , IPauseable
 {
     [Header("Pool Setup")]
     [SerializeField] private PatrolEnemy patrolPrefab;
@@ -64,5 +64,13 @@ public class PatrolEnemySpawner : MonoBehaviour
     {
         if (player == null) return true;
         return Vector2.Distance(position, player.position) >= minDistanceToPlayer;
+    }
+    public void Pause()
+    {
+        enabled = false;   // frena el timer de spawn
+    }
+    public void Resume()
+    {
+        enabled = true;
     }
 }

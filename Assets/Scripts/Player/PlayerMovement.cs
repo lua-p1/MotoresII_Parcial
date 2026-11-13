@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundDetector))]
 [RequireComponent(typeof(WallDetector))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour , IPauseable
 {
     [Header("Movement Config")]
     public float moveSpeed = 7f;
@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     private float _moveDirection = 1f;
     private float _defaultGravity;
     private bool _isStopped = true;
+    [Header("PauseSettings")]
+    private Vector2 _pausedVelocity;
+
 
     void Awake()
     {
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         EventManager.OnSwipeUp -= Jump;
         EventManager.OnSwipeDown -= AttemptDrop;
         EventManager.UnsubscribeToEvent(EventType.GameOver, HandleGameOver);
+        Debug.Log("Se desactivo! el PJ");
     }
 
     void Update()
@@ -196,5 +200,18 @@ public class PlayerMovement : MonoBehaviour
             }
             _groundDetector.IsDropping = false;
         }
+    }
+
+    public void Pause()
+    {
+        _pausedVelocity = _rb.linearVelocity;   // guardo como venia moviendose
+        _rb.simulated = false;                  // congela la fisica (no cae, no choca)
+        enabled = false;                        // corta el Update y OnDisable lo desuscribe de los swipes
+    }
+    public void Resume()
+    {
+        _rb.simulated = true;
+        _rb.linearVelocity = _pausedVelocity;   // sigue exactamente como iba
+        enabled = true;                         // OnEnable lo vuelve a suscribir
     }
 }
