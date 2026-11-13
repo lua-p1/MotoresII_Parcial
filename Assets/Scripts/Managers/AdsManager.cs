@@ -26,7 +26,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         if (!_adLoaded) return false;   // no habia anuncio listo
         _adLoaded = false;
         Advertisement.Show(_placementId, this);
-        return true;                    // se pudo mostrar
+        return true;                    // se pidio mostrar
     }
     #region//InitilizationInterface
     public void OnInitializationComplete()
