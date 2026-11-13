@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 public enum SoundId
 {
     GameStart, Jump, PlayerHurt, EnemyDeath, GameOver, Victory
@@ -21,15 +22,20 @@ public class SoundManager : MonoBehaviour , IPauseable
     [Range(0f, 1f)]
     [SerializeField] private float musicVolume = 0.4f;
     [Range(0f, 1f)]
-    [SerializeField] private float pausedMusicMultiplier = 0.3f;
-    private AudioSource _audioSource;
+    [SerializeField] private float pausedMusicMultiplier = 0.5f;
+    [Header("Mixer")]                                          
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
+    private AudioSource _sfxSource;
     private AudioSource _musicSource;
+
     //cada SoundId esta relacionado con un AudioClip
     private Dictionary<SoundId, AudioClip> _clips = new Dictionary<SoundId, AudioClip>();
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.playOnAwake = false;
+        _sfxSource = GetComponent<AudioSource>();
+        _sfxSource.playOnAwake = false;
+        _sfxSource.outputAudioMixerGroup = sfxGroup;
         foreach (var sound in sounds)
         {
             _clips[sound.id] = sound.clip;
@@ -39,6 +45,7 @@ public class SoundManager : MonoBehaviour , IPauseable
         _musicSource.clip = musicClip;
         _musicSource.loop = true;
         _musicSource.volume = musicVolume;
+        _musicSource.outputAudioMixerGroup = musicGroup;
     }
     private void Start()
     {
@@ -79,7 +86,7 @@ public class SoundManager : MonoBehaviour , IPauseable
     public void Play(SoundId id)
     {
         if (!_clips.TryGetValue(id, out AudioClip clip) || clip == null) return;
-        _audioSource.PlayOneShot(clip, volume);
+        _sfxSource.PlayOneShot(clip, volume);
     }
     public void Pause()
     {
