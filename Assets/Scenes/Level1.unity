@@ -10114,6 +10114,7 @@ GameObject:
   - component: {fileID: 1867704790}
   - component: {fileID: 1867704791}
   - component: {fileID: 1867704792}
+  - component: {fileID: 1867704793}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10353,6 +10354,28 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1867704779}
   flickerInterval: 0.08
   minAlpha: 0.2
+--- !u!95 &1867704793
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867704778}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85e54dffa205e2c428aa030430251bf3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1906790585
 GameObject:
   m_ObjectHideFlags: 0
@@ -10732,7 +10755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2138945286
 Transform:
   m_ObjectHideFlags: 0
