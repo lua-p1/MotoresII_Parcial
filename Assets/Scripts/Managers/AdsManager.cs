@@ -21,11 +21,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         else
             Advertisement.Initialize(_androidGameId, _testMode, this);
     }
-    public void ShowAd()
+    public bool ShowAd()
     {
-        if (!_adLoaded) return;
+        if (!_adLoaded) return false;   // no habia anuncio listo
         _adLoaded = false;
         Advertisement.Show(_placementId, this);
+        return true;                    // se pudo mostrar
     }
     #region//InitilizationInterface
     public void OnInitializationComplete()
