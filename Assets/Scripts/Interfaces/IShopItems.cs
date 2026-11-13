@@ -1,6 +1,6 @@
 public interface IShopItem
 {
-    public int GetPrice();
+    int price { get; }
     public bool CanApply(); 
     public void Apply();
 }

@@ -1,9 +1,8 @@
 using UnityEngine;
 public class ExtraHeartItem : MonoBehaviour, IShopItem
 {
-    [SerializeField] private int price = 150;
+    public int price { get; private set; } = 150;
     private const string PendingKey = "extraHeartPending";
-    public int GetPrice() => price;
     public bool CanApply() => !IsPending();
     public void Apply()
     {
@@ -21,5 +20,4 @@ public class ExtraHeartItem : MonoBehaviour, IShopItem
         PlayerPrefs.Save();
         return true;
     }
-
 }

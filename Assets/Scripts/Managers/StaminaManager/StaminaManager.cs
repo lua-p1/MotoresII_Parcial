@@ -5,7 +5,7 @@ public class StaminaManager : MonoBehaviour
 {
     public static StaminaManager instance;
     private int maxStamina = 3;
-    private float secondToRecover = 90f;
+    private float secondToRecover = 300f;
     private int currentStamina;
     private bool recharging = false;
     private DateTime nextStamineTime;
