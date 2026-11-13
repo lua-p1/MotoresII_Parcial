@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour , IPauseable
         EventManager.OnSwipeUp -= Jump;
         EventManager.OnSwipeDown -= AttemptDrop;
         EventManager.UnsubscribeToEvent(EventType.GameOver, HandleGameOver);
-        Debug.Log("Se desactivo! el PJ");
     }
 
     void Update()

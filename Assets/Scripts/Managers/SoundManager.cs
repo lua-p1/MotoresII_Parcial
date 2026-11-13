@@ -5,7 +5,7 @@ public enum SoundId
     GameStart, Jump, PlayerHurt, EnemyDeath, GameOver, Victory
 }
 [RequireComponent(typeof(AudioSource))]
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour , IPauseable
 {
     [System.Serializable]
     private struct SoundEntry
@@ -20,6 +20,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip musicClip;
     [Range(0f, 1f)]
     [SerializeField] private float musicVolume = 0.4f;
+    [Range(0f, 1f)]
+    [SerializeField] private float pausedMusicMultiplier = 0.3f;
     private AudioSource _audioSource;
     private AudioSource _musicSource;
     //cada SoundId esta relacionado con un AudioClip
@@ -78,5 +80,13 @@ public class SoundManager : MonoBehaviour
     {
         if (!_clips.TryGetValue(id, out AudioClip clip) || clip == null) return;
         _audioSource.PlayOneShot(clip, volume);
+    }
+    public void Pause()
+    {
+        _musicSource.volume = musicVolume * pausedMusicMultiplier;
+    }
+    public void Resume()
+    {
+        _musicSource.volume = musicVolume;
     }
 }
