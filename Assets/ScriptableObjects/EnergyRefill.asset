@@ -16,3 +16,4 @@ MonoBehaviour:
   description: "Llena tu energ\xEDa al maximo"
   icon: {fileID: 0}
   itemPrice: 300
+  cantApplyScreen: EnergyFullScreen

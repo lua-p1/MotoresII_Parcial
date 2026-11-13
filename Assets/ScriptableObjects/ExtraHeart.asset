@@ -16,3 +16,4 @@ MonoBehaviour:
   description: "+1 vida en la pr\xF3xima partida"
   icon: {fileID: 0}
   itemPrice: 150
+  cantApplyScreen: HeartPendingScreen

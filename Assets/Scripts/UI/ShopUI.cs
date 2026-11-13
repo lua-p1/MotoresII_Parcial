@@ -27,7 +27,12 @@ public class ShopUI : MonoBehaviour
     }
     public void Buy()
     {
-        ShopManager.instance.TryBuy(item);
+        if (!ShopManager.instance.TryBuy(item))
+        {
+            // Si el item no se puede aplicar, su popup; si no, el problema son las monedas
+            string errorScreen = item.CanApply() ? "NoCoinsScreen" : item.CantApplyScreen;
+            ScreenManager.Instance.Push(errorScreen);
+        }
         Refresh();
     }
     private void Refresh()
@@ -44,6 +49,6 @@ public class ShopUI : MonoBehaviour
         nameText.text = item.DisplayName;
         descriptionText.text = item.Description;
         priceText.text = item.price.ToString();
-        buyButton.interactable = ShopManager.instance.CanBuy(item);
+        buyButton.interactable = true;
     }
 }
