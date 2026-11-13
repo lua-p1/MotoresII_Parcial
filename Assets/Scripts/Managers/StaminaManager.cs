@@ -8,7 +8,7 @@ public class StaminaManager : MonoBehaviour
     private float secondToRecover = 300f;
     private int currentStamina;
     private bool recharging = false;
-    private DateTime nextStamineTime;
+    private DateTime nextStaminaTime;
     private Coroutine chargeCoroutine;
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class StaminaManager : MonoBehaviour
         currentStamina -= amount;
         if (!recharging && !IsFull())
         {
-            nextStamineTime = DateTime.Now.AddSeconds(secondToRecover);
+            nextStaminaTime = DateTime.Now.AddSeconds(secondToRecover);
             chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
         Save();
@@ -70,7 +70,7 @@ public class StaminaManager : MonoBehaviour
     private void Save()
     {
         PlayerPrefs.SetInt("currentStamina", currentStamina);
-        PlayerPrefs.SetString("nextStaminaTime", nextStamineTime.ToString());
+        PlayerPrefs.SetString("nextStaminaTime", nextStaminaTime.ToString());
         PlayerPrefs.Save();
     }
     private void Load()
@@ -78,11 +78,11 @@ public class StaminaManager : MonoBehaviour
         currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
         var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
         if (!string.IsNullOrEmpty(dateTimeString))
-            nextStamineTime = DateTime.Parse(dateTimeString);
+            nextStaminaTime = DateTime.Parse(dateTimeString);
     }
     void NotifyUI()
     {
-        TimeSpan timer = nextStamineTime - DateTime.Now;
+        TimeSpan timer = nextStaminaTime - DateTime.Now;
         EventManager.TriggerEvent(EventType.StaminaChanged, currentStamina, maxStamina, timer);
     }
     IEnumerator ChargeCoroutine()
@@ -91,18 +91,18 @@ public class StaminaManager : MonoBehaviour
         while (!IsFull())
         {
             DateTime now = DateTime.Now;
-            DateTime nextStamine = nextStamineTime;
+            DateTime nextStamina = nextStaminaTime;
             bool staminaAdded = false;
-            while (now > nextStamine)
+            while (now > nextStamina)
             {
                 if (IsFull()) break;
                 staminaAdded = true;
-                nextStamine = nextStamine.AddSeconds(secondToRecover);
+                nextStamina = nextStamina.AddSeconds(secondToRecover);
                 currentStamina++;
             }
             if (staminaAdded)
             {
-                nextStamineTime = nextStamine;
+                nextStaminaTime = nextStamina;
                 Save();
             }
             NotifyUI();
