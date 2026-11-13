@@ -49,6 +49,9 @@ public class SoundManager : MonoBehaviour , IPauseable
     }
     private void Start()
     {
+        // Aplica el volumen guardado apenas arranca el nivel
+        if (musicGroup != null)
+            ScreenOptions.ApplyVolume(musicGroup.audioMixer, PlayerPrefs.GetFloat(ScreenOptions.VolumeKey, 1f));
         if (musicClip != null) _musicSource.Play();
     }
     private void OnEnable()
