@@ -50,5 +50,6 @@ public class ShopUI : MonoBehaviour
         descriptionText.text = item.Description;
         priceText.text = item.price.ToString();
         buyButton.interactable = true;
+        priceText.alpha = ShopManager.instance.CanBuy(item) ? 1f : 0.4f;
     }
 }

@@ -66,13 +66,13 @@ public class StaminaManager : MonoBehaviour
     {
         AddStamine(1);
     }
-    public void Save()
+    private void Save()
     {
         PlayerPrefs.SetInt("currentStamina", currentStamina);
         PlayerPrefs.SetString("nextStaminaTime", nextStamineTime.ToString());
         PlayerPrefs.Save();
     }
-    public void Load()
+    private void Load()
     {
         currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
         var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
