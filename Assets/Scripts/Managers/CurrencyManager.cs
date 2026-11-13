@@ -34,7 +34,7 @@ public class CurrencyManager : MonoBehaviour
         Save();
         NotifyUI();
     }
-    // Para la tienda: devuelve false si no alcanza (igual que UseStamine)
+    // Para la tienda: devuelve false si no alcanza (igual que UseStamina)
     public bool SpendCoins(int amount)
     {
         if (coins - amount < 0) return false;
@@ -60,4 +60,5 @@ public class CurrencyManager : MonoBehaviour
     {
         EventManager.TriggerEvent(EventType.CoinsChanged, coins);
     }
+    public int Coins { get => coins; }
 }

@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     #endregion
     private void Awake()
     {
+        if (ExtraHeartItem.Consume()) maxHealth += 1;
         CurrentHealth = maxHealth;
     }
     private void Start()
@@ -27,7 +28,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         if (IsInvulnerable || CurrentHealth <= 0f) return;
         CurrentHealth = Mathf.Max(CurrentHealth - amount, 0f);
-        Debug.Log($"<color=red>[Damage]</color> Player took {amount} damage from <b>{attackerName}</b>. Current Health: {CurrentHealth}/{maxHealth}");
         EventManager.TriggerEvent(EventType.PlayerHealthChanged, CurrentHealth, maxHealth);
         EventManager.TriggerEvent(EventType.PlayerDamaged);
         if (CurrentHealth <= 0f)

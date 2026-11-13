@@ -31,7 +31,6 @@ public class LevelManager : MonoBehaviour
     {
         _currentEnemiesKilled = 0;
         EventManager.TriggerEvent(EventType.EnemyCountChanged, _currentEnemiesKilled, targetEnemiesToKill);
-        Debug.Log($"<color=cyan>[NIVEL INICIADO]</color> Objetivo: Eliminar {targetEnemiesToKill} enemigos. Llevas: {_currentEnemiesKilled}/{targetEnemiesToKill}");
     }
     private void HandleEnemyKilled(params object[] parameters)
     {
@@ -39,8 +38,6 @@ public class LevelManager : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
             return;
         _currentEnemiesKilled++;
-        // Informa por consola el progreso de bajas
-        Debug.Log($"<color=yellow>[ENEMIGO ELIMINADO]</color> Progreso del nivel: <b>{_currentEnemiesKilled} / {targetEnemiesToKill}</b>");
         // Comprueba si se alcanzo el objetivo
         if (_currentEnemiesKilled >= targetEnemiesToKill)
         {
@@ -50,7 +47,6 @@ public class LevelManager : MonoBehaviour
     }
     private void CompleteLevel()
     {
-        Debug.Log($"<color=green><b>OBJETIVO COMPLETADO! Has eliminado a los {targetEnemiesToKill} enemigos.</b></color>");
         EventManager.TriggerEvent(EventType.LevelComplete);
     }
 }

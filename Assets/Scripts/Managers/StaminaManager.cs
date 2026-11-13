@@ -5,10 +5,11 @@ public class StaminaManager : MonoBehaviour
 {
     public static StaminaManager instance;
     private int maxStamina = 3;
-    private float secondToRecover = 90f;
+    private float secondToRecover = 300f;
     private int currentStamina;
     private bool recharging = false;
     private DateTime nextStamineTime;
+    private Coroutine chargeCoroutine;
     private void Awake()
     {
         if (instance == null)
@@ -31,29 +32,32 @@ public class StaminaManager : MonoBehaviour
     private void Start()
     {
         Load();
-        StartCoroutine(ChargeCorutine());
+        chargeCoroutine = StartCoroutine(ChargeCoroutine());
         NotifyUI();
     }
-
-    public bool UseStamine(int amount)
+    public bool IsFull()
+    {
+        return currentStamina >= maxStamina;
+    }
+    public bool UseStamina(int amount)
     {
         if (currentStamina - amount < 0) return false;
         currentStamina -= amount;
-        if (!recharging && currentStamina < maxStamina)
+        if (!recharging && !IsFull())
         {
             nextStamineTime = DateTime.Now.AddSeconds(secondToRecover);
-            StartCoroutine(ChargeCorutine());
+            chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
         Save();
         NotifyUI();
         return true;
     }
-    public void AddStamine(int amount)
+    public void AddStamina(int amount)
     {
         currentStamina = Mathf.Min(currentStamina + amount, maxStamina);
-        if (recharging && currentStamina >= maxStamina)
+        if (recharging && IsFull())
         {
-            StopAllCoroutines();
+            StopCoroutine(chargeCoroutine);
             recharging = false;
         }
         Save();     
@@ -61,15 +65,15 @@ public class StaminaManager : MonoBehaviour
     }
     private void OnLevelComplete(params object[] parameters)
     {
-        AddStamine(1);
+        AddStamina(1);
     }
-    public void Save()
+    private void Save()
     {
         PlayerPrefs.SetInt("currentStamina", currentStamina);
         PlayerPrefs.SetString("nextStaminaTime", nextStamineTime.ToString());
         PlayerPrefs.Save();
     }
-    public void Load()
+    private void Load()
     {
         currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
         var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
@@ -81,29 +85,30 @@ public class StaminaManager : MonoBehaviour
         TimeSpan timer = nextStamineTime - DateTime.Now;
         EventManager.TriggerEvent(EventType.StaminaChanged, currentStamina, maxStamina, timer);
     }
-    IEnumerator ChargeCorutine()
+    IEnumerator ChargeCoroutine()
     {
         recharging = true;
-        while (currentStamina < maxStamina)
+        while (!IsFull())
         {
             DateTime now = DateTime.Now;
             DateTime nextStamine = nextStamineTime;
-            bool staminedAdded = false;
+            bool staminaAdded = false;
             while (now > nextStamine)
             {
-                if (currentStamina >= maxStamina) break;
-                staminedAdded = true;
+                if (IsFull()) break;
+                staminaAdded = true;
                 nextStamine = nextStamine.AddSeconds(secondToRecover);
                 currentStamina++;
             }
-            if (staminedAdded)
+            if (staminaAdded)
             {
                 nextStamineTime = nextStamine;
                 Save();
             }
             NotifyUI();
-            yield return null;
+            yield return new WaitForSeconds(1f);
         }
         recharging = false;
     }
+    public int MaxStamina { get => maxStamina; }
 }
