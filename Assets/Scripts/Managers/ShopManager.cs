@@ -2,6 +2,11 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager instance;
+    public ShopItemData SelectedItem { get; private set; }
+    public void SelectItem(ShopItemData item)
+    {
+        SelectedItem = item;
+    }
     private void Awake()
     {
         if (instance == null)

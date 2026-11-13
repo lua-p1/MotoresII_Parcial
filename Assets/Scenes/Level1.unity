@@ -399,7 +399,9 @@ MonoBehaviour:
   volume: 1
   musicClip: {fileID: 8300000, guid: 0f2d6d5638846c24f89c912b5b061cd8, type: 3}
   musicVolume: 0.4
-  pausedMusicMultiplier: 0.3
+  pausedMusicMultiplier: 0.5
+  musicGroup: {fileID: -6823570150250453620, guid: 4bed684e3d4c6344daa543fc59aa9cde, type: 2}
+  sfxGroup: {fileID: 8165270454524136541, guid: 4bed684e3d4c6344daa543fc59aa9cde, type: 2}
 --- !u!82 &305074537
 AudioSource:
   m_ObjectHideFlags: 0
