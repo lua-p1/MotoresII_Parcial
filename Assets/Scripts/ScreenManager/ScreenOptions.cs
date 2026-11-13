@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-// Opciones: volumen general del juego (AudioListener.volume, guardado en PlayerPrefs).
+// Opciones: volumen general del juego (volumen general (Master del AudioMixer), guardado en PlayerPrefs).
 // Se abre desde el menu y desde la pausa con BTN_Screen("OptionsScreen"); Volver usa BTN_Back.
 public class ScreenOptions : ScreenBase
 {
