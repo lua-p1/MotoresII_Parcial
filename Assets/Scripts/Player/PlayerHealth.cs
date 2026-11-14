@@ -51,7 +51,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     private void Die()
     {
-        Debug.Log("<color=black><b>Player has DIED!</b></color>");
         OnDeath?.Invoke();
         EventManager.TriggerEvent(EventType.GameOver);
     }
