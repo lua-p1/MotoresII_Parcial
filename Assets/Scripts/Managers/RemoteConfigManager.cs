@@ -11,13 +11,13 @@ public class RemoteConfigManager : MonoBehaviour
     {
         if (Utilities.CheckForInternetConnection())
         {
-            await IntializeRemoteConfig();
+            await InitializeRemoteConfig();
         }
         RemoteConfigService.Instance.FetchCompleted += OnFetchCompleted;
         RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
 
     }
-    private async Task IntializeRemoteConfig()
+    private async Task InitializeRemoteConfig()
     {
         await UnityServices.InitializeAsync();
         if (!AuthenticationService.Instance.IsSignedIn)
@@ -27,5 +27,9 @@ public class RemoteConfigManager : MonoBehaviour
     {
         Debug.Log("Remote Config Fetch Completed");
         Debug.Log(RemoteConfigService.Instance.appConfig.config);
+    }
+    private void OnDestroy()
+    {
+        RemoteConfigService.Instance.FetchCompleted -= OnFetchCompleted;
     }
 }
