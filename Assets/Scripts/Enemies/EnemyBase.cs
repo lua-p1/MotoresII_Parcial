@@ -32,7 +32,6 @@ public abstract class EnemyBase : MonoBehaviour , IPauseable
     }
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead) return;
         if (!CanAct) return;
         if (collision.CompareTag("Weapon") && collision.enabled)
         {
