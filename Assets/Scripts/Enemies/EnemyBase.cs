@@ -5,9 +5,9 @@ public abstract class EnemyBase : MonoBehaviour , IPauseable
 {
     [Header("Combat Config")]
     [Tooltip("Can die if touch weapon?")]
-    public bool isVulnerableToWeapon = true;
+    [SerializeField] private bool isVulnerableToWeapon = true;
     [Tooltip("Attack dmg if touch player")]
-    public int damageToPlayer = 1;
+    [SerializeField] private int damageToPlayer = 1;
     protected bool isDead = false;
     protected Collider2D enemyCollider;
     private Action<EnemyBase> _returnToPoolCallback;
@@ -32,7 +32,6 @@ public abstract class EnemyBase : MonoBehaviour , IPauseable
     }
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isDead) return;
         if (!CanAct) return;
         if (collision.CompareTag("Weapon") && collision.enabled)
         {

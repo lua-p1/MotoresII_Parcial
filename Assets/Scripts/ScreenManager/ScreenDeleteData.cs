@@ -8,9 +8,9 @@ public class ScreenDeleteData : ScreenBase
     public void BTN_ConfirmDelete()
     {
         // El volumen es una opcion del jugador, no progreso: lo guardo antes de borrar
-        float volume = PlayerPrefs.GetFloat(ScreenOptions.VolumeKey, 1f);
+        float volume = VolumeSettings.Load();
         PlayerPrefs.DeleteAll();                                   // monedas, energia, corazon pendiente
-        PlayerPrefs.SetFloat(ScreenOptions.VolumeKey, volume);
+        VolumeSettings.Save(volume);
         PlayerPrefs.Save();
         SceneManager.LoadScene(menuSceneName);                     // los managers vuelven a cargar desde cero
     }

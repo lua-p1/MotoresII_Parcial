@@ -11,7 +11,7 @@ public abstract class ShopItemData : ScriptableObject, IShopItem
     public string DisplayName { get => displayName; }   
     public string Description { get => description; }   
     public Sprite Icon { get => icon; }
-    public int price { get => itemPrice; }
+    public int Price { get => itemPrice; }
     public string CantApplyScreen { get => cantApplyScreen; }
     public abstract bool CanApply();
     public abstract void Apply();

@@ -9,6 +9,6 @@ public class StartHintTrigger : MonoBehaviour
     private IEnumerator ShowHint()
     {
         yield return null;
-        ScreenManager.Instance.Push("StartHintScreen");
+        ScreenManager.Instance.Push(ScreenNames.StartHint);
     }
 }

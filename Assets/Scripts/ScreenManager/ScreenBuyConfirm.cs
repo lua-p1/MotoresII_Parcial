@@ -8,12 +8,12 @@ public class ScreenBuyConfirm : ScreenBase
     public override void Activate()
     {
         base.Activate();   // SetActive(true) de ScreenBase
-        var item = ShopManager.instance.SelectedItem;
-        questionText.text = $"Comprar {item.DisplayName} por {item.price} monedas?";
+        var item = ShopManager.Instance.SelectedItem;
+        questionText.text = $"Comprar {item.DisplayName} por {item.Price} monedas?";
     }
     public void BTN_Confirm()
     {
-        ShopManager.instance.TryBuy(ShopManager.instance.SelectedItem);
+        ShopManager.Instance.TryBuy(ShopManager.Instance.SelectedItem);
         BTN_Back();   // cierra la confirmacion y vuelve a la tienda
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExtraHeart", menuName = "Shop/Extra Heart")]
 public class ExtraHeartItem : ShopItemData
 {
-    private const string PendingKey = "extraHeartPending";
+    private const string PendingKey = SaveKeys.ExtraHeartPending;
     public override bool CanApply() => !IsPending();
     public override void Apply()
     {

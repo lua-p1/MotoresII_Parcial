@@ -5,9 +5,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private string levelSceneName = "Level1";
     public void Play()
     {
-        if (!StaminaManager.instance.UseStamina(1))
+        if (!StaminaManager.Instance.UseStamina(1))
         {
-            ScreenManager.Instance.Push("NoStaminaScreen");
+            ScreenManager.Instance.Push(ScreenNames.NoStamina);
             return;
         }
         SceneManager.LoadScene(levelSceneName);

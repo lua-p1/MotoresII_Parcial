@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    public static AdsManager instance;
+    public static AdsManager Instance { get; private set; }
     [SerializeField] string _androidGameId = "800437922";
     [SerializeField] string _placementId = "BP_Interstitial_Android";
     [SerializeField] bool _testMode = true;                              
     private bool _adLoaded = false;                                      
     private void Awake()                                                
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
     }
@@ -28,7 +28,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         Advertisement.Show(_placementId, this);
         return true;                    // se pidio mostrar
     }
-    #region//InitilizationInterface
+    #region//Initialization
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
@@ -36,10 +36,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     }
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+        Debug.LogWarning($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
     }
     #endregion
-    #region//LoadedInterface
+    #region//Load
     public void OnUnityAdsAdLoaded(string placementId)
     {
         Debug.Log($"Unity Ads Ad Loaded: {placementId}");
@@ -47,22 +47,22 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     }
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        Debug.Log($"Unity Ads Failed to Load: {placementId} - {error.ToString()} - {message}");
+        Debug.LogWarning($"Unity Ads Failed to Load: {placementId} - {error.ToString()} - {message}");
     }
     #endregion
-    #region//ShowInterface
+    #region//Show
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        Debug.Log($"Unity Ads Show Failure: {placementId} - {error.ToString()} - {message}");  
+        Debug.LogWarning($"Unity Ads Show Failure: {placementId} - {error.ToString()} - {message}");  
         Advertisement.Load(_placementId, this);                                                
     }
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         Debug.Log($"Unity Ads Show Complete: {placementId} - {showCompletionState.ToString()}");
         if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)      
-            StaminaManager.instance.AddStamina(RemoteConfigManager.AdCompletedReward);
+            StaminaManager.Instance.AddStamina(RemoteConfigManager.AdCompletedReward);
         else if (showCompletionState == UnityAdsShowCompletionState.SKIPPED) 
-            StaminaManager.instance.AddStamina(RemoteConfigManager.AdSkippedReward);
+            StaminaManager.Instance.AddStamina(RemoteConfigManager.AdSkippedReward);
         Advertisement.Load(_placementId, this);
     }
     public void OnUnityAdsShowStart(string placementId)
