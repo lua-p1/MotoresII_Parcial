@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     // Sin GameManager (ej. probando una escena suelta) se considera que se esta jugando
     public static bool IsPlaying => Instance == null || Instance.CurrentState == GameState.Playing;
+    // El nivel ya termino (se gano o se perdio)
+    public static bool IsFinished => Instance != null && (Instance.CurrentState == GameState.GameOver || Instance.CurrentState == GameState.Victory);
     void Awake()
     {
         if (Instance == null)
@@ -35,12 +37,10 @@ public class GameManager : MonoBehaviour
     private void GameOver(params object[] parameters)
     {
         CurrentState = GameState.GameOver;
-        Debug.Log("Game Over");
     }
     private void Victory(params object[] parameters)
     {
         CurrentState = GameState.Victory;
-        Debug.Log("Victory");
     }
     private void OnDisable()
     {

@@ -44,7 +44,7 @@ public class StaminaManager : MonoBehaviour
         currentStamina -= amount;
         if (!recharging && !IsFull())
         {
-            nextStaminaTime = DateTime.Now.AddSeconds(RemoteConfigManager.SecondToRecover);
+            nextStaminaTime = DateTime.Now.AddSeconds(RemoteConfigManager.SecondsToRecover);
             chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
         Save();
@@ -97,7 +97,7 @@ public class StaminaManager : MonoBehaviour
             {
                 if (IsFull()) break;
                 staminaAdded = true;
-                nextStamina = nextStamina.AddSeconds(RemoteConfigManager.SecondToRecover);
+                nextStamina = nextStamina.AddSeconds(RemoteConfigManager.SecondsToRecover);
                 currentStamina++;
             }
             if (staminaAdded)
