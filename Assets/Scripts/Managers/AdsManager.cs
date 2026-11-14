@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    public static AdsManager instance;
+    public static AdsManager Instance { get; private set; }
     [SerializeField] string _androidGameId = "800437922";
     [SerializeField] string _placementId = "BP_Interstitial_Android";
     [SerializeField] bool _testMode = true;                              
     private bool _adLoaded = false;                                      
     private void Awake()                                                
     {
-        if (instance == null)
-            instance = this;
+        if (Instance == null)
+            Instance = this;
         else
             Destroy(gameObject);
     }
@@ -60,9 +60,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         Debug.Log($"Unity Ads Show Complete: {placementId} - {showCompletionState.ToString()}");
         if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)      
-            StaminaManager.instance.AddStamina(RemoteConfigManager.AdCompletedReward);
+            StaminaManager.Instance.AddStamina(RemoteConfigManager.AdCompletedReward);
         else if (showCompletionState == UnityAdsShowCompletionState.SKIPPED) 
-            StaminaManager.instance.AddStamina(RemoteConfigManager.AdSkippedReward);
+            StaminaManager.Instance.AddStamina(RemoteConfigManager.AdSkippedReward);
         Advertisement.Load(_placementId, this);
     }
     public void OnUnityAdsShowStart(string placementId)

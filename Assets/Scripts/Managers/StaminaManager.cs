@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 public class StaminaManager : MonoBehaviour
 {
-    public static StaminaManager instance;
+    public static StaminaManager Instance { get; private set; }
     private int maxStamina = 3;
     private int currentStamina;
     private bool recharging = false;
@@ -11,9 +11,9 @@ public class StaminaManager : MonoBehaviour
     private Coroutine chargeCoroutine;
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {

@@ -5,8 +5,8 @@ public class ScreenNoStamina : ScreenBase
 {
     public void BTN_WatchAd()
     {
-        if (AdsManager.instance == null) return;   // por si la escena no tiene AdsManager
-        if (AdsManager.instance.ShowAd())
+        if (AdsManager.Instance == null) return;   // por si la escena no tiene AdsManager
+        if (AdsManager.Instance.ShowAd())
             BTN_Back();                            // cierra el popup; el anuncio se muestra encima
     }
 }

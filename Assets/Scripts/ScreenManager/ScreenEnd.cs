@@ -6,7 +6,7 @@ public class ScreenEnd : ScreenBase
     [SerializeField] private string menuSceneName = "MainMenu";
     public void BTN_Restart()
     {
-        if (!StaminaManager.instance.UseStamina(1))
+        if (!StaminaManager.Instance.UseStamina(1))
         {
             ScreenManager.Instance.Push(ScreenNames.NoStamina);
             return;

@@ -1,13 +1,13 @@
 using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
-    public static CurrencyManager instance;
+    public static CurrencyManager Instance { get; private set; }
     private int coins;
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
