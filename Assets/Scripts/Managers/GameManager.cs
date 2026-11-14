@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public enum GameState { WaitingToStart, Playing, GameOver, Victory }
     public GameState CurrentState { get; private set; }
+    // Sin GameManager (ej. probando una escena suelta) se considera que se esta jugando
+    public static bool IsPlaying => Instance == null || Instance.CurrentState == GameState.Playing;
     void Awake()
     {
         if (Instance == null)

@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
     private void HandleEnemyKilled(params object[] parameters)
     {
         // Ignorar si no estamos en estado de juego
-        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        if (!GameManager.IsPlaying)
             return;
         _currentEnemiesKilled++;
         // Comprueba si se alcanzo el objetivo

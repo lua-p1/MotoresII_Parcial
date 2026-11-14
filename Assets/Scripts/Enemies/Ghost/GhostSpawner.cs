@@ -27,7 +27,7 @@ public class GhostSpawner : MonoBehaviour , IPauseable
     }
     private void Update()
     {
-        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        if (!GameManager.IsPlaying)
             return;
         _timer += Time.deltaTime;
         if (_timer >= spawnInterval)
