@@ -24,12 +24,10 @@ public class RemoteConfigManager : MonoBehaviour
             RemoteConfigService.Instance.FetchCompleted += OnFetchCompleted;
             RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogWarning($"Remote Config no disponible, se usan los valores por defecto: {e.Message}");
         }
-
-
     }
     private async Task InitializeRemoteConfig()
     {
