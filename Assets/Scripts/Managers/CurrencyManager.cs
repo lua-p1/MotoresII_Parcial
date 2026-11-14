@@ -2,7 +2,6 @@ using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager instance;
-    private int coinsPerWin = 50;
     private int coins;
     private void Awake()
     {
@@ -45,7 +44,7 @@ public class CurrencyManager : MonoBehaviour
     }
     private void OnLevelComplete(params object[] parameters)
     {
-        AddCoins(coinsPerWin);
+        AddCoins(RemoteConfigManager.CoinsPerWin);
     }
     private void Save()
     {
