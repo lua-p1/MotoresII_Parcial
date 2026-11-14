@@ -7,10 +7,7 @@ public class PlayerInput : MonoBehaviour
     private bool _isSwiping = false;
     void Update()
     {
-        if (GameManager.Instance != null &&
-            (GameManager.Instance.CurrentState == GameManager.GameState.GameOver ||
-             GameManager.Instance.CurrentState == GameManager.GameState.Victory))
-            return;
+        if (GameManager.IsFinished) return;
         DetectSwipe();
     }
     private void DetectSwipe()

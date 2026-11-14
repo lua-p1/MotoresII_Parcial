@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -14,12 +15,20 @@ public class RemoteConfigManager : MonoBehaviour
     public static bool RefundStaminaOnWin => RemoteConfigService.Instance.appConfig.GetBool("refundStaminaOnWin", true);
     private async void Start()
     {
-        if (Utilities.CheckForInternetConnection())
+        try
         {
-            await InitializeRemoteConfig();
+            if (Utilities.CheckForInternetConnection())
+            {
+                await InitializeRemoteConfig();
+            }
+            RemoteConfigService.Instance.FetchCompleted += OnFetchCompleted;
+            RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
         }
-        RemoteConfigService.Instance.FetchCompleted += OnFetchCompleted;
-        RemoteConfigService.Instance.FetchConfigs(new userAttributes(), new appAttributes());
+        catch(Exception e)
+        {
+            Debug.LogWarning($"Remote Config no disponible, se usan los valores por defecto: {e.Message}");
+        }
+
 
     }
     private async Task InitializeRemoteConfig()

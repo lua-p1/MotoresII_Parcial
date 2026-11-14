@@ -25,9 +25,7 @@ public class PlayerMovement : MonoBehaviour , IPauseable
     private float _moveDirection = 1f;
     private float _defaultGravity;
     private bool _isStopped = true;
-    [Header("PauseSettings")]
     private Vector2 _pausedVelocity;
-
 
     void Awake()
     {
@@ -56,7 +54,7 @@ public class PlayerMovement : MonoBehaviour , IPauseable
 
     void Update()
     {
-        if (GameManager.Instance != null && GameManager.Instance.CurrentState != GameManager.GameState.Playing)
+        if (!GameManager.IsPlaying)
         {
             _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
             UpdateWeaponState();
