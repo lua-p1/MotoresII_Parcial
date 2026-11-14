@@ -5,7 +5,7 @@ public abstract class EnemyBase : MonoBehaviour , IPauseable
 {
     [Header("Combat Config")]
     [Tooltip("Can die if touch weapon?")]
-    [SerializeField]private bool isVulnerableToWeapon = true;
+    [SerializeField] private bool isVulnerableToWeapon = true;
     [Tooltip("Attack dmg if touch player")]
     [SerializeField] private int damageToPlayer = 1;
     protected bool isDead = false;
