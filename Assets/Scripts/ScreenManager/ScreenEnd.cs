@@ -8,7 +8,7 @@ public class ScreenEnd : ScreenBase
     {
         if (!StaminaManager.instance.UseStamina(1))
         {
-            ScreenManager.Instance.Push("NoStaminaScreen");
+            ScreenManager.Instance.Push(ScreenNames.NoStamina);
             return;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

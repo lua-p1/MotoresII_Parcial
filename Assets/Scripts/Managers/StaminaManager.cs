@@ -69,14 +69,14 @@ public class StaminaManager : MonoBehaviour
     }
     private void Save()
     {
-        PlayerPrefs.SetInt("currentStamina", currentStamina);
-        PlayerPrefs.SetString("nextStaminaTime", nextStaminaTime.ToString());
+        PlayerPrefs.SetInt(SaveKeys.CurrentStamina, currentStamina);
+        PlayerPrefs.SetString(SaveKeys.NextStaminaTime, nextStaminaTime.ToString());
         PlayerPrefs.Save();
     }
     private void Load()
     {
-        currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
-        var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
+        currentStamina = Mathf.Min(PlayerPrefs.GetInt(SaveKeys.CurrentStamina, maxStamina), maxStamina);
+        var dateTimeString = PlayerPrefs.GetString(SaveKeys.NextStaminaTime);
         if (!string.IsNullOrEmpty(dateTimeString))
             nextStaminaTime = DateTime.Parse(dateTimeString);
     }

@@ -48,12 +48,12 @@ public class CurrencyManager : MonoBehaviour
     }
     private void Save()
     {
-        PlayerPrefs.SetInt("coins", coins);
+        PlayerPrefs.SetInt(SaveKeys.Coins, coins);
         PlayerPrefs.Save();
     }
     private void Load()
     {
-        coins = PlayerPrefs.GetInt("coins", 0);
+        coins = PlayerPrefs.GetInt(SaveKeys.Coins, 0);
     }
     private void NotifyUI()
     {

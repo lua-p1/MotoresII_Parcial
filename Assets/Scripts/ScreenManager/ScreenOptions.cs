@@ -5,7 +5,7 @@ using UnityEngine.UI;
 // Se abre desde el menu y desde la pausa con BTN_Screen("OptionsScreen"); Volver usa BTN_Back.
 public class ScreenOptions : ScreenBase
 {
-    public const string VolumeKey = "masterVolume";
+    public const string VolumeKey = SaveKeys.MasterVolume;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider volumeSlider;   // Min 0.0001, Max 1
     private void Start()

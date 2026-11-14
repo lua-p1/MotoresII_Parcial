@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
     {
         if (!StaminaManager.instance.UseStamina(1))
         {
-            ScreenManager.Instance.Push("NoStaminaScreen");
+            ScreenManager.Instance.Push(ScreenNames.NoStamina);
             return;
         }
         SceneManager.LoadScene(levelSceneName);

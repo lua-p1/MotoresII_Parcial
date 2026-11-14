@@ -15,11 +15,11 @@ public class EndScreenTrigger : MonoBehaviour
     }
     private void ShowGameOver(params object[] parameters)
     {
-        Show("GameOverScreen");
+        Show(ScreenNames.GameOver);
     }
     private void ShowVictory(params object[] parameters)
     {
-        Show("VictoryScreen");
+        Show(ScreenNames.Victory);
     }
     private void Show(string screenName)
     {

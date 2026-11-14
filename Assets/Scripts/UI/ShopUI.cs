@@ -30,12 +30,12 @@ public class ShopUI : MonoBehaviour
         if (!ShopManager.instance.CanBuy(item))
         {
             // Si el item no se puede aplicar, su popup; si no, el problema son las monedas
-            string errorScreen = item.CanApply() ? "NoCoinsScreen" : item.CantApplyScreen;
+            string errorScreen = item.CanApply() ? ScreenNames.NoCoins : item.CantApplyScreen;
             ScreenManager.Instance.Push(errorScreen);
             return;
         }
         ShopManager.instance.SelectItem(item);
-        ScreenManager.Instance.Push("BuyConfirmScreen");
+        ScreenManager.Instance.Push(ScreenNames.BuyConfirm);
     }
     private void Refresh()
     {
