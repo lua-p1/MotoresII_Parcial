@@ -60,9 +60,9 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         Debug.Log($"Unity Ads Show Complete: {placementId} - {showCompletionState.ToString()}");
         if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)      
-            StaminaManager.instance.AddStamina(StaminaManager.instance.MaxStamina);
+            StaminaManager.instance.AddStamina(RemoteConfigManager.AdCompletedReward);
         else if (showCompletionState == UnityAdsShowCompletionState.SKIPPED) 
-            StaminaManager.instance.AddStamina(1);
+            StaminaManager.instance.AddStamina(RemoteConfigManager.AdSkippedReward);
         Advertisement.Load(_placementId, this);
     }
     public void OnUnityAdsShowStart(string placementId)

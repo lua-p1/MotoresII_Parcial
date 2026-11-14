@@ -7,7 +7,12 @@ public class RemoteConfigManager : MonoBehaviour
 {
     public struct userAttributes { }
     public struct appAttributes { }
-    async void Start()
+    public static int CoinsPerWin => RemoteConfigService.Instance.appConfig.GetInt("coinsPerWin", 50);
+    public static float SecondToRecover => RemoteConfigService.Instance.appConfig.GetFloat("secondToRecover", 300f);
+    public static int AdCompletedReward => RemoteConfigService.Instance.appConfig.GetInt("adCompletedReward", 3);
+    public static int AdSkippedReward => RemoteConfigService.Instance.appConfig.GetInt("adSkippedReward", 1);
+    public static bool RefundStaminaOnWin => RemoteConfigService.Instance.appConfig.GetBool("refundStaminaOnWin", true);
+    private async void Start()
     {
         if (Utilities.CheckForInternetConnection())
         {
