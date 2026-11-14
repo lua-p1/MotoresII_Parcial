@@ -9,7 +9,7 @@ public class ScreenBuyConfirm : ScreenBase
     {
         base.Activate();   // SetActive(true) de ScreenBase
         var item = ShopManager.Instance.SelectedItem;
-        questionText.text = $"Comprar {item.DisplayName} por {item.Price} monedas?";
+        questionText.text = $"Buy {item.DisplayName} for {item.Price} coins?";
     }
     public void BTN_Confirm()
     {

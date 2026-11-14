@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b823e46c8d51164a8fcb9aa31536087, type: 3}
   m_Name: ExtraHeart
   m_EditorClassIdentifier: 
-  displayName: "Coraz\xF3n extra"
-  description: "+1 vida en la pr\xF3xima partida"
+  displayName: Extra Heart
+  description: +1 life in your next run
   icon: {fileID: 0}
   itemPrice: 150
   cantApplyScreen: HeartPendingScreen

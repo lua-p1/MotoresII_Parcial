@@ -23,6 +23,6 @@ public class ScreenEnd : ScreenBase
     {
         base.Activate();
         if (rewardText != null)
-            rewardText.text = $"+{RemoteConfigManager.CoinsPerWin} monedas";
+            rewardText.text = $"+{RemoteConfigManager.CoinsPerWin} coins";
     }
 }
