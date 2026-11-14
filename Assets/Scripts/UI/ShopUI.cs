@@ -50,7 +50,7 @@ public class ShopUI : MonoBehaviour
         iconImage.sprite = item.Icon;
         nameText.text = item.DisplayName;
         descriptionText.text = item.Description;
-        priceText.text = item.price.ToString();
+        priceText.text = item.Price.ToString();
         buyButton.interactable = true;
         priceText.alpha = ShopManager.Instance.CanBuy(item) ? 1f : 0.4f;
     }

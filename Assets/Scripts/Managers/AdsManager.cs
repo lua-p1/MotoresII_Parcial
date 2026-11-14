@@ -28,7 +28,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         Advertisement.Show(_placementId, this);
         return true;                    // se pidio mostrar
     }
-    #region//InitilizationInterface
+    #region//Initialization
     public void OnInitializationComplete()
     {
         Debug.Log("Unity Ads initialization complete.");
@@ -36,10 +36,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     }
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
-        Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+        Debug.LogWarning($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
     }
     #endregion
-    #region//LoadedInterface
+    #region//Load
     public void OnUnityAdsAdLoaded(string placementId)
     {
         Debug.Log($"Unity Ads Ad Loaded: {placementId}");
@@ -47,13 +47,13 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     }
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
-        Debug.Log($"Unity Ads Failed to Load: {placementId} - {error.ToString()} - {message}");
+        Debug.LogWarning($"Unity Ads Failed to Load: {placementId} - {error.ToString()} - {message}");
     }
     #endregion
-    #region//ShowInterface
+    #region//Show
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        Debug.Log($"Unity Ads Show Failure: {placementId} - {error.ToString()} - {message}");  
+        Debug.LogWarning($"Unity Ads Show Failure: {placementId} - {error.ToString()} - {message}");  
         Advertisement.Load(_placementId, this);                                                
     }
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
