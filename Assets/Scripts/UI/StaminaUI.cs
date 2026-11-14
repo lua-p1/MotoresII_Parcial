@@ -13,7 +13,7 @@ public class StaminaUI : MonoBehaviour
     {
         EventManager.UnsubscribeToEvent(EventType.StaminaChanged, UpdateUI);
     }
-    void UpdateUI(params object[] parameters)
+    private void UpdateUI(params object[] parameters)
     {
         int currentStamina = (int)parameters[0];
         int maxStamina = (int)parameters[1];

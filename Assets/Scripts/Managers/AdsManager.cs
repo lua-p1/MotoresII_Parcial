@@ -14,7 +14,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
         else
             Destroy(gameObject);
     }
-    void Start()
+    private void Start()
     {
         if (Advertisement.isInitialized)                 
             Advertisement.Load(_placementId, this);
