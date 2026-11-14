@@ -4,8 +4,8 @@ using UnityEngine;
 public class GroundDetector : MonoBehaviour
 {
     [Header("Ground Detector")]
-    public float groundCheckDistance = 0.2f;
-    public string platformLayerName = "Platform";
+    [SerializeField] private float groundCheckDistance = 0.2f;
+    [SerializeField] private string platformLayerName = "Platform";
 
     public bool IsGrounded { get; private set; }
     public Collider2D CurrentPlatform { get; private set; }

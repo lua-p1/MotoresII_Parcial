@@ -2,7 +2,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [Header("Swipe Config")]
-    public float swipeThreshold = 20f;
+    [SerializeField] private float swipeThreshold = 20f;
     private Vector2 _swipeStartPos;
     private bool _isSwiping = false;
     void Update()
