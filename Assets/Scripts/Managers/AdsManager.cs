@@ -3,9 +3,9 @@ using UnityEngine.Advertisements;
 public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     public static AdsManager Instance { get; private set; }
-    [SerializeField] string _androidGameId = "800437922";
-    [SerializeField] string _placementId = "BP_Interstitial_Android";
-    [SerializeField] bool _testMode = true;                              
+    [SerializeField] private string _androidGameId = "800437922";
+    [SerializeField] private string _placementId = "BP_Interstitial_Android";
+    [SerializeField] private bool _testMode = true;                              
     private bool _adLoaded = false;                                      
     private void Awake()                                                
     {

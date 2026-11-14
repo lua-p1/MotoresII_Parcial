@@ -3,8 +3,8 @@ using TMPro;
 using UnityEngine;
 public class StaminaUI : MonoBehaviour
 {
-    [SerializeField] TMP_Text staminaText;
-    [SerializeField] TMP_Text timerText;
+    [SerializeField] private TMP_Text staminaText;
+    [SerializeField] private TMP_Text timerText;
     private void OnEnable()
     {
         EventManager.SubscribeToEvent(EventType.StaminaChanged, UpdateUI);

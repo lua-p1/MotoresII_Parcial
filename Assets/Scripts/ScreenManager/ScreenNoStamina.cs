@@ -1,6 +1,5 @@
 using UnityEngine;
-// Popup "Sin energia". Lo pushean MenuManager.Play() (menu) y ScreenEnd.BTN_Restart() (nivel).
-// Ofrece ver un anuncio: el premio lo da AdsManager segun si se completo o se salteo.
+// Popup "Sin energia". Lo pushean ScreenLevelSelect.BTN_PlayLevel() (menu) y ScreenEnd.BTN_Restart() (nivel).
 public class ScreenNoStamina : ScreenBase
 {
     public void BTN_WatchAd()
