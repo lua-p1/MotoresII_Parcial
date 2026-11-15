@@ -2,15 +2,12 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [Header("Swipe Config")]
-    public float swipeThreshold = 20f;
+    [SerializeField] private float swipeThreshold = 20f;
     private Vector2 _swipeStartPos;
     private bool _isSwiping = false;
     void Update()
     {
-        if (GameManager.Instance != null &&
-            (GameManager.Instance.CurrentState == GameManager.GameState.GameOver ||
-             GameManager.Instance.CurrentState == GameManager.GameState.Victory))
-            return;
+        if (GameManager.IsFinished) return;
         DetectSwipe();
     }
     private void DetectSwipe()

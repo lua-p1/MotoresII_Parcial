@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3cec1f45c32f844b0e133f0663b6a6, type: 3}
   m_Name: EnergyRefill
   m_EditorClassIdentifier: 
-  displayName: "Recarga de energ\xEDa"
-  description: "Llena tu energ\xEDa al maximo"
+  displayName: Energy Refill
+  description: Refills your energy to max
   icon: {fileID: 0}
   itemPrice: 300
   cantApplyScreen: EnergyFullScreen

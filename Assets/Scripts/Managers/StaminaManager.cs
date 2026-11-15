@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 public class StaminaManager : MonoBehaviour
 {
-    public static StaminaManager instance;
+    public static StaminaManager Instance { get; private set; }
     private int maxStamina = 3;
     private int currentStamina;
     private bool recharging = false;
@@ -11,9 +11,9 @@ public class StaminaManager : MonoBehaviour
     private Coroutine chargeCoroutine;
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -44,7 +44,7 @@ public class StaminaManager : MonoBehaviour
         currentStamina -= amount;
         if (!recharging && !IsFull())
         {
-            nextStaminaTime = DateTime.Now.AddSeconds(RemoteConfigManager.SecondToRecover);
+            nextStaminaTime = DateTime.Now.AddSeconds(RemoteConfigManager.SecondsToRecover);
             chargeCoroutine = StartCoroutine(ChargeCoroutine());
         }
         Save();
@@ -69,14 +69,14 @@ public class StaminaManager : MonoBehaviour
     }
     private void Save()
     {
-        PlayerPrefs.SetInt("currentStamina", currentStamina);
-        PlayerPrefs.SetString("nextStaminaTime", nextStaminaTime.ToString());
+        PlayerPrefs.SetInt(SaveKeys.CurrentStamina, currentStamina);
+        PlayerPrefs.SetString(SaveKeys.NextStaminaTime, nextStaminaTime.ToString());
         PlayerPrefs.Save();
     }
     private void Load()
     {
-        currentStamina = Mathf.Min(PlayerPrefs.GetInt("currentStamina", maxStamina), maxStamina);
-        var dateTimeString = PlayerPrefs.GetString("nextStaminaTime");
+        currentStamina = Mathf.Min(PlayerPrefs.GetInt(SaveKeys.CurrentStamina, maxStamina), maxStamina);
+        var dateTimeString = PlayerPrefs.GetString(SaveKeys.NextStaminaTime);
         if (!string.IsNullOrEmpty(dateTimeString))
             nextStaminaTime = DateTime.Parse(dateTimeString);
     }
@@ -97,7 +97,7 @@ public class StaminaManager : MonoBehaviour
             {
                 if (IsFull()) break;
                 staminaAdded = true;
-                nextStamina = nextStamina.AddSeconds(RemoteConfigManager.SecondToRecover);
+                nextStamina = nextStamina.AddSeconds(RemoteConfigManager.SecondsToRecover);
                 currentStamina++;
             }
             if (staminaAdded)

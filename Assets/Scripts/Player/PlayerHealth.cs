@@ -51,15 +51,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     private void Die()
     {
-        Debug.Log("<color=black><b>Player has DIED!</b></color>");
         OnDeath?.Invoke();
         EventManager.TriggerEvent(EventType.GameOver);
-    }
-    public void Heal(float amount)
-    {
-        if (CurrentHealth <= 0f) return;
-        CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth);
-        Debug.Log($"<color=green>[Heal]</color> Player healed {amount} HP. Current Health: {CurrentHealth}/{maxHealth}");
-        EventManager.TriggerEvent(EventType.PlayerHealthChanged, CurrentHealth, maxHealth);
     }
 }

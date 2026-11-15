@@ -3,8 +3,8 @@ using UnityEngine;
 public class WallDetector : MonoBehaviour
 {
     [Header("Wall Detector")]
-    public float wallCheckDistance = 0.1f;
-    public string wallLayerName = "Wall";
+    [SerializeField] private float wallCheckDistance = 0.1f;
+    [SerializeField] private string wallLayerName = "Wall";
 
     public bool IsTouchingWall { get; private set; }
     private Collider2D _primaryCollider;
