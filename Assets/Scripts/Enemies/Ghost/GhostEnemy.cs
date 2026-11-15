@@ -11,18 +11,11 @@ public class GhostEnemy : EnemyBase
     [SerializeField] private float minVerticalDistance = 1.5f;
     [SerializeField] private float maxVerticalDistance = 2.5f;
     [SerializeField] private float smoothTime = 0.7f;
-    private IMovementEnemy _movement;
     public void Initialize(Vector2 spawnPos, float initialDirection, float minX, float maxX, float minY, float maxY)
     {
-        transform.position = spawnPos;
-
-        _movement = new SineMovement(transform, spawnPos, initialDirection, minX, maxX, minY, maxY,
+        IMovementEnemy movement = new SineMovement(transform, spawnPos, initialDirection, minX, maxX, minY, maxY,
             horizontalSpeed, floatAmplitude, floatFrequency,
             verticalMoveInterval, minVerticalDistance, maxVerticalDistance, smoothTime);
-    }
-    private void Update()
-    {
-        if (!CanAct) return;
-        _movement.Move();
+        ResetEnemy(spawnPos, movement);
     }
 }

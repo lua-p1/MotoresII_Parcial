@@ -16,6 +16,7 @@ public class SineMovement : IMovementEnemy
     private float _yVelocity;
     private float _verticalTimer;
     private float _randomSeed;
+    public float Direction => _direction;
     public SineMovement(Transform target, Vector2 spawnPos, float initialDirection,
         float minX, float maxX, float minY, float maxY,
         float horizontalSpeed, float floatAmplitude, float floatFrequency,
@@ -27,7 +28,7 @@ public class SineMovement : IMovementEnemy
         _horizontalSpeed = horizontalSpeed;
         _floatAmplitude = floatAmplitude;
         _floatFrequency = floatFrequency;
-        //cuada cuanto cambia la altura
+        //cada cuanto cambia la altura
         _verticalMoveInterval = verticalMoveInterval;
         _minVerticalDistance = minVerticalDistance;
         _maxVerticalDistance = maxVerticalDistance;
@@ -35,7 +36,6 @@ public class SineMovement : IMovementEnemy
         _currentBaseY = spawnPos.y;
         _targetBaseY = spawnPos.y;
         _randomSeed = Random.Range(0f, 100f);
-        UpdateSpriteFacing();
     }
     public void Move()
     {
@@ -45,20 +45,14 @@ public class SineMovement : IMovementEnemy
     //metodo de movimiento
     private void MoveHorizontalAndFloat()
     {
-        //nueva poiscion en X
+        //nueva posicion en X
         float newX = _target.position.x + (_direction * _horizontalSpeed * Time.deltaTime);
         //Si llega al limite izquierdo, gira hacia la derecha.
         if (newX <= _minX && _direction < 0)
-        {
             _direction = 1f;
-            UpdateSpriteFacing();
-        }
         //Si llega al limite derecho, gira hacia la izquierda.
         else if (newX >= _maxX && _direction > 0)
-        {
             _direction = -1f;
-            UpdateSpriteFacing();
-        }
         //me muevo hacia la altura target
         _currentBaseY = Mathf.SmoothDamp(_currentBaseY, _targetBaseY, ref _yVelocity, _smoothTime);
         // Recorro la onda seno usando el tiempo, sumo una semilla para que no todas sean iguales,
@@ -70,7 +64,6 @@ public class SineMovement : IMovementEnemy
         //aplico la nueva posicion del enemigo.
         _target.position = new Vector2(newX, finalY);
     }
-
     //timer para cambiar la altura del enemigo
     private void HandleVerticalTimer()
     {
@@ -81,22 +74,11 @@ public class SineMovement : IMovementEnemy
             PerformRandomVerticalMove();
         }
     }
-
-    //metodo para cambiar la altura base del enemigo. 
+    //metodo para cambiar la altura base del enemigo.
     private void PerformRandomVerticalMove()
     {
         float sign = Random.value > 0.5f ? 1f : -1f;
         float distance = Random.Range(_minVerticalDistance, _maxVerticalDistance) * sign;
         _targetBaseY = Mathf.Clamp(_currentBaseY + distance, _minY, _maxY);
-    }
-
-    //metodo que actualiza hacia donde mira el enemigo
-    //Hacemos un flip horizontal porque invertimos la escala en X.
-    private void UpdateSpriteFacing()
-    {
-        Vector3 scale = _target.localScale;
-        //si _direction es > 0 mira a la derecha sino a la izquirda.
-        scale.x = Mathf.Abs(scale.x) * (_direction > 0 ? 1 : -1);
-        _target.localScale = scale;
     }
 }
