@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
 //El EnemyBase se encarga de coordinar el funcionamiento general del enemigo y gestionar su ciclo de vida.
 //Es el componente principal que conecta al EnemyModel, EnemyView y EnemyController, ademas de comunicarse con Unity y el Pool.
 //La clase padre de todos los enemigos.
@@ -9,9 +8,9 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEvent>
 {
     [Header("Combat Config")]
-    [Tooltip("Can die if touch weapon?")]
+    [Tooltip("Puede morir si toca un arma?")]
     [SerializeField] private bool isVulnerableToWeapon = true;
-    [Tooltip("Attack dmg if touch player")]
+    [Tooltip("Damage que inflige al player")]
     [SerializeField] private int damageToPlayer = 1;
     [Header("Death")]
     [Tooltip("Segundos antes de volver al pool (para la animacion de muerte). 0 = al instante")]
@@ -25,7 +24,6 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     private bool _isWaitingForDeathAnimation;
     private float _deathTimer;
     protected bool CanAct => !_model.IsDead && GameManager.IsPlaying;
-
     //En el Awake creo un model , un view, y un controller
     //El controller pide de parametro un model asi que le paso el que cree
     //Ademas como va a observar al model le hago un diccionario con acciones.
@@ -99,9 +97,8 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         if (_deathTimer <= 0f)
             Despawn();
     }
-
-    //Si choco contra un weapon o en un player llamo al meotod HandleTrigger
-    //para saber que hacer
+    //Si choco contra algo y puede actuar, llamo a HandleTrigger del controller,
+    //que decide si es un weapon, el player o nada
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (!CanAct) return;
@@ -120,18 +117,16 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
             Despawn();
             return;
         }
-        // Sino espero que muera hasta activar el despawn en TickDeath
+        //Sino espero que termine la animacion de muerte, y TickDeath hace el despawn
         _isWaitingForDeathAnimation = true;
         _deathTimer = deathAnimationDuration;
     }
-
     //Accion que hace cuando vuelve al pool que lo desactiva.
     //y lo devuelve al pool seteaado en  EnemyService que vincula el factory con el pool
     public void SetReturnToPoolCallback(Action<EnemyBase> callback)
     {
         _returnToPoolCallback = callback;
     }
-
     //que pasa cuando despawnea
     //Lo devuelvo al pool y marco que termino la espera de la animacion de muerte.
     //Sigue muerto en el Model hasta que vuelve a salir del pool y ResetEnemy llama a Model.Reset()
@@ -143,20 +138,6 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         else
             gameObject.SetActive(false);
     }
-
-
-    #region//Metodo para suscribir Observers al Model.
-    public void Subscribe(IObserver<EnemyEvent> observer)
-    {
-        _model.Subscribe(observer);
-    }
-    public void Unsubscribe(IObserver<EnemyEvent> observer)
-    {
-        _model.Unsubscribe(observer);
-    }
-    #endregion
-
-
     public virtual void Pause()
     {
         enabled = false;
