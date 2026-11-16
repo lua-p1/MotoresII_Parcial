@@ -58,6 +58,13 @@ public class PatrolEnemySpawner : MonoBehaviour , IPauseable
             }
             float direction = spawnOnLeft ? 1f : -1f;
             //Llamo al Spawn del service: saca un enemigo del pool (solo instancia uno nuevo si el pool esta vacio) y lo inicializa
+            //spawnPos -> lo usa ResetEnemy para ubicarlo. X: uno de los dos extremos (minX o maxX) elegido al azar.
+            //            Y: arriba de la plataforma (bounds.max.y + heightOffset).
+            //            Si ese extremo esta cerca del player prueba el otro, y si los dos estan cerca prueba otra plataforma.
+            //direction -> lo usa PatrolMovement. Depende del extremo donde aparece: si sale por la izquierda va a la derecha (1),
+            //             si sale por la derecha va a la izquierda (-1). Siempre arranca caminando hacia el otro extremo.
+            //minX y maxX -> los limites donde patrulla y se da vuelta. Salen de los dos bordes de una plataforma elegida al azar,
+            //               cada uno corrido hacia adentro con un margen aleatorio entre minEdgeMargin y maxEdgeMargin.
             _enemyService.Spawn(spawnPos, direction, minX, maxX);
             return;
         }

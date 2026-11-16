@@ -12,7 +12,7 @@ public class PatrolEnemyService : EnemyService<PatrolEnemy>
     {
     }
     //Metodo exclusivo de este hijo que se llama en PatrolEnemySpawner
-    //Deuelve un enemigo del pool y lo incializa cargandole su IMovementEnemy y aplicnado ResetEnemy
+    //Deuelve un enemigo del pool y lo incializa cargandole su IMovementEnemy y aplicando ResetEnemy
     public PatrolEnemy Spawn(Vector2 position, float direction, float minX, float maxX)
     {
         PatrolEnemy enemy = GetFromPool();

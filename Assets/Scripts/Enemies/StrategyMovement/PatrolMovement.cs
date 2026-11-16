@@ -1,9 +1,11 @@
 using UnityEngine;
 public class PatrolMovement : IMovementEnemy
 {
+    //El target es el propio enemigos
     private Transform _target;
     private float _speed;
     private float _minX, _maxX;
+    //Direccion a la que se mueve
     private float _direction;
     public float Direction => _direction;
     public PatrolMovement(Transform target, float initialDirection, float minX, float maxX, float speed)
@@ -14,6 +16,8 @@ public class PatrolMovement : IMovementEnemy
         _maxX = maxX;
         _speed = speed;
     }
+    //Metodo de la estrategia de movimientos del Patrol
+    //Se mueve solo en X si llega al maximo o minimo cambia de direecion en X y en Y siempre se mantiene
     public void Move()
     {
         float newX = _target.position.x + (_direction * _speed * Time.deltaTime);
