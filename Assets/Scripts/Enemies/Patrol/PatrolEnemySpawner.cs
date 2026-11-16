@@ -23,7 +23,7 @@ public class PatrolEnemySpawner : MonoBehaviour , IPauseable
         _enemyService = new PatrolEnemyService(patrolPrefab, transform, poolSize);
         if (player == null)
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerObject = GameObject.FindGameObjectWithTag(Tags.Player);
             if (playerObject != null) player = playerObject.transform;
         }
     }

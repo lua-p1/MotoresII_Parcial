@@ -1,22 +1,12 @@
 using UnityEngine;
+//Controla el objetivo del nivel: cuenta los enemigos derrotados y, al llegar al objetivo, avisa que se completo.
+//Se comunica solo por eventos (escucha GameStart y EnemyKilled, dispara EnemyCountChanged y LevelComplete).
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set; }
     [Header("Objetivo del Nivel")]
     [Tooltip("Cantidad de enemigos que el jugador debe derrotar para ganar")]
     [SerializeField] private int targetEnemiesToKill = 5;
     private int _currentEnemiesKilled = 0;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     private void OnEnable()
     {
         EventManager.SubscribeToEvent(EventType.GameStart, HandleGameStart);

@@ -72,7 +72,7 @@ public class SoundManager : MonoBehaviour , IPauseable
         EventManager.UnsubscribeToEvent(EventType.GameOver, OnGameOver);
         EventManager.UnsubscribeToEvent(EventType.LevelComplete, OnVictory);
     }
-    private void OnGameStart(params object[] parameters) => Play(SoundId.GameStart);//Agregar Sonido
+    private void OnGameStart(params object[] parameters) => Play(SoundId.GameStart);
     private void OnPlayerJumped(params object[] parameters) => Play(SoundId.Jump);
     private void OnPlayerDamaged(params object[] parameters) => Play(SoundId.PlayerHurt);
     private void OnEnemyKilled(params object[] parameters) => Play(SoundId.EnemyDeath);

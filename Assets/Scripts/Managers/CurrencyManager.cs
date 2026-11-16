@@ -2,7 +2,7 @@ using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance { get; private set; }
-    private int coins;
+    private int _coins;
     private void Awake()
     {
         if (Instance == null)
@@ -29,15 +29,15 @@ public class CurrencyManager : MonoBehaviour
     }
     public void AddCoins(int amount)
     {
-        coins += amount;
+        _coins += amount;
         Save();
         NotifyUI();
     }
     // Para la tienda: devuelve false si no alcanza (igual que UseStamina)
     public bool SpendCoins(int amount)
     {
-        if (coins - amount < 0) return false;
-        coins -= amount;
+        if (_coins - amount < 0) return false;
+        _coins -= amount;
         Save();
         NotifyUI();
         return true;
@@ -48,16 +48,16 @@ public class CurrencyManager : MonoBehaviour
     }
     private void Save()
     {
-        PlayerPrefs.SetInt(SaveKeys.Coins, coins);
+        PlayerPrefs.SetInt(SaveKeys.Coins, _coins);
         PlayerPrefs.Save();
     }
     private void Load()
     {
-        coins = PlayerPrefs.GetInt(SaveKeys.Coins, 0);
+        _coins = PlayerPrefs.GetInt(SaveKeys.Coins, 0);
     }
     private void NotifyUI()
     {
-        EventManager.TriggerEvent(EventType.CoinsChanged, coins);
+        EventManager.TriggerEvent(EventType.CoinsChanged, _coins);
     }
-    public int Coins { get => coins; }
+    public int Coins { get => _coins; }
 }

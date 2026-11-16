@@ -36,11 +36,11 @@ public class EnemyController
     public void HandleTrigger(Collider2D collision)
     {
         if (_model.IsDead) return;
-        if (collision.CompareTag("Weapon") && collision.enabled)
+        if (collision.CompareTag(Tags.Weapon) && collision.enabled)
         {
             _model.TryKillByWeapon();
         }
-        else if (collision.CompareTag("Player"))
+        else if (collision.CompareTag(Tags.Player))
         {
             AttackPlayer(collision.gameObject);
         }
