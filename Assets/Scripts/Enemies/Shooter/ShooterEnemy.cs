@@ -51,7 +51,6 @@ public class ShooterEnemy : PatrolEnemy
         }
         _shooterController.UpdateStates();
     }
-    //Factory methods de EnemyBase: el padre los llama en su Awake en este orden (Model, View, Controller)
     protected override EnemyModel CreateModel()
     {
         _shooterModel = new ShooterModel(isVulnerableToWeapon, damageToPlayer,
@@ -62,7 +61,6 @@ public class ShooterEnemy : PatrolEnemy
     {
         return new ShooterView(this, aimColor);
     }
-    //El model que llega por parametro es el mismo _shooterModel (lo creo arriba), uso el campo para tener su tipo real
     protected override EnemyController CreateController(EnemyModel model)
     {
         _shooterController = new ShooterController(_shooterModel, gameObject, _player, _projectiles);

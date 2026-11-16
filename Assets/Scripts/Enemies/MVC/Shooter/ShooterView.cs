@@ -5,8 +5,6 @@ using UnityEngine;
 //(flip, caminar, morir, pausa, reset) y le suma lo propio del Tirador:
 //- Aim: se frena y cambia de color para avisar que va a disparar.
 //- Shoot: vuelve a su color normal.
-//Como todavia no hay animaciones, el aviso es el color. Si se agrega un Animator,
-//los parametros nuevos tienen que llamarse OnAim y OnShoot (Trigger).
 public class ShooterView : EnemyView
 {
     private Animator _animator;
@@ -70,7 +68,7 @@ public class ShooterView : EnemyView
         if (_animator == null) return;
         _animator.SetBool("IsMoving", isMoving);
     }
-    //Activa un trigger del Animator (si el enemigo tiene Animator)
+    //Activa un trigger del Animator
     private void SetTrigger(string triggerName)
     {
         if (_animator == null) return;
