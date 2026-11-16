@@ -17,6 +17,9 @@
 //  FaceRight    -> lo invoca el EnemyController en SetMovement y Tick llamando al metodo SetDirection del Model, y reacciona el EnemyView.
 //  AttackPlayer -> lo invoca el EnemyController en AttackPlayer llamando al metodo RegisterAttack del Model, y reacciona el EnemyView.
 //  EnemyDie     -> lo invoca el EnemyController en HandleTrigger llamando al metodo TryKillByWeapon del Model (que llama a Kill), y reaccionan el EnemyView y el EnemyBase.
+//- ShooterController (solo el Tirador, a traves de su ShooterModel):
+//  Aim          -> lo invoca el ShooterController en StartAiming (al entrar al estado Aim) llamando al metodo StartAiming del ShooterModel, y reacciona el ShooterView.
+//  Shoot        -> lo invoca el ShooterController en Shoot (al terminar el estado Aim) llamando al metodo RegisterShot del ShooterModel, y reacciona el ShooterView.
 public enum EnemyEvent
 {
     Reset,        //el pool entrega el enemigo: volver al estado inicial -> solo reacciona EnemyView.
@@ -26,5 +29,7 @@ public enum EnemyEvent
     AttackPlayer, //toco al player e intento hacerle damage (si es invulnerable no le hace) -> solo reacciona EnemyView.
     EnemyDie,     //murio -> reaccionan EnemyView y EnemyBase.
     Pause,        //se pauso el juego -> solo reacciona EnemyView.
-    Resume        //se reanudo el juego -> solo reacciona EnemyView.
+    Resume,       //se reanudo el juego -> solo reacciona EnemyView.
+    Aim,          //el Tirador se frena y apunta (aviso antes de disparar) -> solo reacciona ShooterView.
+    Shoot         //el Tirador disparo -> solo reacciona ShooterView.
 }

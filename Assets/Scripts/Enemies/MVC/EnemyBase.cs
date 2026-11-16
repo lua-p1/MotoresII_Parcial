@@ -9,9 +9,9 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
 {
     [Header("Combat Config")]
     [Tooltip("Puede morir si toca un arma?")]
-    [SerializeField] private bool isVulnerableToWeapon = true;
+    [SerializeField] protected bool isVulnerableToWeapon = true;
     [Tooltip("Damage que inflige al player")]
-    [SerializeField] private int damageToPlayer = 1;
+    [SerializeField] protected int damageToPlayer = 1;
     [Header("Death")]
     [Tooltip("Segundos antes de volver al pool (para la animacion de muerte). 0 = al instante")]
     [SerializeField] private float deathAnimationDuration = 0f;
