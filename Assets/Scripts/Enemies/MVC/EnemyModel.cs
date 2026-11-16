@@ -1,5 +1,4 @@
 using UnityEngine;
-
 //EnemyModel es el responsable de almacenar y controlar los datos propios del enemigo.
 public class EnemyModel : IObservable<EnemyEvent>
 {
