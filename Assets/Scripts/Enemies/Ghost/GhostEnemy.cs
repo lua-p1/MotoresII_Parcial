@@ -1,4 +1,5 @@
 using UnityEngine;
+//GhostEnemey hereda de EnemyBase
 public class GhostEnemy : EnemyBase
 {
     [Header("Horizontal Movement Config")]
@@ -11,6 +12,8 @@ public class GhostEnemy : EnemyBase
     [SerializeField] private float minVerticalDistance = 1.5f;
     [SerializeField] private float maxVerticalDistance = 2.5f;
     [SerializeField] private float smoothTime = 0.7f;
+    //Tiene su propio metodo para inicializarse con su propia estrategia de movimientos
+    //Este metodo se llama en GhostEnemyService
     public void Initialize(Vector2 spawnPos, float initialDirection, float minX, float maxX, float minY, float maxY)
     {
         IMovementEnemy movement = new SineMovement(transform, spawnPos, initialDirection, minX, maxX, minY, maxY,

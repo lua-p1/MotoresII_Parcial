@@ -36,7 +36,8 @@ public class GhostSpawner : MonoBehaviour , IPauseable
             TrySpawnGhost();
         }
     }
-    //Tomamos la esquina inferior izquierda y superior derecha para saber el rango donde puede aparecer el enemigo.
+    //Tomamos la esquina inferior izquierda y superior derecha de la camara para saber los bordes horizontales de la pantalla.
+    //El fantasma aparece afuera de esos bordes (con spawnPaddingX) y despues los usa como limites para darse vuelta.
     private void CalculateHorizontalBounds()
     {
         Vector3 bottomLeft = _mainCamera.ViewportToWorldPoint(new Vector3(0, 0, _mainCamera.nearClipPlane));
@@ -51,6 +52,7 @@ public class GhostSpawner : MonoBehaviour , IPauseable
         float spawnX = spawnOnLeft ? _screenMinX - spawnPaddingX : _screenMaxX + spawnPaddingX;
         float direction = spawnOnLeft ? 1f : -1f;
         float spawnY = Random.Range(platform1MinY, platform3MaxY);
+        //Llamo al Spawn del service: saca un fantasma del pool (solo instancia uno nuevo si el pool esta vacio) y lo inicializa
         _enemyService.Spawn(new Vector2(spawnX, spawnY), direction, _screenMinX, _screenMaxX, platform1MinY, platform3MaxY);
     }
     public void Pause()
