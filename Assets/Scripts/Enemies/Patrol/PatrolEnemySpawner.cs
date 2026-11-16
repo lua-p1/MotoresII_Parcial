@@ -57,7 +57,7 @@ public class PatrolEnemySpawner : MonoBehaviour , IPauseable
                 if (!IsFarFromPlayer(spawnPos)) continue;
             }
             float direction = spawnOnLeft ? 1f : -1f;
-            //LLamo al spawn para instanciar al enemigo
+            //Llamo al Spawn del service: saca un enemigo del pool (solo instancia uno nuevo si el pool esta vacio) y lo inicializa
             _enemyService.Spawn(spawnPos, direction, minX, maxX);
             return;
         }
