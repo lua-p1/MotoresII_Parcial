@@ -134,7 +134,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     {
         _isWaitingForDeathAnimation = false;
         if (_returnToPoolCallback != null)
-            _returnToPoolCallback(this);
+            _returnToPoolCallback.Invoke(this);
         else
             gameObject.SetActive(false);
     }
