@@ -1,4 +1,5 @@
 using UnityEngine;
+//Encargado de spwnear Patrols
 public class PatrolEnemySpawner : MonoBehaviour , IPauseable
 {
     [Header("Pool Setup")]
@@ -56,6 +57,7 @@ public class PatrolEnemySpawner : MonoBehaviour , IPauseable
                 if (!IsFarFromPlayer(spawnPos)) continue;
             }
             float direction = spawnOnLeft ? 1f : -1f;
+            //LLamo al spawn para instanciar al enemigo
             _enemyService.Spawn(spawnPos, direction, minX, maxX);
             return;
         }
