@@ -89,6 +89,13 @@ public class FloorWaveMovement : IMovementEnemy
     //Calcula la nueva X.
     //Avanza hacia _direction y se da vuelta cuando llega a un borde de la pantalla.
     //La velocidad no es fija: sube y baja un poco para que no se vea como un robot.
+    //
+    //Como funciona speedVariation (ejemplo con horizontalSpeed = 1.2 y speedVariation = 0.25):
+    //speedWave es un seno: va cambiando suave entre -1 y 1 con el tiempo.
+    //speed = horizontalSpeed * (1 + speedWave * speedVariation)
+    //  speedWave =  1 -> 1 + 0.25 = 1.25 (125%) -> 1.2 * 1.25 = 1.5 (lo mas rapido)
+    //  speedWave =  0 -> 1 + 0    = 1    (100%) -> 1.2 * 1    = 1.2 (velocidad normal)
+    //  speedWave = -1 -> 1 - 0.25 = 0.75 (75%)  -> 1.2 * 0.75 = 0.9 (lo mas lento)
     private float MoveHorizontal()
     {
         //Seno lento que va de -1 a 1 (la mitad de rapido que la onda vertical)
@@ -110,7 +117,16 @@ public class FloorWaveMovement : IMovementEnemy
     //Se acerca de a poco a la altura del piso elegido y le suma la onda para que flote.
     private float MoveVertical()
     {
-        //SmoothDamp acerca _currentBaseY a _targetBaseY de forma suave (arranca y frena despacio)
+        //SmoothDamp acerca _currentBaseY a _targetBaseY de forma suave:
+        //arranca despacio, acelera en el medio y frena al llegar.
+        //Tarda siempre mas o menos el mismo tiempo en llegar (lo marca _smoothTime),
+        //sin importar la distancia. Por eso, cuanto mas lejos esta el piso, mas acelera.
+        //Ejemplo con smoothTime = 0.4 (llega en ~1 segundo):
+        //  1 piso  (~3 unidades) -> velocidad maxima ~5 por segundo
+        //  2 pisos (~6 unidades) -> velocidad maxima ~10 por segundo
+        //  3 pisos (~9 unidades) -> velocidad maxima ~15 por segundo
+        //Si subo smoothTime tarda mas y va mas lento. Si lo bajo tarda menos y va mas rapido.
+        //_yVelocity guarda la velocidad vertical de ese momento (la actualiza SmoothDamp solo).
         _currentBaseY = Mathf.SmoothDamp(_currentBaseY, _targetBaseY, ref _yVelocity, _smoothTime);
         //Onda: seno que va de -1 a 1, multiplicado por la amplitud (cuanto sube y baja)
         float floatOffset = Mathf.Sin((Time.time + _randomSeed) * _floatFrequency) * _floatAmplitude;
