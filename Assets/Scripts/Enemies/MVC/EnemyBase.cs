@@ -46,7 +46,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     {
         _actions.Add(EnemyEvent.EnemyDie, OnEnemyDeath);
     }
-    //Creo un EnemyModel, si creo otro enemigo con un model disinto el base me sigo sirviendo
+    //Creo un EnemyModel, si creo otro enemigo con un model distinto el base me sigue sirviendo
     //Haciendo override a este metodo
     protected virtual EnemyModel CreateModel()
     {
@@ -89,7 +89,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         //Llama al tick del controller.
         _controller.Tick();
     }
-    //Espero unos segundos a la animacion de muerte y despwneo
+    //Espero unos segundos a la animacion de muerte y despawneo
     private void TickDeath()
     {
         if (!GameManager.IsPlaying) return;
@@ -106,12 +106,12 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     }
 
     // Se llama cuando muere el enemigo
-    //Desactiva el collider y avisa al los scripts en general que murio
+    //Desactiva el collider y avisa a los scripts en general que murio
     protected virtual void OnEnemyDeath()
     {
         _enemyCollider.enabled = false;
         EventManager.TriggerEvent(EventType.EnemyKilled);
-        //Si no tiene animacion de muerte o tiempo que esperar direcamente despwnea
+        //Si no tiene animacion de muerte o tiempo que esperar directamente despawnea
         if (deathAnimationDuration <= 0f)
         {
             Despawn();
@@ -122,7 +122,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         _deathTimer = deathAnimationDuration;
     }
     //Accion que hace cuando vuelve al pool que lo desactiva.
-    //y lo devuelve al pool seteaado en  EnemyService que vincula el factory con el pool
+    //y lo devuelve al pool seteado en EnemyService que vincula el factory con el pool
     public void SetReturnToPoolCallback(Action<EnemyBase> callback)
     {
         _returnToPoolCallback = callback;

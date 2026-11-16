@@ -153,7 +153,7 @@ public class PlayerMovement : MonoBehaviour , IPauseable
     {
         if (_groundDetector.IsGrounded && !_groundDetector.IsDropping)
         {
-            if (!_groundDetector.CurrentPlatform.CompareTag("SolidGround"))
+            if (!_groundDetector.CurrentPlatform.CompareTag(Tags.SolidGround))
             {
                 _isStopped = false;
                 StartCoroutine(DropThroughPlatformRoutine());

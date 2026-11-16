@@ -38,7 +38,7 @@ public class GhostSpawner : MonoBehaviour , IPauseable
         //Si no se asigno el player en el Inspector, lo busco por tag (igual que el PatrolEnemySpawner)
         if (player == null)
         {
-            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            GameObject playerObject = GameObject.FindGameObjectWithTag(Tags.Player);
             if (playerObject != null) player = playerObject.transform;
         }
     }
