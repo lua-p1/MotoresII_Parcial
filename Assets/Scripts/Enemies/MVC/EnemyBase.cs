@@ -22,7 +22,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     private Collider2D _enemyCollider;
     private Action<EnemyBase> _returnToPoolCallback;
     private Dictionary<EnemyEvent, Action> _actions;
-    private bool _isDying;
+    private bool _isWaitingForDeathAnimation;
     private float _deathTimer;
     protected bool CanAct => !_model.IsDead && GameManager.IsPlaying;
 
@@ -42,7 +42,8 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         _model.Subscribe(this);
         _model.Subscribe(_view);
     }
-    //Me suscribo al evento EnemyDie, que activa el metodo OnEnemyDeath.
+    //El EnemyBase ya esta suscripto al Model (en el Awake), asi que recibe todos los eventos.
+    //En el diccionario solo pongo EnemyDie, que es el unico al que reacciona, y llama a OnEnemyDeath.
     private void FillDictionary()
     {
         _actions.Add(EnemyEvent.EnemyDie, OnEnemyDeath);
@@ -53,13 +54,13 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     {
         return new EnemyModel(isVulnerableToWeapon, damageToPlayer);
     }
-    //Creo un EnemyView, si creo otro enemigo con un model disinto el base me sigo sirviendo
+    //Creo un EnemyView, si creo otro enemigo con una view distinta el base me sigue sirviendo
     //Haciendo override a este metodo
     protected virtual EnemyView CreateView()
     {
         return new EnemyView(this);
     }
-    //Creo un EnemyController, si creo otro enemigo con un model disinto el base me sigo sirviendo
+    //Creo un EnemyController, si creo otro enemigo con un controller distinto el base me sigue sirviendo
     //Haciendo override a este metodo
     protected virtual EnemyController CreateController(EnemyModel model)
     {
@@ -70,7 +71,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     protected void ResetEnemy(Vector2 spawnPos, IMovementEnemy movement)
     {
         transform.position = spawnPos;
-        _isDying = false;
+        _isWaitingForDeathAnimation = false;
         _deathTimer = 0f;
         _enemyCollider.enabled = true;
         _model.Reset();
@@ -78,13 +79,14 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     }
     protected virtual void Update()
     {
-        //Si murio llama a TickDeath
-        if (_isDying)
+        //Si esta esperando que termine la animacion de muerte llama a TickDeath
+        //(con deathAnimationDuration en 0 nunca entra aca, despawnea directo)
+        if (_isWaitingForDeathAnimation)
         {
             TickDeath();
             return;
         }
-        //si no murio pero no puede actuar volve
+        //Si no puede actuar (esta muerto o el juego no esta en Playing) volve
         if (!CanAct) return;
         //Llama al tick del controller.
         _controller.Tick();
@@ -119,7 +121,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
             return;
         }
         // Sino espero que muera hasta activar el despawn en TickDeath
-        _isDying = true;
+        _isWaitingForDeathAnimation = true;
         _deathTimer = deathAnimationDuration;
     }
 
@@ -129,11 +131,13 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
     {
         _returnToPoolCallback = callback;
     }
+
     //que pasa cuando despawnea
-    //lo devuelvo al pool y le pongo que no esta muerto
+    //Lo devuelvo al pool y marco que termino la espera de la animacion de muerte.
+    //Sigue muerto en el Model hasta que vuelve a salir del pool y ResetEnemy llama a Model.Reset()
     public virtual void Despawn()
     {
-        _isDying = false;
+        _isWaitingForDeathAnimation = false;
         if (_returnToPoolCallback != null)
             _returnToPoolCallback(this);
         else
@@ -163,7 +167,7 @@ public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEven
         enabled = true;
         _model.NotifyObservers(EnemyEvent.Resume);
     }
-    //Notifica a su diccionario los eventos en actions.
+    //Recibe todos los eventos que notifica el Model y ejecuta la accion solo si el evento esta en su diccionario
     public void Notify(EnemyEvent action)
     {
         if (_actions.ContainsKey(action))

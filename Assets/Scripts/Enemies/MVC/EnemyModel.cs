@@ -24,13 +24,15 @@ public class EnemyModel : IObservable<EnemyEvent>
     public void Reset()
     {
         _isDead = false;
-        _direction = 0f; 
-        NotifyObservers(EnemyEvent.Reset);//Avisa solamente al EnemyView
+        _direction = 0f;
+        //Avisa a todos los observers, solo reacciona el EnemyView
+        NotifyObservers(EnemyEvent.Reset);
     }
     //Metodo que se llama en Controller 
     public void StartMoving()
     {
-        NotifyObservers(EnemyEvent.Move);//Avisa solamente al EnemyView
+        //Avisa a todos los observers, solo reacciona el EnemyView
+        NotifyObservers(EnemyEvent.Move);
     }
 
     //sirve para enviar una notificacion al EnemyView para flipear.
@@ -49,7 +51,8 @@ public class EnemyModel : IObservable<EnemyEvent>
         float newDirection = Mathf.Sign(direction);
         if (Mathf.Approximately(newDirection, _direction)) return;
         _direction = newDirection;
-        NotifyObservers(_direction > 0 ? EnemyEvent.FaceRight : EnemyEvent.FaceLeft);//Avisa solamente al EnemyView
+        //Avisa a todos los observers, solo reacciona el EnemyView
+        NotifyObservers(_direction > 0 ? EnemyEvent.FaceRight : EnemyEvent.FaceLeft);
     }
 
     //Si es invunerable o esta muerto volve, sino matalo
@@ -68,10 +71,10 @@ public class EnemyModel : IObservable<EnemyEvent>
         //para controlar animacion y eventos de muerte.
         NotifyObservers(EnemyEvent.EnemyDie);
     }
-    //Metodo que le llega a EnemyController
+    //Lo llama el EnemyController (en AttackPlayer) despues de intentar hacerle damage al player
     public void RegisterAttack()
     {
-        //Avisa solamente al EnemyView 
+        //Avisa a todos los observers, solo reacciona el EnemyView
         NotifyObservers(EnemyEvent.AttackPlayer);
     }
     public void Subscribe(IObserver<EnemyEvent> observer)

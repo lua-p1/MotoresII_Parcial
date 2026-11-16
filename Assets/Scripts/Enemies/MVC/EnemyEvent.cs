@@ -1,11 +1,13 @@
+//Todos los observers suscriptos al Model reciben TODOS los eventos.
+//Cada uno reacciona solo a los que tiene en su diccionario.
 public enum EnemyEvent
 {
-    Reset,        //el pool entrega el enemigo: volver al estado inicial -> se suscribe solo EnemyView.
-    Move,         //empieza a moverse (se notifica una vez, no cada frame) -> se suscribe solo EnemyView.
-    FaceLeft,     //cambio de direccion: mirar a la izquierda -> se suscribe solo EnemyView.
-    FaceRight,    //cambio de direccion: mirar a la derecha -> se suscribe solo EnemyView.
-    AttackPlayer, //toco al player y le hizo damage -> se suscribe solo EnemyView
-    EnemyDie,     //murio -> se suscribe solo EnemyView y EnemyBase.
-    Pause,        //se pauso el juego -> se suscribe solo EnemyView
-    Resume        //se reanudo el juego -> se suscribe solo EnemyView
+    Reset,        //el pool entrega el enemigo: volver al estado inicial -> solo reacciona EnemyView.
+    Move,         //empieza a moverse (se notifica una vez, no cada frame) -> solo reacciona EnemyView.
+    FaceLeft,     //cambio de direccion: mirar a la izquierda -> solo reacciona EnemyView.
+    FaceRight,    //cambio de direccion: mirar a la derecha -> solo reacciona EnemyView.
+    AttackPlayer, //toco al player e intento hacerle damage (si es invulnerable no le hace) -> solo reacciona EnemyView.
+    EnemyDie,     //murio -> reaccionan EnemyView y EnemyBase.
+    Pause,        //se pauso el juego -> solo reacciona EnemyView.
+    Resume        //se reanudo el juego -> solo reacciona EnemyView.
 }

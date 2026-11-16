@@ -28,7 +28,7 @@ public class EnemyController
         if (_model.IsDead || _movement == null) return;
         //sino usa el metodo Move de la estrategia de movimiento -> IMovementEnemy
         _movement.Move();
-        //actualizo la animacion de flipeo
+        //Le paso la direccion al Model: si cambio, notifica y la View flipea
         _model.SetDirection(_movement.Direction);
     }
 
