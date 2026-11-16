@@ -152,6 +152,7 @@ Transform:
   - {fileID: 1867704780}
   - {fileID: 2084205341}
   - {fileID: 1906790587}
+  - {fileID: 1250819591}
   - {fileID: 1839024488}
   - {fileID: 1777000708}
   m_Father: {fileID: 0}
@@ -9164,6 +9165,65 @@ MonoBehaviour:
   _androidGameId: 800437922
   _placementId: BP_Interstitial_Android
   _testMode: 1
+--- !u!1 &1250819590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1250819591}
+  - component: {fileID: 1250819592}
+  m_Layer: 0
+  m_Name: ShooterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250819591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250819590}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.3425903, y: 2.6154785, z: -0.05588913}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 116791733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1250819592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250819590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05da61384923d649b9031ada0ece40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooterPrefab: {fileID: 797161402281957372, guid: 15b06d4a93257374f8950a4eb566eed1, type: 3}
+  poolSize: 5
+  maxAliveEnemies: 5
+  spawnInterval: 8
+  platforms:
+  - {fileID: 667843095}
+  - {fileID: 572134227}
+  - {fileID: 1705820172}
+  - {fileID: 1839682132}
+  heightOffset: 0.6
+  minEdgeMargin: 0.5
+  maxEdgeMargin: 4
+  player: {fileID: 0}
+  minDistanceToPlayer: 4
+  maxSpawnAttempts: 5
 --- !u!1 &1348465043
 GameObject:
   m_ObjectHideFlags: 0

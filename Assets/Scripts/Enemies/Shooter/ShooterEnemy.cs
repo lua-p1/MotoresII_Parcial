@@ -1,11 +1,7 @@
 using UnityEngine;
-//El Tirador ES un Patrol que ademas dispara. Hereda de PatrolEnemy, asi reutiliza:
-//- su movimiento (PatrolMovement con su speed) y su Initialize,
-//- el mismo PatrolEnemySpawner y PatrolEnemyService para aparecer
-//  (en la escena se usa un spawner de Patrol con el prefab del Tirador).
-//Lo nuevo: su propio Model (ShooterModel), su propia View (ShooterView) y su propio Controller (ShooterController),
-//creados con los factory methods de EnemyBase (CreateModel, CreateView, CreateController).
-//El ShooterController tiene una FSM: Patrol (camina) -> Aim (apunta) -> Reload (dispara y espera) -> Patrol
+//El Tirador ES un Patrol que ademas dispara. Hereda de PatrolEnemy, asi reutiliza
+//su movimiento (PatrolMovement con su speed) y su Initialize.
+//Tiene su propio pool y spawner (ShooterEnemyService y ShooterEnemySpawner), igual que Patrol y Ghost.
 public class ShooterEnemy : PatrolEnemy
 {
     [Header("Shooter Config")]
