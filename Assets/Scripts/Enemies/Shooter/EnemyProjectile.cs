@@ -66,7 +66,7 @@ public class EnemyProjectile : MonoBehaviour, IPauseable
     private void Despawn()
     {
         if (_returnToPoolCallback != null)
-            _returnToPoolCallback(this);
+            _returnToPoolCallback.Invoke(this);
         else
             gameObject.SetActive(false);
     }
