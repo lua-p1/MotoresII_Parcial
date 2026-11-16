@@ -10390,6 +10390,7 @@ GameObject:
   - component: {fileID: 1867704790}
   - component: {fileID: 1867704791}
   - component: {fileID: 1867704792}
+  - component: {fileID: 1867704794}
   - component: {fileID: 1867704793}
   m_Layer: 6
   m_Name: Player
@@ -10462,7 +10463,7 @@ Transform:
   m_GameObject: {fileID: 1867704778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.6500244, z: 0}
+  m_LocalPosition: {x: 0, y: -1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10549,7 +10550,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867704778}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac3830c347dd9974ab3870c5ec288bbf, type: 3}
   m_Name: 
@@ -10652,6 +10653,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1867704794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867704778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def2bbb49d534454180ab14e1d007ba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906790585
 GameObject:
   m_ObjectHideFlags: 0
@@ -11200,6 +11213,7 @@ GameObject:
   - component: {fileID: 2138945287}
   - component: {fileID: 2138945288}
   - component: {fileID: 2138945289}
+  - component: {fileID: 2138945290}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Weapon
@@ -11345,6 +11359,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2138945290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138945285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eae9f8df359b64fb0cdbd3ff502b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDuration: 0.3
+  forwardPosition: {x: 0.56, y: 0.3, z: 0}
+  forwardRotation: {x: 0, y: 0, z: -54.5}
+  upPosition: {x: 0.33, y: 0.7, z: 0}
+  upRotation: {x: 0, y: 0, z: -90}
+  downPosition: {x: -0.03, y: -0.9, z: 0}
+  downRotation: {x: 0, y: 0, z: 90}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

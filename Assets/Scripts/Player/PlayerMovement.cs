@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour , IPauseable
     [SerializeField] private float fallMultiplier = 2.5f;
 
     [Header("Weapon Reference")]
-    [SerializeField] private Collider2D weaponCollider; // Asignar el Collider2D del Arma
+    [SerializeField] private Collider2D weaponCollider;
 
     private Rigidbody2D _rb;
     private GroundDetector _groundDetector;
@@ -75,22 +75,12 @@ public class PlayerMovement : MonoBehaviour , IPauseable
         }
     }
 
-    /// <summary>
-    /// Controla la activacion del trigger del arma.
-    /// Se habilita si el jugador se desplaza horizontalmente (sin pared) 
-    /// O SI esta realizando un salto / caida (incluso si esta tocando una pared).
-    /// </summary>
     private void UpdateWeaponState()
     {
         if (weaponCollider == null) return;
-
-        // Condicion 1: Se mueve horizontalmente y no hay pared de por medio
         bool isMovingHorizontally = !_isStopped && !_wallDetector.IsTouchingWall;
-        // Condicion 2 (Excepcion): Esta saltando, cayendo o traspasando una plataforma
         bool isJumpingOrDropping = !_groundDetector.IsGrounded || _groundDetector.IsDropping;
-        // El arma estara activa si se cumple CUALQUIERA de las dos condiciones
         bool isWeaponActive = isMovingHorizontally || isJumpingOrDropping;
-
         if (weaponCollider.enabled != isWeaponActive)
         {
             weaponCollider.enabled = isWeaponActive;
@@ -109,7 +99,6 @@ public class PlayerMovement : MonoBehaviour , IPauseable
         _isStopped = false;
         ChangeDirection(direction);
     }
-
     private void MoveHorizontally()
     {
         if (_isStopped)
@@ -128,7 +117,6 @@ public class PlayerMovement : MonoBehaviour , IPauseable
             _rb.linearVelocity = new Vector2(airSpeed * _moveDirection, _rb.linearVelocity.y);
         }
     }
-
     private void ApplyBetterJump()
     {
         if (_rb.linearVelocity.y < 0)
@@ -201,14 +189,14 @@ public class PlayerMovement : MonoBehaviour , IPauseable
 
     public void Pause()
     {
-        _pausedVelocity = _rb.linearVelocity;   // guardo como venia moviendose
-        _rb.simulated = false;                  // congela la fisica (no cae, no choca)
-        enabled = false;                        // corta el Update y OnDisable lo desuscribe de los swipes
+        _pausedVelocity = _rb.linearVelocity;   
+        _rb.simulated = false;                  
+        enabled = false;                       
     }
     public void Resume()
     {
         _rb.simulated = true;
-        _rb.linearVelocity = _pausedVelocity;   // sigue exactamente como iba
-        enabled = true;                         // OnEnable lo vuelve a suscribir
+        _rb.linearVelocity = _pausedVelocity;   
+        enabled = true;                         
     }
 }
