@@ -1,4 +1,6 @@
 using UnityEngine;
+
+//EnemyModel es el responsable de almacenar y controlar los datos propios del enemigo.
 public class EnemyModel : IObservable<EnemyEvent>
 {
     private ObserverList<EnemyEvent> _enemyObservers;
@@ -6,6 +8,8 @@ public class EnemyModel : IObservable<EnemyEvent>
     private float _direction;
     private bool _isVulnerableToWeapon;
     private int _damageToPlayer;
+    //En el constructor genero la lista de observadores,
+    //si las armas le hacen damage y cuanto damage inflige al player.
     public EnemyModel(bool isVulnerableToWeapon, int damageToPlayer)
     {
         _enemyObservers = new ObserverList<EnemyEvent>();
@@ -13,37 +17,61 @@ public class EnemyModel : IObservable<EnemyEvent>
         _damageToPlayer = damageToPlayer;
     }
 
+    //Metodo que se llama en los EnemyBase
+    //Cuando se Initialize.
+    //Entre el padre y el hijo hay un metodo llamado ResetEnemy
+    //que hace de intermediario.
     public void Reset()
     {
         _isDead = false;
         _direction = 0f; 
-        NotifyObservers(EnemyEvent.Reset);
+        NotifyObservers(EnemyEvent.Reset);//Avisa solamente al EnemyView
     }
+    //Metodo que se llama en Controller 
     public void StartMoving()
     {
-        NotifyObservers(EnemyEvent.Move);
+        NotifyObservers(EnemyEvent.Move);//Avisa solamente al EnemyView
     }
+
+    //sirve para enviar una notificacion al EnemyView para flipear.
+    //La logica de movimientos esta en la estrategia de movimientos.
     public void SetDirection(float direction)
     {
+        // Mathf.Sign convierte un número en su signo:
+        // Mathf.Sign(-5) devuelve -1 (izquierda).
+        // Mathf.Sign(5) devuelve 1 (derecha).
+        // Así obtenemos solamente la dirección, sin importar la magnitud del valor.
+        //
+        // Mathf.Approximately compara la nueva dirección con la dirección anterior (_direction).
+        // Si ambas son iguales, devuelve true y el método termina con return,
+        // evitando notificar al EnemyView innecesariamente.
+        // Si son diferentes, actualiza la direccion y notifica el cambio de orientación.
         float newDirection = Mathf.Sign(direction);
         if (Mathf.Approximately(newDirection, _direction)) return;
         _direction = newDirection;
-        NotifyObservers(_direction > 0 ? EnemyEvent.FaceRight : EnemyEvent.FaceLeft);
+        NotifyObservers(_direction > 0 ? EnemyEvent.FaceRight : EnemyEvent.FaceLeft);//Avisa solamente al EnemyView
     }
+
+    //Si es invunerable o esta muerto volve, sino matalo
     public bool TryKillByWeapon()
     {
         if (_isDead || !_isVulnerableToWeapon) return false;
         Kill();
         return true;
     }
+    //si esta muerto volve sino setealo muerto
     public void Kill()
     {
         if (_isDead) return;
         _isDead = true;
+        //La notificacion le llega a EnemyView y a EnemyBase
+        //para controlar animacion y eventos de muerte.
         NotifyObservers(EnemyEvent.EnemyDie);
     }
+    //Metodo que le llega a EnemyController
     public void RegisterAttack()
     {
+        //Avisa solamente al EnemyView 
         NotifyObservers(EnemyEvent.AttackPlayer);
     }
     public void Subscribe(IObserver<EnemyEvent> observer)

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Se encarga de coordinar las acciones del enemigo. Es el intermediario entre el EnemyBase, el EnemyModel y el sistema de movimiento.
 public class EnemyController
 {
     private EnemyModel _model;
@@ -11,19 +11,27 @@ public class EnemyController
         _owner = owner;
     }
     //Lo llama el EnemyBase cuando el pool entrega el enemigo
+    //lo usa el EnemyBase ResetEnemy para setear la estrategia de movimiento
+    //En el EnemyBase Hijo en el metodo Initialize
     public void SetMovement(IMovementEnemy movement)
     {
         _movement = movement;
-        _model.SetDirection(_movement.Direction); //orientacion inicial antes del primer frame
+        //orientacion inicial antes del primer frame
+        _model.SetDirection(_movement.Direction);
         _model.StartMoving();
     }
+
     //Lo llama el EnemyBase en cada Update
     public void Tick()
     {
+        //Si esta muerto o no tiene estrategia de movimiento volve
         if (_model.IsDead || _movement == null) return;
+        //sino usa el metodo Move de la estrategia de movimiento -> IMovementEnemy
         _movement.Move();
+        //actualizo la animacion de flipeo
         _model.SetDirection(_movement.Direction);
     }
+
     //Lo llama el EnemyBase desde OnTriggerEnter2D
     public void HandleTrigger(Collider2D collision)
     {
@@ -37,6 +45,7 @@ public class EnemyController
             AttackPlayer(collision.gameObject);
         }
     }
+    //Metodo para atacar al player.
     private void AttackPlayer(GameObject playerObject)
     {
         if (!playerObject.TryGetComponent<IDamageable>(out var damageable)) return;
