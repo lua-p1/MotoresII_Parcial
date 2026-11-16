@@ -42,12 +42,12 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private IEnumerator InvincibilityRoutine()
     {
         IsInvulnerable = true;
-        OnInvincibilityStarted?.Invoke(invincibilityDuration); // Notifica inicio
+        OnInvincibilityStarted?.Invoke(invincibilityDuration); 
 
         yield return new WaitForSeconds(invincibilityDuration);
 
         IsInvulnerable = false;
-        OnInvincibilityEnded?.Invoke(); // Notifica fin
+        OnInvincibilityEnded?.Invoke(); 
     }
     private void Die()
     {
