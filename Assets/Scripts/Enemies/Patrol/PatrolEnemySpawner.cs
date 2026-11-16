@@ -1,5 +1,5 @@
 using UnityEngine;
-//Encargado de spwnear Patrols
+//Encargado de spawnear Patrols
 public class PatrolEnemySpawner : MonoBehaviour , IPauseable
 {
     [Header("Pool Setup")]

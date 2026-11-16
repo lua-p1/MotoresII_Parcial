@@ -52,7 +52,7 @@ public class EnemyModel : IObservable<EnemyEvent>
         NotifyObservers(_direction > 0 ? EnemyEvent.FaceRight : EnemyEvent.FaceLeft);
     }
 
-    //Si es invunerable o esta muerto volve, sino matalo
+    //Si es invulnerable o esta muerto volve, sino matalo
     public bool TryKillByWeapon()
     {
         if (_isDead || !_isVulnerableToWeapon) return false;

@@ -14,7 +14,7 @@ public class EnemyView : IObserver<EnemyEvent>
         _actions = new Dictionary<EnemyEvent, Action>();
         FillDictionary();
     }
-    //Diccionario de accione sque responde a todas las acciones visuales del enemigo
+    //Diccionario de acciones que responde a todas las acciones visuales del enemigo
     private void FillDictionary()
     {
         _actions.Add(EnemyEvent.Reset, ResetView);
@@ -45,14 +45,14 @@ public class EnemyView : IObserver<EnemyEvent>
             SetAnimatorSpeed(1f);
         });
     }
-    //Meotod para girar al enemigo
+    //Metodo para girar al enemigo
     protected virtual void Flip(float direction)
     {
         Vector3 scale = _transform.localScale;
         scale.x = Mathf.Abs(scale.x) * direction;
         _transform.localScale = scale;
     }
-    //Boelano para ver si se reproduce la animacion de movimiento
+    //Booleano para ver si se reproduce la animacion de movimiento
     private void SetMoving(bool isMoving)
     {
         if (_animator == null) return;
