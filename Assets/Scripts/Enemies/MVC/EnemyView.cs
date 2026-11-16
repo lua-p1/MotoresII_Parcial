@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-//El EnemyView se encarga de todo lo relacionado con la representación visual del enemigo
+//El EnemyView se encarga de todo lo relacionado con la representacion visual del enemigo
 public class EnemyView : IObserver<EnemyEvent>
 {
     private Transform _transform;
@@ -75,15 +75,15 @@ public class EnemyView : IObserver<EnemyEvent>
         if (_animator == null) return;
         //Restablece el Animator y vuelve a vincular sus propiedades con los componentes del GameObject.
         //En la practica, reinicia el estado de las animaciones y sus valores, como los parametros del Animator.
-        //Por ejemplo, si antes el enemigo tenia activado el parámetro IsMoving, al reiniciarlo ya no queremos conservar ese estado anterior.
+        //Por ejemplo, si antes el enemigo tenia activado el parametro IsMoving, al reiniciarlo ya no queremos conservar ese estado anterior.
         _animator.Rebind();
         //Fuerza al Animator a actualizarse inmediatamente.
         //El 0f significa que realiza esa actualizacion con un tiempo de avance de cero segundos.
         _animator.Update(0f);
-        //Establece la velocidad de reproducción del Animator en 1.
+        //Establece la velocidad de reproduccion del Animator en 1.
         _animator.speed = 1f;
     }
-    //Establece la velocidad de reproducción del Animator en el valor pasado por parametro.
+    //Establece la velocidad de reproduccion del Animator en el valor pasado por parametro.
     private void SetAnimatorSpeed(float speed)
     {
         if (_animator == null) return;

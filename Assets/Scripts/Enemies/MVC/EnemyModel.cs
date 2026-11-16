@@ -36,15 +36,15 @@ public class EnemyModel : IObservable<EnemyEvent>
     //La logica de movimientos esta en la estrategia de movimientos.
     public void SetDirection(float direction)
     {
-        // Mathf.Sign convierte un número en su signo:
+        // Mathf.Sign convierte un numero en su signo:
         // Mathf.Sign(-5) devuelve -1 (izquierda).
         // Mathf.Sign(5) devuelve 1 (derecha).
-        // Así obtenemos solamente la dirección, sin importar la magnitud del valor.
+        // Asi obtenemos solamente la direccion, sin importar la magnitud del valor.
         //
-        // Mathf.Approximately compara la nueva dirección con la dirección anterior (_direction).
-        // Si ambas son iguales, devuelve true y el método termina con return,
+        // Mathf.Approximately compara la nueva direccion con la direccion anterior (_direction).
+        // Si ambas son iguales, devuelve true y el metodo termina con return,
         // evitando notificar al EnemyView innecesariamente.
-        // Si son diferentes, actualiza la direccion y notifica el cambio de orientación.
+        // Si son diferentes, actualiza la direccion y notifica el cambio de orientacion.
         float newDirection = Mathf.Sign(direction);
         if (Mathf.Approximately(newDirection, _direction)) return;
         _direction = newDirection;
