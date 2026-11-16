@@ -16,7 +16,6 @@ public class EnemyModel : IObservable<EnemyEvent>
         _isVulnerableToWeapon = isVulnerableToWeapon;
         _damageToPlayer = damageToPlayer;
     }
-
     //Metodo que se llama en los EnemyBase
     //Cuando se Initialize.
     //Entre el padre y el hijo hay un metodo llamado ResetEnemy
@@ -34,7 +33,6 @@ public class EnemyModel : IObservable<EnemyEvent>
         //Avisa a todos los observers, solo reacciona el EnemyView
         NotifyObservers(EnemyEvent.Move);
     }
-
     //sirve para enviar una notificacion al EnemyView para flipear.
     //La logica de movimientos esta en la estrategia de movimientos.
     public void SetDirection(float direction)

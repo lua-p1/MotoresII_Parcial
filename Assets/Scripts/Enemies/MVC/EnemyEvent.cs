@@ -1,3 +1,7 @@
+//Observer del MVC del enemigo:
+//- El unico Observable es el EnemyModel: es el que notifica los eventos con NotifyObservers.
+//- Los Observers son EnemyView y EnemyBase: se suscriben al Model en el Awake del EnemyBase.
+//- El EnemyController no observa ni notifica: llama a metodos del Model, y el Model notifica.
 //Todos los observers suscriptos al Model reciben TODOS los eventos.
 //Cada uno reacciona solo a los que tiene en su diccionario.
 public enum EnemyEvent
