@@ -91,7 +91,7 @@ public class EnemyView : IObserver<EnemyEvent>
     }
     //Metodo que se llama cada vez que un IObservable hace el metodo
     //NotifyObservers
-    public void Notify(EnemyEvent action)
+    public virtual void Notify(EnemyEvent action)
     {
         if (_actions.ContainsKey(action))
             _actions[action].Invoke();
