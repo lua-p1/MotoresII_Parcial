@@ -1570,37 +1570,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1028950373
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1028950374}
-  m_Layer: 0
-  m_Name: Enemigos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1028950374
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028950373}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1042.3821, y: 1360.7004, z: 3.7839756}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1133780365
 GameObject:
   m_ObjectHideFlags: 0
@@ -11010,8 +10979,13 @@ MonoBehaviour:
   maxAliveEnemies: 10
   spawnInterval: 3
   spawnPaddingX: 1.2
-  platform1MinY: -2.7
-  platform3MaxY: 5.9
+  floors:
+  - {fileID: 667843095}
+  - {fileID: 572134227}
+  - {fileID: 1705820172}
+  - {fileID: 1839682132}
+  floorHeightOffset: 1
+  player: {fileID: 0}
 --- !u!4 &2084205341
 Transform:
   m_ObjectHideFlags: 0
@@ -11372,12 +11346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDuration: 0.3
-  forwardPosition: {x: 0.56, y: 0.3, z: 0}
-  forwardRotation: {x: 0, y: 0, z: -54.5}
-  upPosition: {x: 0.33, y: 0.7, z: 0}
-  upRotation: {x: 0, y: 0, z: -90}
-  downPosition: {x: -0.03, y: -0.9, z: 0}
-  downRotation: {x: 0, y: 0, z: 90}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11387,4 +11355,3 @@ SceneRoots:
   - {fileID: 1015476097}
   - {fileID: 1826136295}
   - {fileID: 116791733}
-  - {fileID: 1028950374}
