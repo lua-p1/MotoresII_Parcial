@@ -1,5 +1,5 @@
 using UnityEngine;
-//GhostEnemey hereda de EnemyBase
+//GhostEnemy hereda de EnemyBase
 public class GhostEnemy : EnemyBase
 {
     [Header("Horizontal Movement Config")]

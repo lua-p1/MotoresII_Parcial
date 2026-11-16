@@ -9,7 +9,7 @@ public class GhostEnemyService : EnemyService<GhostEnemy>
     // para administrar la creacion y reutilizacion de enemigos.
     public GhostEnemyService(GhostEnemy prefab, Transform parent, int size): base(new GhostEnemyFactory(prefab, parent), size) { }
     //Metodo exclusivo de este hijo que se llama en GhostSpawner
-    //Deuelve un enemigo del pool y lo incializa cargandole su IMovementEnemy y aplicando ResetEnemy
+    //Devuelve un enemigo del pool y lo inicializa cargandole su IMovementEnemy y aplicando ResetEnemy
     public GhostEnemy Spawn(Vector2 position, float direction, float minX, float maxX, float minY, float maxY)
     {
         GhostEnemy enemy = GetFromPool();
