@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class HeartsUI : MonoBehaviour
 {
     [SerializeField] private Image heartPrefab;
-    [SerializeField] private Color fullColor = Color.red;
+    [SerializeField] private Color fullColor = Color.white;
     [SerializeField] private Color emptyColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
     private List<Image> _hearts = new List<Image>();
     private void OnEnable()
