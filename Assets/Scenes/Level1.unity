@@ -10732,7 +10732,7 @@ MonoBehaviour:
   - {fileID: 572134227}
   - {fileID: 1705820172}
   - {fileID: 1839682132}
-  heightOffset: 0.6
+  heightOffset: 1.5
   minEdgeMargin: 0.5
   maxEdgeMargin: 4
   player: {fileID: 1867704780}

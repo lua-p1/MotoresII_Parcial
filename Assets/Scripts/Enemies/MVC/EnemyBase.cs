@@ -4,7 +4,7 @@ using UnityEngine;
 //El EnemyBase se encarga de coordinar el funcionamiento general del enemigo y gestionar su ciclo de vida.
 //Es el componente principal que conecta al EnemyModel, EnemyView y EnemyController, ademas de comunicarse con Unity y el Pool.
 //La clase padre de todos los enemigos.
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public abstract class EnemyBase : MonoBehaviour, IPauseable, IObserver<EnemyEvent>
 {
     [Header("Combat Config")]
