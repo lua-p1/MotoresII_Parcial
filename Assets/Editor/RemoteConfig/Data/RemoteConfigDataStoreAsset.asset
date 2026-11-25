@@ -17,7 +17,7 @@ MonoBehaviour:
     \"value\": 100\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
     \"6d949a81-f3a3-4400-a83d-6dbb18c07788\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"secondsToRecover\",\r\n      \"type\": \"float\",\r\n      \"value\":
-    10.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d65921bd-d67f-429f-8318-88bf7fa5fc65\"\r\n   
+    300.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d65921bd-d67f-429f-8318-88bf7fa5fc65\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"adCompletedReward\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 3\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
     \"entityId\": \"4391fc2a-3c02-4221-876a-a737e8ac333f\"\r\n    },\r\n    \"rs\":
@@ -31,7 +31,7 @@ MonoBehaviour:
     \"value\": 100\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\":
     \"6d949a81-f3a3-4400-a83d-6dbb18c07788\"\r\n    },\r\n    \"rs\": {\r\n     
     \"key\": \"secondsToRecover\",\r\n      \"type\": \"float\",\r\n      \"value\":
-    10.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d65921bd-d67f-429f-8318-88bf7fa5fc65\"\r\n   
+    300.0\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"d65921bd-d67f-429f-8318-88bf7fa5fc65\"\r\n   
     },\r\n    \"rs\": {\r\n      \"key\": \"adCompletedReward\",\r\n      \"type\":
     \"int\",\r\n      \"value\": 3\r\n    }\r\n  },\r\n  {\r\n    \"metadata\": {\r\n     
     \"entityId\": \"4391fc2a-3c02-4221-876a-a737e8ac333f\"\r\n    },\r\n    \"rs\":
