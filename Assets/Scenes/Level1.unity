@@ -26280,7 +26280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d482dfc083f7c0d42ad6c6aec33de69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidGameId: 800437922
+  _androidGameId: 800451715
   _placementId: BP_Interstitial_Android
   _testMode: 1
 --- !u!1 &1250819590
@@ -26794,7 +26794,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0 / 5
+  m_text: 0 / 60
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a2932cd9f81fb614aba288a57c9026c1, type: 2}
   m_sharedMaterial: {fileID: 9021028681010262182, guid: a2932cd9f81fb614aba288a57c9026c1, type: 2}
@@ -27986,7 +27986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747293b03676f9045b585ac1fb2fe099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEnemiesToKill: 5
+  targetEnemiesToKill: 60
 --- !u!1 &2075796550
 GameObject:
   m_ObjectHideFlags: 0

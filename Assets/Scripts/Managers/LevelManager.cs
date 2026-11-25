@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Objetivo del Nivel")]
     [Tooltip("Cantidad de enemigos que el jugador debe derrotar para ganar")]
-    [SerializeField] private int targetEnemiesToKill = 5;
+    [SerializeField] private int targetEnemiesToKill = 60;
     private int _currentEnemiesKilled = 0;
     private void OnEnable()
     {

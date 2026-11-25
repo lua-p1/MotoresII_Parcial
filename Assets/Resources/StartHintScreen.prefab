@@ -191,7 +191,7 @@ MonoBehaviour:
     they will hurt you.
 
 
-    Defeat 5 enemies to win!'
+    Defeat 60 enemies to win!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a2932cd9f81fb614aba288a57c9026c1, type: 2}
   m_sharedMaterial: {fileID: 9021028681010262182, guid: a2932cd9f81fb614aba288a57c9026c1, type: 2}
